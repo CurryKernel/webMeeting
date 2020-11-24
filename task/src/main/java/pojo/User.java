@@ -1,40 +1,71 @@
 package main.java.pojo;
 
 public class User {
-    private int UserID;
-    private String UserName;
-    private String Password;
-    private int Telephone;
+    private String userId;
+    private String userName;
+    private String password;
+    private String phone;
+    private String email;
+    private String department;
 
-    public int getUserID() {
-        return UserID;
+    public User(String userId, String userName, String password, String phone, String department, String email) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.phone = phone;
+        this.email = email;
+        this.department = department;
     }
 
-    public void setUserID(int userID) {
-        UserID = userID;
+    public User() {
+
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
-    public int getTelephone() {
-        return Telephone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelephone(int telephone) {
-        Telephone = telephone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
