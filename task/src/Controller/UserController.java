@@ -1,6 +1,7 @@
 package Controller;
 
-import main.java.dao.userDao;
+import DAO.UserRespository;
+import DAO.impl.UserImpl;
 import VO.User;
 
 import javax.servlet.ServletException;
@@ -33,7 +34,7 @@ public class UserController extends HttpServlet{
 
         out.write("<html><body>");
 
-        if(userDao.queryById(userId)){
+        if(UserImpl.queryById(userId)){
             //账户名已存在
             //out.write("账户名已存在" + "<br>");
             resp.getWriter().append("用户名已存在");
@@ -43,10 +44,9 @@ public class UserController extends HttpServlet{
         }
         else{
             User user = new User(userId, userName, password, phone, department, email);
-            userDao.insertUser(user);
+            UserRespository.insertUser(user);
             out.write("创建成功" + "<br>");
         }
-
         out.write("</html></body>");
     }
 }

@@ -7,6 +7,15 @@ public class User {
     private String phone;//用户电话
     private String department;//用户所属部门
     private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -47,8 +56,10 @@ public class User {
         this.department = department;
     }
 
-    public User(String userId, String password, String phone, String department) {
+    public User(String userId, String username, String password, String phone,String department,String email) {
         this.userId = userId;
+        this.email=email;
+        this.username = username;
         this.password = password;
         this.phone = phone;
         this.department = department;
@@ -61,6 +72,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", department='" + department + '\'' +
+                ",email='"+email+'\''+
                 '}';
     }
 }

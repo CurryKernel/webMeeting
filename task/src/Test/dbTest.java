@@ -1,8 +1,9 @@
-package main.java;
+package Test;
 
-import main.java.dao.userDao;
 
-public class dbTest {
+import DAO.impl.UserImpl;
+
+/*public class dbTest {
     public static void main(String[] args) {
         //运行前须添加jdbc包
         //请不要一次运行多条语句
@@ -12,12 +13,12 @@ public class dbTest {
 //        userDao.insertUser(u);
 
         //删除语句
-        userDao.deleteById("0001");
+        UserImpl.deleteById("0001");
 
         //查询语句
         String Id = "0001";
-        if(userDao.queryById(Id))
+        if(UserImpl.queryById(Id))
             System.out.println(Id + "已经存在");
         else System.out.println(Id + "不存在");
     }
-}
+}*/
