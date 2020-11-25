@@ -79,7 +79,7 @@ public class AdminImpl implements AdminRespository {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally{
-            JDBCUtils.getConnect();
+            JDBCUtils.closeConnect();
         }
     }
 
@@ -147,8 +147,9 @@ public class AdminImpl implements AdminRespository {
             rs = pre.executeQuery();
             while(rs.next()){
                 String password1 = rs.getString(2);
-                if(password.equals(password1))
+                if(password.equals(password1)) {
                     flag = true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

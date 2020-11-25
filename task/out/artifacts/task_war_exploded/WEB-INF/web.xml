@@ -10,7 +10,7 @@
 <!--    注册servlet-->
     <servlet>
         <servlet-name>servlet_sigh_up</servlet-name>
-        <servlet-class>main.java.servlets.servlet_sigh_up</servlet-class>
+        <servlet-class>Controller.UserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>servlet_sigh_up</servlet-name>

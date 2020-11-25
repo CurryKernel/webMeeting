@@ -2,17 +2,30 @@ package DAO;
 
 import VO.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-
 public interface UserRespository {
+    //查全部用户的信息，无分页
+    public List<User> findAll();
 
-    public void insertUser(User u);
+    //查全部用户的信息，分页
+    public List<User> findAll(int pageId, int pageSize);
 
-    public void deleteById(String userId);
-    public boolean queryById(String userId);
+    //通过userId查，得到该用户信息
+    public List<User> findByUserId(String userId);
+
+    //查该用户参加的会议，返回的是 会议号 集合，需要通过会议号去找相应的会议
+    public List<String> getJoinMeetings(String userId);
+
+    //增
+    public void insert(String userId, String username, String password, String phone,String department,String email);
+
+    //删
+    public void deleteByUserId(String userId);
+
+    //改
+    public void update(String userId, String username, String password, String phone,String department,String email);
+
+    //总记录数
+    public int count();
 }
