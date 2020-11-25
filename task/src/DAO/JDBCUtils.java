@@ -1,14 +1,12 @@
-package main.java.dao;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 //创建连接对象
-public class dbUtils {
+public class JDBCUtils {
 
     private static String url;
     private static String driver;

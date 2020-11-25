@@ -63,7 +63,7 @@ transition: all 0.5s;
 
 .cont_forms_active_login {
 box-shadow: 1px 10px 30px -10px rgba(0,0,0,0.5);
-  height: 420px;  
+  height: 640px;
 top:20px;
 left: 0px;
   -webkit-transition: all 0.5s;
@@ -76,7 +76,7 @@ transition: all 0.5s;
 
 .cont_forms_active_sign_up {
 box-shadow: 1px 10px 30px -10px rgba(0,0,0,0.5);
-  height: 420px;  
+  height: 640px;
 top:20px;
 left:320px;
 -webkit-transition: all 0.5s;
@@ -297,18 +297,18 @@ z-index: 2;
 .cont_form_sign_up {
   position: absolute;
   width: 320px;
-float: left;
+  float: left;
   opacity: 0;
-display: none;
+  display: none;
   -webkit-transition: all 0.5s;
--moz-transition: all 0.5s;
--ms-transition: all 0.5s;
--o-transition: all 0.5s;
-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
   
-.cont_form_sign_up > input {
+form > input {
 text-align: left;
   padding: 15px 5px;
 margin-left: 10px;

@@ -1,7 +1,7 @@
-package main.java.servlets;
+package Controller;
 
 import main.java.dao.userDao;
-import main.java.pojo.User;
+import VO.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class servlet_sigh_up extends HttpServlet{
+public class UserController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);

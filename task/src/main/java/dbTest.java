@@ -1,7 +1,6 @@
 package main.java;
 
 import main.java.dao.userDao;
-import main.java.pojo.User;
 
 public class dbTest {
     public static void main(String[] args) {

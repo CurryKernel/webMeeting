@@ -1,6 +1,7 @@
 package main.java.dao;
 
-import main.java.pojo.User;
+import DAO.JDBCUtils;
+import VO.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class userDao {
         String sql = "insert into user (userId, userName, password, phone, department, email)" +
                 "values (?, ?, ?, ?, ?, ?);";
         //sql语句
-        Connection connect = dbUtils.getConnect();
+        Connection connect = JDBCUtils.getConnect();
         //与数据库建立连接
 
         try{
@@ -25,7 +26,7 @@ public class userDao {
             PreparedStatement pst = connect.prepareStatement(sql);
             //将数据填入sql语句？处
             pst.setString(1,u.getUserId());
-            pst.setString(2,u.getUserName());
+            pst.setString(2,u.getUsername());
             pst.setString(3,u.getPassword());
             pst.setString(4,u.getPhone());
             pst.setString(5,u.getDepartment());
@@ -37,7 +38,7 @@ public class userDao {
             throwables.printStackTrace();
         }finally {
             //关闭连接
-            dbUtils.closeConnect(connect);
+            JDBCUtils.closeConnect(connect);
         }
     }
 
@@ -48,7 +49,7 @@ public class userDao {
     public static void deleteById(String userId){
         String sql = "delete from user where userId = ?";
         //sql语句
-        Connection connect = dbUtils.getConnect();
+        Connection connect = JDBCUtils.getConnect();
         //与数据库建立连接
 
         try{
@@ -63,7 +64,7 @@ public class userDao {
             throwables.printStackTrace();
         }finally {
             //关闭连接
-            dbUtils.closeConnect(connect);
+            JDBCUtils.closeConnect(connect);
         }
     }
 
@@ -74,7 +75,7 @@ public class userDao {
     public static boolean queryById(String userId){
         String sql = "select userId from user where userId = ?";
         //sql语句
-        Connection connect = dbUtils.getConnect();
+        Connection connect = JDBCUtils.getConnect();
         //与数据库建立连接
         int i = 0;
         //用于判断是否ID已经存在
@@ -93,7 +94,7 @@ public class userDao {
             throwables.printStackTrace();
         }finally {
             //关闭连接
-            dbUtils.closeConnect(connect);
+            JDBCUtils.closeConnect(connect);
             if(i == 0)
                 return false;
             else return true;
