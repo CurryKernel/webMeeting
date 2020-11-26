@@ -100,7 +100,7 @@
             <li class="submenu">
                 <a href="#"><i class="fa fa-flask"></i> <span>会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="#">我的会议</a></li>
+                    <li><a href="">我的会议</a></li>
                     <li><a href="#">加入会议</a></li>
                     <li><a href="#">会议大厅</a></li>
                 </ul>

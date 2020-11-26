@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="VO.User" %><%--
   Created by IntelliJ IDEA.
   User: 柯淇文
   Date: 2020/11/25
@@ -98,11 +99,11 @@
             </button>
         </div>
         <ul>
-            <li class="active"><a href="user.jsp"><i class="fa fa-home"></i> <span>个人信息</span></a></li>
+            <li class="active "><a href="user.jsp"><i class="fa fa-home"></i> <span>个人信息</span></a></li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-flask"></i> <span>会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="#">我的会议</a></li>
+                    <li><a href="">我的会议</a></li>
                     <li><a href="#">加入会议</a></li>
                     <li><a href="#">会议大厅</a></li>
                 </ul>
@@ -236,7 +237,7 @@
                             <span class="icon"><i class="fa fa-signal"></i></span>
                             <h5>个人资料</h5>
                             <div class="buttons">
-                                <a href="#" class="btn"><i class="fa fa-refresh"></i> <span class="text">更新</span></a>
+                                <a href="user.jsp" class="btn"><i class="fa fa-refresh"></i> <span class="text">更新</span></a>
                             </div>
                         </div>
                         <!-- 展示阶段——>提示 -->
@@ -244,16 +245,29 @@
                         <div class="widget-content">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
+                                    <%
+                                        Object userList=request.getAttribute("userList");
+                                        List<User> listUser = null;
+                                        if(userList instanceof List){
+                                            listUser =(List<User>)userList;
+                                        }
+                                        for(User user : listUser){
+                                    %>
                                     <ul class="site-stats">
-                                        <li><div class="cc"><i class="fa fa-user"></i> <strong>此处用来用户名</strong> <small>您的id</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong>此处用来姓名</strong> <small>您的姓名</small></div></li>
+                                        <li><div class="cc"><i class="fa fa-user"></i> <strong><%=user.getUserId()%></strong> <small>您的id</small></div></li>
+                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getUsername()%></strong><small>您的姓名</small></div></li>
                                         <li class="divider"></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong>此处用来手机号</strong> <small>您的手机号</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-tag"></i> <strong>此处用来密码</strong> <small>您的密码</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong>此处用来部门</strong><small>您的部门</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong>此处用来邮箱</strong><small>您的邮箱</small></div></li>
+                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getPhone()%></strong> <small>您的手机号</small></div></li>
+                                        <li><div class="cc"><i class="fa fa-tag"></i><strong><%=user.getPassword().substring(1,5)%>xxxx</strong> <small>您的密码,妥善保存</small></div></li>
+                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getDepartment()%></strong><small>您的部门</small></div></li>
+                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getEmail()%></strong><small>您的邮箱</small></div></li>
+
                                     </ul>
+                                    <%
+                                        }
+                                    %>
                                 </div>
+
                                 <!-- 随便加的一个表 -->
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="chart"></div>

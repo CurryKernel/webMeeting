@@ -1,24 +1,24 @@
 package Test;
 
 
-import DAO.impl.UserImpl;
+import DAO.JDBCUtils;
 
-/*public class dbTest {
-    public static void main(String[] args) {
-        //运行前须添加jdbc包
-        //请不要一次运行多条语句
+import java.sql.*;
 
-        //添加语句
-//        User u = new User("0001", "张三", "12345", "1234567890", "信工", "233@233.com");
-//        userDao.insertUser(u);
+public class dbTest {
+    public static void main(String[] args) throws SQLException {
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = JDBCUtils.getConnect();
+        System.out.println(conn);
+        String sql="select * from user where userId = 0001";
 
-        //删除语句
-        UserImpl.deleteById("0001");
-
-        //查询语句
-        String Id = "0001";
-        if(UserImpl.queryById(Id))
-            System.out.println(Id + "已经存在");
-        else System.out.println(Id + "不存在");
+        pre = conn.prepareStatement(sql);
+        rs = pre.executeQuery();
+        while (rs.next()) {
+            String userId= rs.getString(1);
+            System.out.println(userId);
+            System.out.println("进来了");
+        }
     }
-}*/
+}

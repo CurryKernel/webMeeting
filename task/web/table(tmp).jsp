@@ -145,8 +145,8 @@
 
     <!-- 以上模块不再变动 -->
 
-    <!-- 可写成跳转链接，也可闲置先 -->
     <div id="content">
+        <!-- 可写成跳转链接，也可闲置先 -->
         <div id="content-header">
             <h1>Tables</h1>
             <div class="btn-group">
@@ -155,15 +155,15 @@
                 <a class="btn btn-large" title="Manage Comments"><i class="fa fa-comment"></i><span class="label label-danger">5</span></a>
                 <a class="btn btn-large" title="Manage Orders"><i class="fa fa-shopping-cart"></i></a>
             </div>
-    </div>
-    <!-- 可写成跳转链接，也可闲置先 -->
+        </div>
+        <!-- 可写成跳转链接，也可闲置先 -->
 
-    <!-- 横向树结构 -->
-    <div id="breadcrumb">
-        <a href="user.jsp" title="Go to Home" class="tip-bottom"><i class="fa fa-home"></i> Home</a>
-        <a href="#" class="current">此处放表的类型</a>
-    </div>
-    <!-- 横向树结构 -->
+        <!-- 横向树结构 -->
+        <div id="breadcrumb">
+            <a href="user.jsp" title="Go to Home" class="tip-bottom"><i class="fa fa-home"></i> Home</a>
+            <a href="#" class="current">此处放表的类型</a>
+        </div>
+        <!-- 横向树结构 -->
 
     <!-- 表单结构 -->
     <div class="row">
@@ -604,8 +604,10 @@
         </div>
         <!-- 分为12份 -->
     </div>
+    </div>
+
 </div>
-</div>
+
 <!-- 页脚部分 做成一致 -->
 <div class="row">
     <div id="footer" class="col-xs-12">

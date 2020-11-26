@@ -20,7 +20,7 @@ public class UserImpl implements UserRespository {
     @Override
     public List<String> getJoinMeetings(String userId) {
         List<String> list = new ArrayList<>();
-        String sql = "select jm.meetingId from joinmeeting jm where jm.userId = ?";
+        String sql = "select jm.meetingId from joinMeeting jm where jm.userId = ?";
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
@@ -48,12 +48,12 @@ public class UserImpl implements UserRespository {
             rs = pre.executeQuery();
             while(rs.next()){
                 String userId = rs.getString(1);
-                String username = rs.getString(2);
+                String userName = rs.getString(2);
                 String password = rs.getString(3);
                 String phone = rs.getString(4);
                 String department=rs.getString(5);
                 String email=rs.getString(6);
-                u = new User(userId,username,password,phone,department,email);
+                u = new User(userId,userName,password,phone,department,email);
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -79,12 +79,12 @@ public class UserImpl implements UserRespository {
             rs = pre.executeQuery();
             while(rs.next()){
                 String userId = rs.getString(1);
-                String username = rs.getString(2);
+                String userName = rs.getString(2);
                 String password = rs.getString(3);
                 String phone = rs.getString(4);
                 String department=rs.getString(5);
                 String email=rs.getString(6);
-                u = new User(userId,username,password,phone,department,email);
+                u = new User(userId,userName,password,phone,department,email);
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -169,28 +169,30 @@ public class UserImpl implements UserRespository {
         return rowCount;
     }
     @Override
-    public List<User> findByUserId(String userId) {
+    public List<User> findByUserId(int userId) {
         List<User> list = new ArrayList<>();
         String sql = "select * from user where userId = ?";
 
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
-            pre.setString(1,userId);
+            pre.setString(1, String.valueOf(userId));
             rs = pre.executeQuery();
             while(rs.next()){
 
                 String userId1 = rs.getString(1);
-                String username = rs.getString(2);
+                String userName = rs.getString(2);
                 String password = rs.getString(3);
                 String phone = rs.getString(4);
                 String department=rs.getString(5);
                 String email=rs.getString(6);
-                u = new User(userId1,username,password,phone,department,email);
+                u = new User(userId1,userName,password,phone,department,email);
                 list.add(u);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            JDBCUtils.closeConnect();
         }
         return list;
     }
