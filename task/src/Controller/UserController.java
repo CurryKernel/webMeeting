@@ -32,7 +32,7 @@ public class UserController extends HttpServlet{
         int userId =Integer.parseInt(req.getParameter("userId"));
 
         List<User> userList = userService.findByUserId(userId);
-        System.out.println(userId);
+        //System.out.println(userId);
         //System.out.println(userList);
         req.setAttribute("userList",userList);
         req.getRequestDispatcher("/user.jsp").forward(req, resp);
