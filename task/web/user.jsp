@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="css/fullcalendar.css" />
     <link rel="stylesheet" href="css/jquery.jscrollpane.css" />
     <link rel="stylesheet" href="css/unicorn.css" />
-
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -26,10 +25,38 @@
 
         ga('create', 'UA-44987299-1', 'bootstrap-hunter.com');
         ga('send', 'pageview');
-
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        /*
+        function showUser() {
+            $.ajax({
+                url:"${pageContext.request.contextPath}/ajax/find",
+                data:{"userId":1015},
+                success:function (data) {
+                    var obj =JSON.parse(data);
+                    console.log(date);
+                    var listHtml ="";
+                    for (var i in obj){
+                        listHtml+="<li><div class=\"cc\"><i class=\"fa fa-user\"></i> <strong>obj[i].userId</strong> <small>您的id</small></div></li>"+
+                            "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].userName</strong><small>您的姓名</small></div></li>"+
+                            "<li class=\"divider\"></li>"+
+                            " <li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].phone</strong> <small>您的手机号</small></div></li>"+
+                            "<li><div class=\"cc\"><i class=\"fa fa-tag\"></i><strong>obj[i].passwordxxxx</strong> <small>您的密码,妥善保存</small></div></li>"+
+                            "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].department</strong><small>您的部门</small></div></li>"+
+                            "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].email</strong><small>您的邮箱</small></div></li>"+
+                            "</ul>"
+                    }
+                    document.getElementById("site-stats").innerHTML=listHtml;
+                }
+            });
+        }
+        * */
     </script>
 </head>
-<body data-color="grey" class="flat">
+<body onload="initAJAX();" data-color="grey" class="flat" >
+
+
 <!-- 主体 -->
 <div id="wrapper">
     <!--此处为界面的主通栏  -->
@@ -99,7 +126,8 @@
             </button>
         </div>
         <ul>
-            <li class="active "><a href="user.jsp"><i class="fa fa-home"></i> <span>个人信息</span></a></li>
+<%--            onclick="showUser()"--%>
+            <li class="active "><a href="user.jsp"><i class="fa fa-home" ></i> <span>个人信息</span></a></li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-flask"></i> <span>会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
@@ -245,27 +273,27 @@
                         <div class="widget-content">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
-                                    <%
-                                        Object userList=request.getAttribute("userList");
-                                        List<User> listUser = null;
-                                        if(userList instanceof List){
-                                            listUser =(List<User>)userList;
-                                        }
-                                        for(User user : listUser){
-                                    %>
-                                    <ul class="site-stats">
-                                        <li><div class="cc"><i class="fa fa-user"></i> <strong><%=user.getUserId()%></strong> <small>您的id</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getUsername()%></strong><small>您的姓名</small></div></li>
-                                        <li class="divider"></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getPhone()%></strong> <small>您的手机号</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-tag"></i><strong><%=user.getPassword().substring(1,5)%>xxxx</strong> <small>您的密码,妥善保存</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getDepartment()%></strong><small>您的部门</small></div></li>
-                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getEmail()%></strong><small>您的邮箱</small></div></li>
+<%--                                    <%--%>
+<%--                                        Object userList=request.getAttribute("userList");--%>
+<%--                                        List<User> listUser = null;--%>
+<%--                                        if(userList instanceof List){--%>
+<%--                                            listUser =(List<User>)userList;--%>
+<%--                                        }--%>
+<%--                                        for(User user : listUser){--%>
+<%--                                    %>--%>
+                                    <ul class="site-stats" id="userin">
+<%--                                        <li><div class="cc"><i class="fa fa-user"></i> <strong><%=user.getUserId()%></strong> <small>您的id</small></div></li>--%>
+<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getUsername()%></strong><small>您的姓名</small></div></li>--%>
+<%--                                        <li class="divider"></li>--%>
+<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getPhone()%></strong> <small>您的手机号</small></div></li>--%>
+<%--                                        <li><div class="cc"><i class="fa fa-tag"></i><strong><%=user.getPassword().substring(1,5)%>xxxx</strong> <small>您的密码,妥善保存</small></div></li>--%>
+<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getDepartment()%></strong><small>您的部门</small></div></li>--%>
+<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getEmail()%></strong><small>您的邮箱</small></div></li>--%>
 
                                     </ul>
-                                    <%
-                                        }
-                                    %>
+<%--                                    <%--%>
+<%--                                        }--%>
+<%--                                    %>--%>
                                 </div>
 
                                 <!-- 随便加的一个表 -->
@@ -317,9 +345,50 @@
 <script src="js/jquery.flot.resize.min.js"></script>
 <script src="js/jquery.sparkline.min.js"></script>
 <script src="js/fullcalendar.min.js"></script>
-
+<script src="js/commons.js"></script>
 <script src="js/jquery.nicescroll.min.js"></script>
 <script src="js/unicorn.js"></script>
 <script src="js/unicorn.dashboard.js"></script>
+
+
 </body>
+<script language="JavaScript">
+    function showUserID(){
+        //alert("ni");
+        xmlhttp =new XMLHttpRequest();
+        //console.log("到这");
+        xmlhttp.open("get","/task/findByUserId?userId=1015",true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback() {
+            console.log("到这");
+            // xmlhttp.readyState == 4
+            if (xmlhttp.status==200) {
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                console.log(obj);
+                console.log(date);
+                var listHtml = " ";
+                for(var i in obj) {
+                    listHtml += "<li><div class=\"cc\"><i class=\"fa fa-user\"></i> <strong>"+obj[i].userId +"</strong> <small>您的id</small></div></li>" +
+                        "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>"+obj[i].username+"</strong><small>您的姓名</small></div></li>" +
+                        "<li class=\"divider\"></li>" +
+                        " <li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>"+obj[i].phone+"</strong> <small>您的手机号</small></div></li>" +
+                        "<li><div class=\"cc\"><i class=\"fa fa-tag\"></i><strong>"+obj[i].password+"</strong> <small>您的密码,妥善保存</small></div></li>" +
+                        "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>"+obj[i].department+"</strong><small>您的部门</small></div></li>" +
+                        "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>"+obj[i].email+"</strong><small>您的邮箱</small></div></li>" +
+                        "</ul>"
+                }
+                document.getElementById("userin").innerHTML=listHtml;
+            } else {
+                alert("错了");
+            }
+        }
+    }
+    function test() {
+        window.alert("测试");
+    }
+</script>
+<script>
+    window.onload=showUserID();
+</script>
 </html>
