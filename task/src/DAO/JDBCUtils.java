@@ -34,6 +34,15 @@ public class JDBCUtils {
 
     //获取连接对象
     public static Connection getConnect(){
+            Connection conn;
+            //数据库四大属性
+            driver="com.mysql.cj.jdbc.Driver";
+            //这里我的数据库是cxxt
+            url="jdbc:mysql://8.129.122.81:3306/web?&useSSL=false&serverTimezone=UTC";
+            username="root";
+            password="101501";
+
+
         try{
             return DriverManager.getConnection(url,username,password);
         } catch (SQLException throwables) {
@@ -55,6 +64,5 @@ public class JDBCUtils {
             }
         }
     }
-
 
 }
