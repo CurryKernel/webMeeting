@@ -1,4 +1,4 @@
-package Servicce;
+package Service;
 
 import DAO.UserRespository;
 import DAO.impl.UserImpl;

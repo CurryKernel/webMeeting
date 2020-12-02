@@ -29,7 +29,7 @@ public class OrderHotelController extends HttpServlet {
         }*/
         List<OrderHotel> list=null;
 
-        //Àà±ð1±íÊ¾¸ù¾Ý¾Æµê²éÑ¯ËüµÄÈ«²¿¶©µ¥
+        //ï¿½ï¿½ï¿½1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ý¾Æµï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         //if(category==1){
             list = hotelService.findByHotel(hotelid);
        // }

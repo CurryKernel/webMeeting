@@ -1,8 +1,6 @@
 package Controller;
 
-import DAO.UserRespository;
-import DAO.impl.UserImpl;
-import Servicce.UserService;
+import Service.UserService;
 import VO.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
