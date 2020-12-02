@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/task/findByUserId" method="get">
+<form action="user.jsp" method="get">
     <fieldset>
         <legend>登录</legend>
         <p>

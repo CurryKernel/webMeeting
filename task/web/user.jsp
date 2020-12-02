@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/fullcalendar.css" />
     <link rel="stylesheet" href="css/jquery.jscrollpane.css" />
     <link rel="stylesheet" href="css/unicorn.css" />
+
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -29,6 +30,18 @@
 </head>
 <body onload="initAJAX();" data-color="grey" class="flat" >
 
+<%--<script src="js/excanvas.min.js"></script>--%>
+<%--<script src="js/jquery.min.js"></script>--%>
+<%--<script src="js/jquery-ui.custom.js"></script>--%>
+<%--<script src="js/bootstrap.min.js"></script>--%>
+<%--<script src="js/jquery.flot.min.js"></script>--%>
+<%--<script src="js/jquery.flot.resize.min.js"></script>--%>
+<%--<script src="js/jquery.sparkline.min.js"></script>--%>
+<%--<script src="js/fullcalendar.min.js"></script>--%>
+<%--<script src="js/commons.js"></script>--%>
+<%--<script src="js/jquery.nicescroll.min.js"></script>--%>
+<%--<script src="js/unicorn.js"></script>--%>
+<%--<script src="js/unicorn.dashboard.js"></script>--%>
 
 <!-- 主体 -->
 <div id="wrapper">
@@ -99,7 +112,7 @@
             </button>
         </div>
         <ul>
-<%--            onclick="showUser()"--%>
+            <%--            onclick="showUser()"--%>
             <li class="active "><a href="user.jsp"><i class="fa fa-home" ></i> <span>个人信息</span></a></li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-flask"></i> <span>会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
@@ -155,7 +168,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="left sparkline_bar_neutral"><span>10,12,14,16,20,22</span>0%</div>
+                    <div class="left sparkline_bar_neutral"><span>10,12,14,16,20,22</span></div>
                     <div class="right">
                         <strong>2021</strong>
                         Come on！

@@ -6,7 +6,7 @@ import VO.Meeting;
 
 import java.util.List;
 
-public class MeetingInfo {
+public class MeetingInfoService {
     private MeetingRespository meetingInfo = new MeetingImpl();
     public List<Meeting> findAll(){
         return meetingInfo.findAll();
