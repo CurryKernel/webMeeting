@@ -7,6 +7,14 @@
         <element id="directory" name="classes">
           <element id="module-output" name="task" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="application" name="mysql-connector-java-8.0.20" />
+          <element id="library" level="project" name="Spring-5.2.3.RELEASE" />
+          <element id="library" level="project" name="Spring MVC-5.2.3.RELEASE" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../实验七  JSP+JavaBean+Servlet开发/jackson-annotations-2.12.0-rc2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../实验七  JSP+JavaBean+Servlet开发/jackson-core-2.12.0-rc2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../实验七  JSP+JavaBean+Servlet开发/jackson-databind-2.12.0-rc2.jar" />
+        </element>
       </element>
     </root>
   </artifact>

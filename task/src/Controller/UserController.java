@@ -1,52 +1,66 @@
 package Controller;
 
-import main.java.dao.userDao;
+import DAO.UserRespository;
+import DAO.impl.UserImpl;
+import Servicce.UserService;
 import VO.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+/*
+<form action="/task/findByUserId" method="get">，form表单只有此路径可以跳转到用户界面
+*/
+/*
+测试了从登陆界面跳转到用户个人信息界面的功能，个人信息正常显示
+        2020/11/26
+*/
 
+@WebServlet("/findByUserId")
 public class UserController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        //解决中文乱码
+        req.setCharacterEncoding("UTF-8");
+        //resp.setContentType("text/html;charset=utf-8");
+        //resp.setContentType("text/json");
+        UserService userService= new UserService();
+        int userId =Integer.parseInt(req.getParameter("userId"));
+        List<User> userList = userService.findByUserId(userId);
+//        System.out.println(userId);
+//        System.out.println(userList);
+//        req.setAttribute("userList",userList);
+//        req.getRequestDispatcher("/user.jsp").forward(req, resp);
+/*
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/json");
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(userList);
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.write(jsonStr);
+* */
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/json");
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(userList);
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.write(jsonStr);
+        System.out.println(jsonStr);
+
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //解决中文乱码
-        req.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html;charset=utf-8");
 
-        PrintWriter out = resp.getWriter();
-        String userId = req.getParameter("userId");
-        String userName = req.getParameter("userName");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
-        String phone = req.getParameter("phone");
-        String department = req.getParameter("department");
-        String email = req.getParameter("email");
 
-        out.write("<html><body>");
-
-        if(userDao.queryById(userId)){
-            //账户名已存在
-            //out.write("账户名已存在" + "<br>");
-            resp.getWriter().append("用户名已存在");
-        }
-        else if(!password.equals(confirmPassword)){
-            out.write("两次输入的密码不同" + "<br>");
-        }
-        else{
-            User user = new User(userId, userName, password, phone);
-            userDao.insertUser(user);
-            out.write("创建成功" + "<br>");
-        }
-
-        out.write("</html></body>");
     }
 }

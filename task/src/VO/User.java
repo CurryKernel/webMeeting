@@ -2,17 +2,26 @@ package VO;
 
 public class User {
     private String userId;//用户账号
-    private String username;
+    private String userName;
     private String password;//用户密码
     private String phone;//用户电话
     private String department;//用户所属部门
     private String email;
-    public String getUsername() {
-        return username;
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return userName;
+    }
+
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
     public String getUserId() {
@@ -47,8 +56,10 @@ public class User {
         this.department = department;
     }
 
-    public User(String userId, String password, String phone, String department) {
+    public User(String userId, String userName, String password, String phone,String department,String email) {
         this.userId = userId;
+        this.email=email;
+        this.userName = userName;
         this.password = password;
         this.phone = phone;
         this.department = department;
@@ -61,6 +72,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", department='" + department + '\'' +
+                ",email='"+email+'\''+
                 '}';
     }
 

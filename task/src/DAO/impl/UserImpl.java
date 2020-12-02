@@ -1,6 +1,5 @@
 package DAO.impl;
 
-
 import DAO.JDBCUtils;
 import DAO.UserRespository;
 import VO.User;
@@ -21,7 +20,7 @@ public class UserImpl implements UserRespository {
     @Override
     public List<String> getJoinMeetings(String userId) {
         List<String> list = new ArrayList<>();
-        String sql = "select jm.meetingId from joinmeeting jm where jm.userId = ?";
+        String sql = "select jm.meetingId from joinMeeting jm where jm.userId = ?";
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
@@ -42,7 +41,6 @@ public class UserImpl implements UserRespository {
     @Override
     public List<User> findAll() {
         List<User> list = new ArrayList<>();
-
         String sql = "select * from user order by userId";
         try {
             conn = JDBCUtils.getConnect();
@@ -50,10 +48,12 @@ public class UserImpl implements UserRespository {
             rs = pre.executeQuery();
             while(rs.next()){
                 String userId = rs.getString(1);
-                String password = rs.getString(2);
-                String phone = rs.getString(3);
-                String part = rs.getString(4);
-                u = new User(userId,password,phone,part);
+                String userName = rs.getString(2);
+                String password = rs.getString(3);
+                String phone = rs.getString(4);
+                String department=rs.getString(5);
+                String email=rs.getString(6);
+                u = new User(userId,userName,password,phone,department,email);
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -72,17 +72,19 @@ public class UserImpl implements UserRespository {
 
         pageId = (pageId-1)*pageSize;
         try {
-            conn =JDBCUtils.getConnect();
+            conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setInt(1,pageId);
             pre.setInt(2,pageSize);
             rs = pre.executeQuery();
             while(rs.next()){
                 String userId = rs.getString(1);
-                String password = rs.getString(2);
-                String phone = rs.getString(3);
-                String part = rs.getString(4);
-                u = new User(userId,password,phone,part);
+                String userName = rs.getString(2);
+                String password = rs.getString(3);
+                String phone = rs.getString(4);
+                String department=rs.getString(5);
+                String email=rs.getString(6);
+                u = new User(userId,userName,password,phone,department,email);
                 list.add(u);
             }
         } catch (SQLException e) {
@@ -94,15 +96,17 @@ public class UserImpl implements UserRespository {
     }
 
     @Override
-    public void insert(String userId, String password, String phone, String part) {
-        String sql="insert into user values (?,?,?,?)";
+    public void insert(String userId, String username, String password, String phone,String department,String email) {
+        String sql="insert into user values (?,?,?,?,?,?)";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setString(1,userId);
-            pre.setString(2,password);
-            pre.setString(3,phone);
-            pre.setString(4,part);
+            pre.setString(2,username);
+            pre.setString(3,password);
+            pre.setString(4,phone);
+            pre.setString(5,department);
+            pre.setString(6,email);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,16 +131,16 @@ public class UserImpl implements UserRespository {
     }
 
     @Override
-    public void update(String userId, String userId1, String password, String phone, String part) {
-        String sql="update user set userId=?,password=?,phone=?,part=? where userId = ?";
+    public void update(String userId, String username, String password, String phone,String department,String email) {
+        String sql="update user set username=?,password=?,phone=?,department=?,email=? where userId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
-            pre.setString(1,userId1);
+            pre.setString(1,username);
             pre.setString(2,password);
             pre.setString(3,phone);
-            pre.setString(4,part);
-            pre.setString(5,userId);
+            pre.setString(4,department);
+            pre.setString(5,email);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -165,25 +169,30 @@ public class UserImpl implements UserRespository {
         return rowCount;
     }
     @Override
-    public List<User> findByUserId(String userId) {
+    public List<User> findByUserId(int userId) {
         List<User> list = new ArrayList<>();
         String sql = "select * from user where userId = ?";
 
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
-            pre.setString(1,userId);
+            pre.setString(1, String.valueOf(userId));
             rs = pre.executeQuery();
             while(rs.next()){
+
                 String userId1 = rs.getString(1);
-                String password = rs.getString(2);
-                String phone = rs.getString(3);
-                String part = rs.getString(4);
-                u = new User(userId1,password,phone,part);
+                String userName = rs.getString(2);
+                String password = rs.getString(3);
+                String phone = rs.getString(4);
+                String department=rs.getString(5);
+                String email=rs.getString(6);
+                u = new User(userId1,userName,password,phone,department,email);
                 list.add(u);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            JDBCUtils.closeConnect();
         }
         return list;
     }
