@@ -42,7 +42,7 @@ public class UserController extends HttpServlet{
             out.write("两次输入的密码不同" + "<br>");
         }
         else{
-            User user = new User(userId, userName, password, phone, department, email);
+            User user = new User(userId, userName, password, phone);
             userDao.insertUser(user);
             out.write("创建成功" + "<br>");
         }

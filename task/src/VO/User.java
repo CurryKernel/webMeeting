@@ -63,4 +63,8 @@ public class User {
                 ", department='" + department + '\'' +
                 '}';
     }
+
+    public String getEmail() {
+        return email;
+    }
 }

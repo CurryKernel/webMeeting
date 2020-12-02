@@ -16,4 +16,15 @@
         <servlet-name>servlet_sigh_up</servlet-name>
         <url-pattern>/servlet_sigh_up</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>OrderHotel</servlet-name>
+        <servlet-class>Controller.OrderHotelController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderHotel</servlet-name>
+        <url-pattern>/OrderHotel</url-pattern>
+    </servlet-mapping>
+
 </web-app>

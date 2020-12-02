@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +41,7 @@
                     <input type="password" placeholder="Password"/>
                     <button class="btn_login" onClick="cambiar_login()">LOGIN</button>
                 </div>
-                <div class="cont_form_sign_up"> <a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                <div class="cont_form_sign_up"> <a href="" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
                     <h2>注册</h2>
                     <form action = servlet_sigh_up method="post" onsubmit="">
                         <input type="text" name="userId" placeholder="账户"/>
