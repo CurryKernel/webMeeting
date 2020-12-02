@@ -11,11 +11,11 @@
     <title>Title</title>
 </head>
 <body>
-<form action="user.jsp" method="get">
+<form action="/task/findByUserId" method="get">
     <fieldset>
         <legend>登录</legend>
         <p>
-            用户名：<input type="text" id="id" name="userId">
+            用户名：<input type="text" name="userId">
         </p>
         <p>
             密码：<input type="password" name="password">

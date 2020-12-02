@@ -26,33 +26,6 @@
         ga('create', 'UA-44987299-1', 'bootstrap-hunter.com');
         ga('send', 'pageview');
     </script>
-    <script src="js/jquery.min.js"></script>
-    <script>
-        /*
-        function showUser() {
-            $.ajax({
-                url:"${pageContext.request.contextPath}/ajax/find",
-                data:{"userId":1015},
-                success:function (data) {
-                    var obj =JSON.parse(data);
-                    console.log(date);
-                    var listHtml ="";
-                    for (var i in obj){
-                        listHtml+="<li><div class=\"cc\"><i class=\"fa fa-user\"></i> <strong>obj[i].userId</strong> <small>您的id</small></div></li>"+
-                            "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].userName</strong><small>您的姓名</small></div></li>"+
-                            "<li class=\"divider\"></li>"+
-                            " <li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].phone</strong> <small>您的手机号</small></div></li>"+
-                            "<li><div class=\"cc\"><i class=\"fa fa-tag\"></i><strong>obj[i].passwordxxxx</strong> <small>您的密码,妥善保存</small></div></li>"+
-                            "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].department</strong><small>您的部门</small></div></li>"+
-                            "<li><div class=\"cc\"><i class=\"fa fa-arrow-right\"></i> <strong>obj[i].email</strong><small>您的邮箱</small></div></li>"+
-                            "</ul>"
-                    }
-                    document.getElementById("site-stats").innerHTML=listHtml;
-                }
-            });
-        }
-        * */
-    </script>
 </head>
 <body onload="initAJAX();" data-color="grey" class="flat" >
 
@@ -253,58 +226,7 @@
             <!-- 第二部分 -->
             <div class="row">
                 <div class="col-xs-12"id="userin">
-                    <!-- 小提示，和广告一样，运行关闭 -->
-<%--                    <div class="alert alert-info">--%>
-<%--                        Welcome in the <strong>information of you</strong>. Don't forget to check all the details!--%>
-<%--                        <a href="#" data-dismiss="alert" class="close">×</a>--%>
-<%--                    </div>--%>
-<%--                    <!-- 小提示，和广告一样，运行关闭 -->--%>
-<%--                    <div class="widget-box"  >--%>
-                        <!-- 展示阶段——>提示 -->
-<%--                        <div class="widget-title">--%>
-<%--                            <span class="icon"><i class="fa fa-signal"></i></span>--%>
-<%--                            <h5>个人资料</h5>--%>
-<%--                            <div class="buttons">--%>
-<%--                                <a href="user.jsp" class="btn"><i class="fa fa-refresh"></i> <span class="text">更新</span></a>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-                        <!-- 展示阶段——>提示 -->
-                        <!-- 具体信息在这了 -->
-<%--                        <div class="widget-content">--%>
-<%--                            <div class="row">--%>
-<%--                                <div class="col-xs-12 col-sm-4">--%>
-<%--                                    <%--%>
-<%--                                        Object userList=request.getAttribute("userList");--%>
-<%--                                        List<User> listUser = null;--%>
-<%--                                        if(userList instanceof List){--%>
-<%--                                            listUser =(List<User>)userList;--%>
-<%--                                        }--%>
-<%--                                        for(User user : listUser){--%>
-<%--                                    %>--%>
-<%--                                    <ul class="site-stats" >--%>
-<%--                                        <li><div class="cc"><i class="fa fa-user"></i> <strong><%=user.getUserId()%></strong> <small>您的id</small></div></li>--%>
-<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getUsername()%></strong><small>您的姓名</small></div></li>--%>
-<%--                                        <li class="divider"></li>--%>
-<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getPhone()%></strong> <small>您的手机号</small></div></li>--%>
-<%--                                        <li><div class="cc"><i class="fa fa-tag"></i><strong><%=user.getPassword().substring(1,5)%>xxxx</strong> <small>您的密码,妥善保存</small></div></li>--%>
-<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getDepartment()%></strong><small>您的部门</small></div></li>--%>
-<%--                                        <li><div class="cc"><i class="fa fa-arrow-right"></i> <strong><%=user.getEmail()%></strong><small>您的邮箱</small></div></li>--%>
 
-<%--                                    </ul>--%>
-<%--                                    <%--%>
-<%--                                        }--%>
-<%--                                    %>--%>
-<%--                                </div>--%>
-
-                                <!-- 随便加的一个表 -->
-<%--                                <div class="col-xs-12 col-sm-8">--%>
-<%--                                    <div class="chart"></div>--%>
-<%--                                </div>--%>
-                                <!-- 随便加的一个表 -->
-<%--                            </div>--%>
-<%--                        </div>--%>
-                        <!-- 具体信息在这了 -->
-<%--                    </div>--%>
                 </div>
             </div>
             <!-- 第二部分 -->
@@ -363,13 +285,13 @@
         xmlhttp.open("get","/task/findByUserId?userId="+userId,true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback() {
-            console.log("到这");
+            // console.log("到这");
             // xmlhttp.readyState == 4
             if (xmlhttp.status==200) {
                 var date = xmlhttp.responseText;
                 var obj = JSON.parse(date);
-                console.log(obj);
-                console.log(date);
+                // console.log(obj);
+                // console.log(date);
                 var listHtml = " ";
                 for(var i in obj) {
                     listHtml += "<div class=\"alert alert-info\">\n" +
@@ -414,8 +336,20 @@
             }
         }
     }
-    function test() {
-        window.alert("测试");
+    function ShowMeetingInfo() {
+        xmlhttp =new XMLHttpRequest();
+        xmlhttp.open("get","/task/ShowMeetingInfo",true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback(){
+            if (xmlhttp.status==200){
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                var listHtml = " ";
+                for(var i in obj){
+                    listHtml+=""
+                }
+            }
+        }
     }
 </script>
 <script>
