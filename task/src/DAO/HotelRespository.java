@@ -10,7 +10,7 @@ public interface HotelRespository {
     //无分页的查找
     public List<Hotel> findAll();
     //增
-    public void insert(String id, String password);
+    public void insert(String id, String password,String description);
     //根据 id 删除
     public void deleteById(String id);
     //根据 id 修改，修改密码和账号为password，id1

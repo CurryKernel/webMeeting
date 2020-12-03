@@ -31,6 +31,7 @@ public class HotelImpl implements HotelRespository {
             while(rs.next()){
                 String id = rs.getString(1);
                 String password = rs.getString(2);
+                String description=rs.getString(3);
                 hotel = new Hotel(id,password, description);
                 list.add(hotel);
             }
@@ -58,6 +59,7 @@ public class HotelImpl implements HotelRespository {
             while(rs.next()){
                 String id = rs.getString(1);
                 String password = rs.getString(2);
+                String description=rs.getString(3);
                 hotel = new Hotel(id,password, description);
                 list.add(hotel);
             }
@@ -70,13 +72,14 @@ public class HotelImpl implements HotelRespository {
     }
 
     @Override
-    public void insert(String id, String password) {
-        String sql="insert into hotel values (?,?)";
+    public void insert(String id, String password,String description) {
+        String sql="insert into hotel values (?,?,?)";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setString(1,id);
             pre.setString(2,password);
+            pre.setString(3, description);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
