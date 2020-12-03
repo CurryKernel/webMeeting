@@ -1,8 +1,9 @@
 package Controller;
 
-import Service.DriverInfoService;
-import VO.Driver;
-
+import Service.MyOrderCarInfoService;
+import Service.MyOrderHotelInfoService;
+import VO.OrderCar;
+import VO.OrderHotel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -13,25 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
-@WebServlet("/ShowDriverInfo")
-public class DriverInfoController extends HttpServlet {
+@WebServlet("/MyOderHotelInfo")
+public class MyOrderHotelInfoController  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //解决中文乱码
         req.setCharacterEncoding("UTF-8");
-        DriverInfoService driverInfoSerivice = new DriverInfoService();
-        List<Driver> driverInfoList =driverInfoSerivice.findAll();
-
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStr = mapper.writeValueAsString(driverInfoList);
-        resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
+        MyOrderHotelInfoService myOrderHotelInfoService = new MyOrderHotelInfoService();
+        String userId = req.getParameter("userId");
+        List<OrderHotel> myOrderHotelInfoList = myOrderHotelInfoService.findByUserId(userId);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(myOrderHotelInfoList);
         PrintWriter out = resp.getWriter();
         out.write(jsonStr);
         System.out.println(jsonStr);
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -182,7 +182,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-md-3 col-lg-2 control-label">用户ID</label>
                                 <div class="col-sm-9 col-md-9 col-lg-10">
-                                    <input type="text" class="form-control input-sm" name="Urequired" id="Urequired">
+                                    <input type="text" class="form-control input-sm" name="Urequired" id="Urequired" onclick="this">
                                 </div>
                             </div>
                             <div class="form-group">

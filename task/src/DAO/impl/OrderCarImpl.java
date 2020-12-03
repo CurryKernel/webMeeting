@@ -21,7 +21,7 @@ public class OrderCarImpl implements OrderCarRespository {
     @Override
     public List<OrderCar> findByUserId(String userId) {
         List<OrderCar> list = new ArrayList<>();
-        String sql = "select * from ordercar where userId = ? order by people";
+        String sql = "select * from orderCar where userId = ? order by people";
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
@@ -32,8 +32,9 @@ public class OrderCarImpl implements OrderCarRespository {
                 int people = rs.getInt(2);
                 String place = rs.getString(3);
                 int state = rs.getInt(4);
-                String deadline = rs.getString(5);
-                oc = new OrderCar(userid, people, place, state, deadline);
+                String driverId = rs.getString(5);
+                String deadline = rs.getString(6);
+                oc = new OrderCar(userid, people, place, state, driverId,deadline);
                 list.add(oc);
             }
         } catch (SQLException e) {
@@ -45,7 +46,7 @@ public class OrderCarImpl implements OrderCarRespository {
     public List<OrderCar> findByUserId(String userId, int currentPage, int pageSize) {
         List<OrderCar> list = new ArrayList<>();
 
-        String sql = "select * from ordercar where userId = ? limit ?,? order by userId";
+        String sql = "select * from orderCar where userId = ? limit ?,? order by userId";
 
         currentPage=(currentPage-1)*pageSize;
         try {
@@ -60,8 +61,9 @@ public class OrderCarImpl implements OrderCarRespository {
                 int people = rs.getInt(2);
                 String place = rs.getString(3);
                 int state = rs.getInt(4);
-                String deadline = rs.getString(5);
-                oc = new OrderCar(userid,people,place,state,deadline);
+                String driverId = rs.getString(5);
+                String deadline = rs.getString(6);
+                oc = new OrderCar(userid, people, place, state, driverId,deadline);
                 list.add(oc);
             }
         } catch (SQLException e) {
@@ -75,7 +77,7 @@ public class OrderCarImpl implements OrderCarRespository {
     public List<OrderCar> findAll() {
         List<OrderCar> list = new ArrayList<>();
 
-        String sql = "select * from ordercar order by userId";
+        String sql = "select * from orderCar order by userId";
 
         try {
             conn = JDBCUtils.getConnect();
@@ -86,8 +88,9 @@ public class OrderCarImpl implements OrderCarRespository {
                 int people = rs.getInt(2);
                 String place = rs.getString(3);
                 int state = rs.getInt(4);
-                String deadline = rs.getString(5);
-                oc = new OrderCar(userid,people,place,state,deadline);
+                String driverId = rs.getString(5);
+                String deadline = rs.getString(6);
+                oc = new OrderCar(userid, people, place, state, driverId,deadline);
                 list.add(oc);
             }
         } catch (SQLException e) {
@@ -101,7 +104,7 @@ public class OrderCarImpl implements OrderCarRespository {
     public List<OrderCar> findAll(int currentPage, int pageSize) {
         List<OrderCar> list = new ArrayList<>();
 
-        String sql = "select * from ordercar limit ?,? order by userId";
+        String sql = "select * from orderCar limit ?,? order by userId";
 
         currentPage=(currentPage-1)*pageSize;
         try {
@@ -115,8 +118,9 @@ public class OrderCarImpl implements OrderCarRespository {
                 int people = rs.getInt(2);
                 String place = rs.getString(3);
                 int state = rs.getInt(4);
-                String deadline = rs.getString(5);
-                oc = new OrderCar(userid,people,place,state,deadline);
+                String driverId = rs.getString(5);
+                String deadline = rs.getString(6);
+                oc = new OrderCar(userid, people, place, state, driverId,deadline);
                 list.add(oc);
             }
         } catch (SQLException e) {
@@ -128,8 +132,8 @@ public class OrderCarImpl implements OrderCarRespository {
     }
 
     @Override
-    public void insert(String userId, int people, String place, int state, String deadline) {
-        String sql="insert into ordercar values (?,?,?,?,?)";
+    public void insert(String userId, int people, String place, int state, String deadline,String driverId) {
+        String sql="insert into orderCar values (?,?,?,?,?,?)";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -138,6 +142,7 @@ public class OrderCarImpl implements OrderCarRespository {
             pre.setString(3,place);
             pre.setInt(4,state);
             pre.setString(5,deadline);
+            pre.setString(6,driverId);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,7 +153,7 @@ public class OrderCarImpl implements OrderCarRespository {
 
     @Override
     public void deleteByUserId(String userId) {
-        String sql = "delete from ordercar where userId = ?";
+        String sql = "delete from orderCar where userId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -163,7 +168,7 @@ public class OrderCarImpl implements OrderCarRespository {
 
     @Override
     public void update(String userId, String userId1, int people, String place, int state, String deadline) {
-        String sql="update ordercar set userId = ?,people = ?,place = ?,state = ?,deadline = ? where userId = ?";
+        String sql="update orderCar set userId = ?,people = ?,place = ?,state = ?,deadline = ? where userId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -183,7 +188,7 @@ public class OrderCarImpl implements OrderCarRespository {
     @Override
     public int count() {
         int rowCount = 0;
-        String sql = "select count(*) from ordercar";
+        String sql = "select count(*) from orderCar";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -203,7 +208,7 @@ public class OrderCarImpl implements OrderCarRespository {
     @Override
     public int count(String userId) {
         int rowCount = 0;
-        String sql = "select count(*) from ordercar where userId = ?";
+        String sql = "select count(*) from orderCar where userId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);

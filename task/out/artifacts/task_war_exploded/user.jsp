@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/jquery.jscrollpane.css" />
     <link rel="stylesheet" href="css/unicorn.css" />
 
+
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -113,12 +114,12 @@
         </div>
         <ul>
             <%--            onclick="showUser()"--%>
-            <li class="active "><a href="user.jsp"><i class="fa fa-home" ></i> <span>个人信息</span></a></li>
+            <li class="active "><a href="#"><i class="fa fa-home" ></i> <span onclick="showUserID()">个人信息</span></a></li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-flask"></i> <span >会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="">我的会议</a></li>
-                    <li><a href="#">加入会议</a></li>
+                    <li><a href="#"><span onclick="ShowMyMeetingInfo()">我的会议</span></a></li>
+                    <li><a href="#"><span onclick="MjoinInfo()">加入会议</span></a></li>
                     <li><a href="#"><span onclick="ShowMeetingInfo()">会议大厅</span></a></li>
                 </ul>
             </li>
@@ -126,27 +127,28 @@
                 <a href="#"><i class="fa fa-th-list"></i> <span>酒店预约</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
                     <li><a href="#"><span onclick="ShowHotelInfo()">酒店信息</span></a></li>
-                    <li><a href="#">预约</a></li>
+                    <li><a href="#"><span onclick="HorderInfo()">酒店预约</span></a></li>
                 </ul>
             </li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-th-list"></i> <span>驾车预约</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
                     <li><a href="#"><span onclick="ShowDriverInfo()">司机信息</span></a></li>
-                    <li><a href="#">预约</a></li>
+                    <li><a href="#"><span onclick="CorderInfo()">车辆预约</span></a></li>
                 </ul>
             </li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-file"></i> <span>我的预约</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="#">酒店预约信息</a></li>
-                    <li><a href="#">驾车预约信息</a></li>
+                    <li><a href="#"><span onclick="ShowMyOrderHotelInfo()">酒店预约信息</span></a></li>
+                    <li><a href="#"><span onclick="ShowMyOrderCarInfo()">车辆预约信息</span></a></li>
                 </ul>
             </li>
             <li class="submenu">
-                <a href="#"><i class="fa fa-file"></i> <span>日期事务添加</span> <i class="arrow fa fa-chevron-right"></i></a>
+                <a href="#"><i class="fa fa-file"></i> <span>日期事务管理</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="calendar.jsp">日历</a></li>
+                    <li><a href="#" ><span>日历</span>日历</a></li>
+                    <li><a href="#" ><span>事务个性化</span></a></li>
                 </ul>
             </li>
         </ul>
@@ -243,22 +245,6 @@
                 </div>
             </div>
             <!-- 第二部分 -->
-            <!-- 第三部分 --日历 -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="widget-box widget-calendar">
-                        <div class="widget-title">
-									<span class="icon">
-										<i class="fa fa-calendar"></i>
-									</span>
-                            <h5>日历</h5>
-                        </div>
-                        <div class="widget-content ">
-                            <div class="calendar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- 个人信息侧边栏信息 -->
@@ -459,6 +445,320 @@
                 document.getElementById("ineer").innerHTML = listHtml + "</table>" + "</div>" + "</div>";
             }
         }
+    }
+
+    function ShowMyMeetingInfo(){
+        xmlhttp =new XMLHttpRequest();
+        //console.log("到这");
+        var userId =document.getElementById("info").innerText;
+        console.log(userId);
+        xmlhttp.open("get","/task/MyMeetingInfo?userId="+userId,true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback() {
+            if (xmlhttp.status==200) {
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                var listHtml = "<div class=\"widget-box\">\n" +
+                    "                <div class=\"widget-title\">\n" +
+                    "                    <span class=\"icon\">\n" +
+                    "                        <i class=\"fa fa-th\"></i>\n" +
+                    "                    </span>\n" +
+                    "                    <h5>您的会议信息</h5>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"widget-content nopadding\">\n" +
+                    "                    <table class=\"table table-bordered table-striped table-hover data-table\">\n" +
+                    "                        <thead>\n" +
+                    "                        <tr>\n" +
+                    "                            <th>会议ID</th>\n" +
+                    "                            <th>会议地点</th>\n"+
+                    "                            <th>会议人数</th>\n" +
+                    "                            <th>会议时间</th>\n" +
+                    "                            <th>会议信息</th>\n" +
+                    "                        </tr>\n" +
+                    "                        </thead>";
+                for (var i in obj) {
+                    listHtml += "<tr class=\"gradeX\">\n" +
+                        "                            <td>" + obj[i].meetingId + "</td>\n" +
+                        "                            <td>" + obj[i].place + "</td>\n" +
+                        "                            <td>" + obj[i].peopleCount + "</td>\n" +
+                        "                            <td>" + obj[i].time + "</td>\n" +
+                        "                            <td>" + obj[i].detail + "</td>\n" +
+                        "                        </tr>"
+                }
+                document.getElementById("ineer").innerHTML=listHtml;
+            }
+            else {
+                alert("┗|｀O′|┛ 嗷~~ 界面走丢，请致电开发人员");
+            }
+        }
+    }
+
+    function ShowMyOrderCarInfo(){
+        xmlhttp =new XMLHttpRequest();
+        //console.log("到这");
+        var userId =document.getElementById("info").innerText;
+        console.log(userId);
+        xmlhttp.open("get","/task/MyOderCarInfo?userId="+userId,true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback() {
+            if (xmlhttp.status==200) {
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                var listHtml = "<div class=\"widget-box\">\n" +
+                    "                <div class=\"widget-title\">\n" +
+                    "                    <span class=\"icon\">\n" +
+                    "                        <i class=\"fa fa-th\"></i>\n" +
+                    "                    </span>\n" +
+                    "                    <h5>您的车辆信息</h5>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"widget-content nopadding\">\n" +
+                    "                    <table class=\"table table-bordered table-striped table-hover data-table\">\n" +
+                    "                        <thead>\n" +
+                    "                        <tr>\n" +
+                    "                            <th>司机ID</th>\n" +
+                    "                            <th>接车地点</th>\n"+
+                    "                            <th>接车时间</th>\n" +
+                    "                            <th>乘客人数</th>\n" +
+                    "                            <th><strong>受理状态</Strong><small>0代表未受理,1代表已经受理,2代表拒绝接单</small></th>\n" +
+                    "                        </tr>\n" +
+                    "                        </thead>";
+                for (var i in obj) {
+                    listHtml += "<tr class=\"gradeX\">\n" +
+                        "                            <td>" + obj[i].driverId + "</td>\n" +
+                        "                            <td>" + obj[i].place + "</td>\n" +
+                        "                            <td>" + obj[i].time + "</td>\n" +
+                        "                            <td>" + obj[i].people + "</td>\n" +
+                        "                            <td>" + obj[i].state + "</td>\n" +
+                        "                        </tr>"
+                }
+                document.getElementById("ineer").innerHTML=listHtml;
+            }
+            else {
+                alert("┗|｀O′|┛ 嗷~~ 界面走丢，请致电开发人员");
+            }
+        }
+    }
+
+    function ShowMyOrderHotelInfo(){
+        xmlhttp =new XMLHttpRequest();
+        //console.log("到这");
+        var userId =document.getElementById("info").innerText;
+        console.log(userId);
+        xmlhttp.open("get","/task/MyOderHotelInfo?userId="+userId,true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback() {
+            if (xmlhttp.status==200) {
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                var listHtml = "<div class=\"widget-box\">\n" +
+                    "                <div class=\"widget-title\">\n" +
+                    "                    <span class=\"icon\">\n" +
+                    "                        <i class=\"fa fa-th\"></i>\n" +
+                    "                    </span>\n" +
+                    "                    <h5>您的酒店信息</h5>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"widget-content nopadding\">\n" +
+                    "                    <table class=\"table table-bordered table-striped table-hover data-table\">\n" +
+                    "                        <thead>\n" +
+                    "                        <tr>\n" +
+                    "                            <th>酒店ID</th>\n" +
+                    "                            <th><strong>受理状态</Strong><small>0代表未受理,1代表已经受理,2代表拒绝接单</small></th>\n" +
+                    "                        </tr>\n" +
+                    "                        </thead>";
+                for (var i in obj) {
+                    listHtml += "<tr class=\"gradeX\">\n" +
+                        "                            <td>" + obj[i].hotelId + "</td>\n" +
+                        "                            <td>" + obj[i].state + "</td>\n" +
+                        "                        </tr>"
+                }
+                document.getElementById("ineer").innerHTML=listHtml;
+            }
+            else {
+                alert("┗|｀O′|┛ 嗷~~ 界面走丢，请致电开发人员");
+            }
+        }
+    }
+
+    function HorderInfo(){
+        var listHtml = "<div class=\"widget-box\">"+"<div class=\"widget-title\">\n" +
+            "<span class=\"icon\">\n" +
+            "<i class=\"fa fa-align-justify\"></i>\n" +
+            "</span>\n" +
+            "                        <h5>预约窗口</h5>\n" +
+            "                        <span class=\"label label-danger\">notices</span>\n" +
+            "                    </div>"+
+            "<div class=\"widget-content nopadding\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"get\" action='/task/UserorderHotel' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">酒店ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Hrequired\" id=\"Hrequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">用户ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Urequired\" id=\"Urequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">居住人数</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Pcount\" id=\"Pcount\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "<div class=\"form-actions\">\n" +
+            "                                <input type=\"submit\" value=\"Validate\" class=\"btn btn-primary\"  >\n" +
+            "                            </div>\n" +
+            "                        </form>"+
+            "</div>"+
+            "</div>";
+        document.getElementById("ineer").innerHTML=listHtml;
+    }
+
+    function CorderInfo(){
+        var listHtml = "<div class=\"widget-box\">"+"<div class=\"widget-title\">\n" +
+            "<span class=\"icon\">\n" +
+            "<i class=\"fa fa-align-justify\"></i>\n" +
+            "</span>\n" +
+            "                        <h5>预约窗口</h5>\n" +
+            "                        <span class=\"label label-danger\">notices</span>\n" +
+            "                    </div>"+
+            "<div class=\"widget-content nopadding\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"get\" action='/task/UserOrderCar' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">司机ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Drequired\" id=\"Drequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">用户ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Urequired\" id=\"Urequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">乘车人数</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Pcount\" id=\"Pcount\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">乘车地点</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"place\" id=\"place\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">最晚时间</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"deadline\" id=\"deadline\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "<div class=\"form-actions\">\n" +
+            "                                <input type=\"submit\" value=\"Validate\" class=\"btn btn-primary\"  >\n" +
+            "                            </div>\n" +
+            "                        </form>"+
+            "</div>"+
+            "</div>";
+        document.getElementById("ineer").innerHTML=listHtml;
+    }
+
+    function MjoinInfo(){
+        var listHtml = "<div class=\"widget-box\">"+"<div class=\"widget-title\">\n" +
+            "<span class=\"icon\">\n" +
+            "<i class=\"fa fa-align-justify\"></i>\n" +
+            "</span>\n" +
+            "                        <h5>选择会议</h5>\n" +
+            "                        <span class=\"label label-danger\">notices</span>\n" +
+            "                    </div>"+
+            "<div class=\"widget-content nopadding\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"get\" action='/task/UserJoinMeeting' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">会议ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Mrequired\" id=\"Mrequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">用户ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Urequired\" id=\"Urequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">是否预定用车</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"needCar\" id=\"needCar\" placeholder='1代表需要,2代表不需要'>\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">是否预定酒店</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"needHotel\" id=\"needHotel\" placeholder='1代表需要,2代表不需要' >\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "<div class=\"form-actions\">\n" +
+            "                                <input type=\"submit\" value=\"Validate\" class=\"btn btn-primary\"  >\n" +
+            "                            </div>\n" +
+            "                        </form>"+
+            "</div>"+
+            "</div>";
+        document.getElementById("ineer").innerHTML=listHtml;
+    }
+
+    function Things(){
+        var listHtml ="               <div class=\"alert alert-info\">\n" +
+            "                    This page demonstrates a jQuery calendar plugin. Try to add a new event!\n" +
+            "                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>\n" +
+            "                </div>"+
+            "<div class=\"widget-box widget-calendar\">\n" +
+            "                    <div class=\"widget-title\">\n" +
+            "                        <span class=\"icon\"><i class=\"fa fa-calendar\"></i></span>\n" +
+            "                        <h5>Calendar</h5>\n" +
+            "                        <!-- 添加事务 -->\n" +
+            "                        <div class=\"buttons\">\n" +
+            "                            <a id=\"add-event\" data-toggle=\"modal\" href=\"#modal-add-event\" class=\"btn\"><i class=\"fa fa-plus\"></i> <span class=\"text\">Add new event</span></a>\n" +
+            "                        </div>\n" +
+            "                        <!-- 添加事务 -->\n" +
+            "                    </div>\n" +
+            "                    <!-- 日历表 -->\n" +
+            "                    <div class=\"widget-content nopadding\">\n" +
+            "                        <div class=\"panel-left\">\n" +
+            "                            <div id=\"fullcalendar\"></div>\n" +
+            "                        </div>\n" +
+            "                        <!-- 预估的事务 -->\n" +
+            "                        <div id=\"external-events\" class=\"panel-right\">\n" +
+            "                            <div class=\"panel-title\"><h5>Events</h5></div>\n" +
+            "                            <div class=\"panel-content\">\n" +
+            "                                <div class=\"external-event ui-draggable label label-inverse\">会客人</div>\n" +
+            "                                <div class=\"external-event ui-draggable label label-success\">聚会</div>\n" +
+            "                                <div class=\"external-event ui-draggable label label-purple\">度假</div>\n" +
+            "                                <div class=\"external-event ui-draggable label label-warning\">休息</div>\n" +
+            "                                <div class=\"external-event ui-draggable label label-info\">运动</div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                        <!-- 预估的事务 -->\n" +
+            "                    </div>\n" +
+            "                    <!-- 日历表 -->\n" +
+            "                </div>";
+        document.getElementById("ineer").innerHTML=listHtml;
+    }
+
+    function Calendar(){
+        var listHtml="<div class=\"widget-box widget-calendar\">\n" +
+            "                        <div class=\"widget-title\">\n" +
+            "                         </n><span class=\"icon\">\n" +
+            "                           <i class=\"fa fa-calendar\"></i>\n" +
+            "                           </span>\n" +
+            "                            <h5>日历</h5>\n" +
+            "                        </div>\n" +
+            "                        <div class=\"widget-content \">\n" +
+            "                            <div class=\"calendar\"></div>\n"+
+            "                        </div>\n" +
+            "                    </div>";
+        document.getElementById("ineer").innerHTML=listHtml;
     }
 </script>
 <script>

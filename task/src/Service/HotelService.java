@@ -13,8 +13,8 @@ public class HotelService {
 
     }
 
-    public List<OrderHotel> findByUserId_Hotel(String userId, String hotelId) {
-        return orderhotel.findByUserId_Hotel(userId,hotelId);
+    public List<OrderHotel> findByUserId(String userId) {
+        return orderhotel.findByUserId(userId);
     }
 
 

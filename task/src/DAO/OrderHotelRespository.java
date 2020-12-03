@@ -12,7 +12,7 @@ public interface OrderHotelRespository {
     //查，根据用户 id 和酒店查，分页
     public List<OrderHotel> findByUserId(String userId, String hotelId,int currentPage, int pageSize);
     //查，根据用户 id 查和酒店查
-    public List<OrderHotel> findByUserId_Hotel(String userId,String hotelId);
+    public List<OrderHotel> findByUserId(String userId);
     //查，根据酒店id查
     public List<OrderHotel> findByHotel(String hotelId);
     //查，根据住房人数及酒店ID查

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class JoinMeetingImpl implements JoinMeetingRespository {
     Connection conn = null;
     PreparedStatement pre = null;
@@ -21,7 +22,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
     public List<JoinMeeting> findAll(int pageId, int pageSize) {
         List<JoinMeeting> list = new ArrayList<>();
 
-        String sql = "select * from joinmeeting limit ?,? order by userId";
+        String sql = "select * from joinMeeting limit ?,? order by userId";
 
         pageId=(pageId-1)*pageSize;
         try {
@@ -43,15 +44,17 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
         }
         return list;
     }
-
+//insert用了，其余的要用需要改
     @Override
-    public void insert(String userId, String meetingId) {
-        String sql="insert into joinmeeting values (?,?)";
+    public void insert(String userId, String meetingId ,int needCar , int needHotel) {
+        String sql="insert into joinMeeting values (?,?,?,?)";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setString(1,userId);
             pre.setString(2,meetingId);
+            pre.setInt(3,needCar);
+            pre.setInt(4,needHotel);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,7 +65,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
 
     @Override
     public void deleteByUserId(String userId) {
-        String sql="delete from joinmeeting where userId = ?";
+        String sql="delete from joinMeeting where userId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -77,7 +80,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
 
     @Override
     public void deleteByMeetingId(String meetingId) {
-        String sql="delete from joinmeeting where meetingId = ?";
+        String sql="delete from joinMeeting where meetingId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -92,7 +95,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
 
     @Override
     public void update(String userId, String userId1,String meetingId) {
-        String sql="update joinmeeting set userId = ?,meetingId = ? where userId = ?";
+        String sql="update joinMeeting set userId = ?,meetingId = ? where userId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -110,7 +113,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
     @Override
     public int count() {
         int rowCount = 0;
-        String sql = "select count(*) from joinmeeting";
+        String sql = "select count(*) from joinMeeting";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -130,7 +133,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
     @Override
     public List<String> findByUserId(String userId) {
         List<String> list = new ArrayList<>();
-        String sql = "select * from joinmeeting where userId = ? order by meetingId asc";
+        String sql = "select * from joinMeeting where userId = ? order by meetingId asc";
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
@@ -149,7 +152,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
     @Override
     public List<String> findByMeetingId(String meetingId) {
         List<String> list = new ArrayList<>();
-        String sql = "select * from joinmeeting where meetingId = ? order by userId asc";
+        String sql = "select * from joinMeeting where meetingId = ? order by userId asc";
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
@@ -169,7 +172,7 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
     public List<JoinMeeting> findAll() {
         List<JoinMeeting> list = new ArrayList<>();
 
-        String sql = "select * from joinmeeting order by userId";
+        String sql = "select * from joinMeeting order by userId";
 
         try {
             conn = JDBCUtils.getConnect();

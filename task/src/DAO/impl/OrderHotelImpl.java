@@ -50,9 +50,9 @@ public class OrderHotelImpl implements OrderHotelRespository {
     }
 
     @Override
-    public List<OrderHotel> findByUserId_Hotel(String userId,String hotelId) {
+    public List<OrderHotel> findByUserId(String userId) {
         List<OrderHotel> list = new ArrayList<>();
-        String sql = "select * from orderHotel where userId = ? and hotelId=? order by people";
+        String sql = "select * from orderHotel where userId = ?order by people";
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
@@ -62,7 +62,7 @@ public class OrderHotelImpl implements OrderHotelRespository {
                 String userid = rs.getString(1);
                 int people = rs.getInt(2);
                 int state = rs.getInt(3);
-                //String hotelid = rs.getString(4);
+                String hotelId = rs.getString(4);
                 oh = new OrderHotel(userid,people,state,hotelId);
                 list.add(oh);
             }
@@ -219,6 +219,7 @@ public class OrderHotelImpl implements OrderHotelRespository {
         return rowCount;
     }
 
+    @Override
     public List<OrderHotel> findByHotel(String hotelId){
         List<OrderHotel> list = new ArrayList<>();
 

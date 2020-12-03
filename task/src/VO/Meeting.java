@@ -6,7 +6,7 @@ public class Meeting {
     private String place;//会议地点
     private Integer peopleCount;//会议参与人数
     private String time;//会议开始时间，记得使用DBDate类里的方法
-
+    private String detail;
     public String getMeetingId() {
         return meetingId;
     }
@@ -47,12 +47,13 @@ public class Meeting {
         this.time = time;
     }
 
-    public Meeting(String meetingId, String userId, String place, Integer peopleCount, String time) {
+    public Meeting(String meetingId, String userId, String place, Integer peopleCount, String time,String detail) {
         this.meetingId = meetingId;
         this.userId = userId;
         this.place = place;
         this.peopleCount = peopleCount;
         this.time = time;
+        this.detail = detail;
     }
 
     @Override
@@ -63,6 +64,15 @@ public class Meeting {
                 ", place='" + place + '\'' +
                 ", peopleCount=" + peopleCount +
                 ", time='" + time + '\'' +
+                ", detail='"+detail+'\''+
                 '}';
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

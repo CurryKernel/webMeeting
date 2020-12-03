@@ -14,7 +14,7 @@ public interface OrderCarRespository {
     //查，根据用户 id 查，分页
     public List<OrderCar> findByUserId(String userId, int currentPage, int pageSize);
     //增
-    public void insert(String userId, int people, String place, int state, String deadline);
+    public void insert(String userId, int people, String place, int state, String deadline,String driverId);
 
     //根据用户 id 删
     public void deleteByUserId(String userId);

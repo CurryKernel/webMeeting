@@ -36,7 +36,8 @@ public class MeetingImpl implements MeetingRespository {
                 String place = rs.getString(3);
                 int peopleCount = rs.getInt(4);
                 String time = rs.getString(5);
-                m = new Meeting(meetingId1,userId,place,peopleCount,time);
+                String detail =rs.getString(6);
+                m = new Meeting(meetingId1,userId,place,peopleCount,time,detail);
                 list.add(m);
             }
         } catch (SQLException e) {
@@ -60,7 +61,8 @@ public class MeetingImpl implements MeetingRespository {
                 String place = rs.getString(3);
                 int peopleCount = rs.getInt(4);
                 String time = rs.getString(5);
-                m = new Meeting(meetingId1,userId,place,peopleCount,time);
+                String detail =rs.getString(6);
+                m = new Meeting(meetingId1,userId,place,peopleCount,time,detail);
                 list.add(m);
             }
         } catch (SQLException e) {
@@ -86,7 +88,8 @@ public class MeetingImpl implements MeetingRespository {
                 String place = rs.getString(3);
                 int peopleCount = rs.getInt(4);
                 String time = rs.getString(5);
-                m = new Meeting(meetingId,userId1,place,peopleCount,time);
+                String detail =rs.getString(6);
+                m = new Meeting(meetingId,userId1,place,peopleCount,time,detail);
                 list.add(m);
             }
         } catch (SQLException e) {
@@ -110,7 +113,8 @@ public class MeetingImpl implements MeetingRespository {
                 String place = rs.getString(3);
                 int peopleCount = rs.getInt(4);
                 String time = rs.getString(5);
-                m = new Meeting(meetingId,userId1,place,peopleCount,time);
+                String detail =rs.getString(6);
+                m = new Meeting(meetingId,userId1,place,peopleCount,time,detail);
                 list.add(m);
             }
         } catch (SQLException e) {
@@ -137,7 +141,8 @@ public class MeetingImpl implements MeetingRespository {
                 String place = rs.getString(3);
                 int peopleCount = rs.getInt(4);
                 String time = rs.getString(5);
-                m = new Meeting(meetingId,userId1,place,peopleCount,time);
+                String detail = rs.getString(6);
+                m = new Meeting(meetingId,userId1,place,peopleCount,time,detail);
                 list.add(m);
             }
         } catch (SQLException e) {
@@ -164,7 +169,8 @@ public class MeetingImpl implements MeetingRespository {
                 String place = rs.getString(3);
                 int peopleCount = rs.getInt(4);
                 String time = rs.getString(5);
-                m = new Meeting(meetingId,userId1,place,peopleCount,time);
+                String detail = rs.getString(6);
+                m = new Meeting(meetingId,userId1,place,peopleCount,time,detail);
                 list.add(m);
             }
         } catch (SQLException e) {
@@ -175,8 +181,8 @@ public class MeetingImpl implements MeetingRespository {
         return list;
     }
     @Override
-    public void insert(String meetingId, String userId, String place, int peopleCount, String time) {
-        String sql="insert into meeting values (?,?,?,?,?)";
+    public void insert(String meetingId, String userId, String place, int peopleCount, String time,String detail) {
+        String sql="insert into meeting values (?,?,?,?,?,?)";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
@@ -185,6 +191,7 @@ public class MeetingImpl implements MeetingRespository {
             pre.setString(3,place);
             pre.setInt(4,peopleCount);
             pre.setString(5,time);
+            pre.setString(6,detail);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -209,7 +216,7 @@ public class MeetingImpl implements MeetingRespository {
     }
 
     @Override
-    public void update(String meetingId, String meetingId1, String userId, String place, int peopleCount, String time) {
+    public void update(String meetingId, String meetingId1, String userId, String place, int peopleCount, String time,String detail) {
         String sql="update meeting set meetingId=?,userId=?,place=?,peopleCount=?,time=? where meetingId = ?";
         try {
             conn = JDBCUtils.getConnect();
@@ -219,7 +226,7 @@ public class MeetingImpl implements MeetingRespository {
             pre.setString(3,place);
             pre.setInt(4,peopleCount);
             pre.setString(5,time);
-            pre.setString(6,meetingId);
+            pre.setString(6,detail);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

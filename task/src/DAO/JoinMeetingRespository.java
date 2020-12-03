@@ -11,7 +11,7 @@ public interface JoinMeetingRespository {
     public List<JoinMeeting> findAll();
 
     //增
-    public void insert(String userId, String meetingId);
+    public void insert(String userId, String meetingId ,int needCar , int needHotel);
 
     //根据用户id 删除记录
     public void deleteByUserId(String userId);

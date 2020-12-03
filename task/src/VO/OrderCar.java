@@ -6,7 +6,7 @@ public class OrderCar {
     private String place;//乘车地点
     private Integer state;//订单状态，0表示为审核；1表示未通过，2表示已通过
     private String deadline;//预约的最晚时间，记得使用DBDate类里的方法
-
+    private String driverId;
     public String getUserId() {
         return userId;
     }
@@ -47,12 +47,13 @@ public class OrderCar {
         this.deadline = deadline;
     }
 
-    public OrderCar(String userId, Integer people, String place, Integer state, String deadline) {
+    public OrderCar(String userId, Integer people, String place, Integer state, String deadline ,String driverId) {
         this.userId = userId;
         this.people = people;
         this.place = place;
         this.state = state;
         this.deadline = deadline;
+        this.driverId = driverId;
     }
 
     @Override
@@ -62,7 +63,16 @@ public class OrderCar {
                 ", people=" + people +
                 ", place='" + place + '\'' +
                 ", state=" + state +
+                ", driverId="+driverId+
                 ", deadline='" + deadline + '\'' +
                 '}';
+    }
+
+    public String getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
     }
 }

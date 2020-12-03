@@ -1,9 +1,10 @@
 package Controller;
 
-import Service.DriverInfoService;
-import VO.Driver;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import DAO.HotelRespository;
+import DAO.OrderHotelRespository;
+import DAO.impl.HotelImpl;
+import DAO.impl.OrderHotelImpl;
+import Service.HotelInfoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,25 +12,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
-@WebServlet("/ShowDriverInfo")
-public class DriverInfoController extends HttpServlet {
+@WebServlet("/UserorderHotel")
+public class User_OrderHotelController  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //解决中文乱码
         req.setCharacterEncoding("UTF-8");
-        DriverInfoService driverInfoSerivice = new DriverInfoService();
-        List<Driver> driverInfoList =driverInfoSerivice.findAll();
-
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStr = mapper.writeValueAsString(driverInfoList);
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
-        PrintWriter out = resp.getWriter();
-        out.write(jsonStr);
-        System.out.println(jsonStr);
+        String userId = req.getParameter("Urequired");
+        System.out.println(userId);
+        int people = Integer.parseInt(req.getParameter("Pcount"));
+        String hotelId =req.getParameter("Hrequired");
+        OrderHotelRespository hotelInfo = new OrderHotelImpl();
+        hotelInfo.insert(userId,people, 0,hotelId);//默认刚插入就是0状态
+        req.getRequestDispatcher("/time.jsp").forward(req, resp);
     }
 
     @Override

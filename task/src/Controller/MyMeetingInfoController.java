@@ -1,8 +1,7 @@
 package Controller;
 
-import Service.DriverInfoService;
-import VO.Driver;
-
+import Service.MyMeetingInfoService;
+import VO.Meeting;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -14,24 +13,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/ShowDriverInfo")
-public class DriverInfoController extends HttpServlet {
+@WebServlet("/MyMeetingInfo")
+public class MyMeetingInfoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //解决中文乱码
         req.setCharacterEncoding("UTF-8");
-        DriverInfoService driverInfoSerivice = new DriverInfoService();
-        List<Driver> driverInfoList =driverInfoSerivice.findAll();
-
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonStr = mapper.writeValueAsString(driverInfoList);
-        resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
+        MyMeetingInfoService meetingInfoService = new MyMeetingInfoService();
+        String userId = req.getParameter("userId");
+        List<Meeting> myMeetingInfoList = meetingInfoService.findByUserId(userId);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(myMeetingInfoList);
         PrintWriter out = resp.getWriter();
         out.write(jsonStr);
         System.out.println(jsonStr);
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

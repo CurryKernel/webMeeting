@@ -20,13 +20,13 @@ public interface MeetingRespository {
     public List<Meeting> findByMeetingId(String MeetingId);
 
     //增
-    public void insert(String meetingId, String userId, String place, int peopleCount, String time);
+    public void insert(String meetingId, String userId, String place, int peopleCount, String time, String detail);
 
     //根据 meetingId删
     public void deleteByMeetingId(String meetingId);
 
     //根据会议id 修改
-    public void update(String meetinggId, String meetingId1, String userId, String place, int peopleCount, String time);
+    public void update(String meetinggId, String meetingId1, String userId, String place, int peopleCount, String time,String detail);
     //查表的总记录数
     public int count();
 
