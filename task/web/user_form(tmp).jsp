@@ -168,21 +168,21 @@
 								<span class="icon">
 									<i class="fa fa-align-justify"></i>
 								</span>
-                        <h5>信息</h5>
+                        <h5>预约窗口</h5>
                         <span class="label label-danger">notices</span>
                     </div>
                     <div class="widget-content nopadding">
                         <form class="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate" novalidate="novalidate">
                             <div class="form-group">
-                                <label class="col-sm-3 col-md-3 col-lg-2 control-label">Required Field</label>
+                                <label class="col-sm-3 col-md-3 col-lg-2 control-label">酒店ID</label>
                                 <div class="col-sm-9 col-md-9 col-lg-10">
-                                    <input type="text" class="form-control input-sm" name="required" id="required">
+                                    <input type="text" class="form-control input-sm" name="Hrequired" id="Hrequired">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 col-md-3 col-lg-2 control-label">Email</label>
+                                <label class="col-sm-3 col-md-3 col-lg-2 control-label">用户ID</label>
                                 <div class="col-sm-9 col-md-9 col-lg-10">
-                                    <input type="text" class="form-control input-sm" name="email" id="email">
+                                    <input type="text" class="form-control input-sm" name="Urequired" id="Urequired">
                                 </div>
                             </div>
                             <div class="form-group">

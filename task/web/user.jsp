@@ -113,7 +113,7 @@
         </div>
         <ul>
             <%--            onclick="showUser()"--%>
-            <li class="active "><a href="user.jsp"><i class="fa fa-home" ></i> <span>个人信息</span></a></li>
+            <li class="active "><a href="#"><i class="fa fa-home" ></i> <span>个人信息</span></a></li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-flask"></i> <span >会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
@@ -126,13 +126,13 @@
                 <a href="#"><i class="fa fa-th-list"></i> <span>酒店预约</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
                     <li><a href="#"><span onclick="ShowHotelInfo()">酒店信息</span></a></li>
-                    <li><a href="#">预约</a></li>
+                    <li><a href="#"><span onclick="HorderInfo()">酒店预约</span></a></li>
                 </ul>
             </li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-th-list"></i> <span>驾车预约</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="#">司机信息</a></li>
+                    <li><a href="#"><span onclick="ShowDriverInfo()">司机信息</span></a></li>
                     <li><a href="#">预约</a></li>
                 </ul>
             </li>
@@ -238,7 +238,7 @@
             <br />
             <!-- 第二部分 -->
             <div class="row">
-                <div class="col-xs-12"id="userin">
+                <div class="col-xs-12"id="ineer">
 
                 </div>
             </div>
@@ -343,7 +343,7 @@
                         "</div>"+
                         "</div>"
                 }
-                document.getElementById("userin").innerHTML=listHtml;
+                document.getElementById("ineer").innerHTML=listHtml;
             } else {
                 alert("错了");
             }
@@ -385,7 +385,7 @@
                         "                            <td class=\"center\">"+obj[i].detail+"</td>\n" +
                         "                        </tr>"
                 }
-                document.getElementById("userin").innerHTML=listHtml+"</table>"+"</div>"+"</div>";
+                document.getElementById("ineer").innerHTML=listHtml+"</table>"+"</div>"+"</div>";
             }
         }
     }
@@ -420,9 +420,88 @@
                         "                            <td>" + obj[i].description + "</td>\n" +
                         "                        </tr>"
                 }
-                document.getElementById("userin").innerHTML = listHtml + "</table>" + "</div>" + "</div>";
+                document.getElementById("ineer").innerHTML = listHtml + "</table>" + "</div>" + "</div>";
             }
         }
+    }
+
+    function ShowDriverInfo(){
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("get", "/task/ShowDriverInfo", true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback(){
+            if (xmlhttp.status == 200) {
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                var listHtml = "<div class=\"widget-box\">\n" +
+                    "                <div class=\"widget-title\">\n" +
+                    "                    <span class=\"icon\">\n" +
+                    "                        <i class=\"fa fa-th\"></i>\n" +
+                    "                    </span>\n" +
+                    "                    <h5>司机信息</h5>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"widget-content nopadding\">\n" +
+                    "                    <table class=\"table table-bordered table-striped table-hover data-table\">\n" +
+                    "                        <thead>\n" +
+                    "                        <tr>\n" +
+                    "                            <th>司机ID</th>\n" +
+                    "                            <th>司机电话</th>\n"+
+                    "                            <th>司机个人描述</th>\n" +
+                    "                        </tr>\n" +
+                    "                        </thead>";
+                for (var i in obj) {
+                    listHtml += "<tr class=\"gradeX\">\n" +
+                        "                            <td>" + obj[i].driverId + "</td>\n" +
+                        "                            <td>" + obj[i].phone + "</td>\n" +
+                        "                            <td>" + obj[i].description + "</td>\n" +
+                        "                        </tr>"
+                }
+                document.getElementById("ineer").innerHTML = listHtml + "</table>" + "</div>" + "</div>";
+            }
+        }
+    }
+
+    function HorderInfo(){
+        var listHtml = "<div class=\"widget-box\">"+"<div class=\"widget-title\">\n" +
+            "<span class=\"icon\">\n" +
+            "<i class=\"fa fa-align-justify\"></i>\n" +
+            "</span>\n" +
+            "                        <h5>预约窗口</h5>\n" +
+            "                        <span class=\"label label-danger\">notices</span>\n" +
+            "                    </div>"+
+            "<div class=\"widget-content nopadding\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"post\" action=\"#\" name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\">\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">酒店ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Hrequired\" id=\"Hrequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">用户ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"Urequired\" id=\"Urequired\">\n" +
+            "                                </div>\n" +
+            "                            </div>"+
+            "<div class=\"form-actions\">\n" +
+            "                                <input type=\"submit\" value=\"Validate\" class=\"btn btn-primary\" onclick='orderHotel()'>\n" +
+            "                            </div>\n" +
+            "                        </form>"+
+            "</div>"+
+            "</div>";
+        document.getElementById("ineer").innerHTML=listHtml;
+    }
+
+    function orderHotel(){
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("get", "/task/orderHotel?userId="+Urequired+"&hotelId="+Hrequired, true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback(){
+            if (xmlhttp.status == 200){
+                alert("您的信息已经提交，同一酒店不需要再次预约啦 (๑•́ωก̀๑) ");
+            }
+        }
+
     }
 </script>
 <script>

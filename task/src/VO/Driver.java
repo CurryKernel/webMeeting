@@ -4,24 +4,17 @@ public class Driver {
     private String driverId;//司机账号
     private String password;//司机密码
     private String phone;//司机电话
-    int passengers;//最大载客数
-    int state;//司机状态，0表示空闲，1表示忙碌
+    private String description;//司机具体信息
 
-    public int getPassengers() {
-        return passengers;
+
+
+    public Driver(String driverId, String password, String phone, String description) {
+        this.driverId = driverId;
+        this.password = password;
+        this.phone = phone;
+        this.description = description;
     }
 
-    public void setPassengers(int passengers) {
-        this.passengers = passengers;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
 
     public String getDriverId() {
         return driverId;
@@ -47,12 +40,12 @@ public class Driver {
         this.phone = phone;
     }
 
-    public Driver(String driverId, String password, String phone, int passengers, int state) {
-        this.driverId = driverId;
-        this.password = password;
-        this.phone = phone;
-        this.passengers = passengers;
-        this.state = state;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -60,9 +53,8 @@ public class Driver {
         return "Driver{" +
                 "driverId='" + driverId + '\'' +
                 ", password='" + password + '\'' +
-                ",phone='" + phone + '\'' +
-                ",passengers='" + passengers + '\'' +
-                ",state='" + state + '\'' +
+                ", phone='" + phone + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

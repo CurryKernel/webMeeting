@@ -31,9 +31,8 @@ public class DriverImpl implements DriverRespository {
                 String id = rs.getString(1);
                 String password = rs.getString(2);
                 String phone = rs.getString(3);
-                int passenger = rs.getInt(4);
-                int state = rs.getInt(5);
-                driver = new Driver(id,password,phone,passenger,state);
+                String description = rs.getString(4);
+                driver = new Driver(id,password,phone,description);
                 list.add(driver);
             }
         } catch (SQLException e) {
@@ -43,6 +42,11 @@ public class DriverImpl implements DriverRespository {
         }
         return list;
     }
+
+//    @Override
+//    public void insert(String id, String password, String phone, String description) {
+//
+//    }
 
     @Override
     public List<Driver> findAll(int pageId, int pageSize) {
@@ -61,9 +65,8 @@ public class DriverImpl implements DriverRespository {
                 String id = rs.getString(1);
                 String password = rs.getString(2);
                 String phone = rs.getString(3);
-                int passenger = rs.getInt(4);
-                int state = rs.getInt(5);
-                driver = new Driver(id,password,phone,passenger,state);
+                String description = rs.getString(4);
+                driver = new Driver(id,password,phone,description);
                 list.add(driver);
             }
         } catch (SQLException e) {
@@ -75,16 +78,15 @@ public class DriverImpl implements DriverRespository {
     }
 
     @Override
-    public void insert(String id, String password, String phone,int passenger,int state) {
-        String sql="insert into driver values (?,?,?,?,?)";
+    public void insert(String id, String password, String phone,String description) {
+        String sql="insert into driver values (?,?,?,?)";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setString(1,id);
             pre.setString(2,password);
             pre.setString(3,phone);
-            pre.setInt(4,passenger);
-            pre.setInt(5,state);
+            pre.setString(4,description);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,18 +111,21 @@ public class DriverImpl implements DriverRespository {
         }
     }
 
+//    @Override
+//    public void update(String id, String id1, String password, String phone, String description) {
+//
+//    }
+
     @Override
-    public void update(String id, String id1, String password, String phone,int passenger,int state) {
-        String sql="update driver set driverId = ?,password = ?,phone = ?,passengers = ?,state = ? where driverId = ?";
+    public void update(String id, String id1, String password, String phone,String description) {
+        String sql="update driver set driverId = ?,password = ?,phone = ?,description = ? where driverId = ?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setString(1,id1);
             pre.setString(2,password);
             pre.setString(3,phone);
-            pre.setInt(4,passenger);
-            pre.setInt(5,state);
-            pre.setString(6,id);
+            pre.setString(4,description);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,8 +165,9 @@ public class DriverImpl implements DriverRespository {
             rs = pre.executeQuery();
             while(rs.next()){
                 String password1 = rs.getString(2);
-                if(password.equals(password1))
+                if(password.equals(password1)) {
                     flag = true;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
