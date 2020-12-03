@@ -19,13 +19,13 @@ public class MeetingInfoController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //解决中文乱码
         req.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/json");
         MeetingInfoService  meetingInfoService =new MeetingInfoService();
         List<Meeting> meetingInfoList =meetingInfoService.findAll();
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonStr = mapper.writeValueAsString(meetingInfoList);
         resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/json");
         PrintWriter out = resp.getWriter();
         out.write(jsonStr);
         System.out.println(jsonStr);

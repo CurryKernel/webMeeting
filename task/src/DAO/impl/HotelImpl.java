@@ -31,7 +31,7 @@ public class HotelImpl implements HotelRespository {
             while(rs.next()){
                 String id = rs.getString(1);
                 String password = rs.getString(2);
-                hotel = new Hotel(id,password);
+                hotel = new Hotel(id,password, description);
                 list.add(hotel);
             }
         } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class HotelImpl implements HotelRespository {
             while(rs.next()){
                 String id = rs.getString(1);
                 String password = rs.getString(2);
-                hotel = new Hotel(id,password);
+                hotel = new Hotel(id,password, description);
                 list.add(hotel);
             }
         } catch (SQLException e) {

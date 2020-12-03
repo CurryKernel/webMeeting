@@ -115,17 +115,17 @@
             <%--            onclick="showUser()"--%>
             <li class="active "><a href="user.jsp"><i class="fa fa-home" ></i> <span>个人信息</span></a></li>
             <li class="submenu">
-                <a href="#"><i class="fa fa-flask"></i> <span>会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
+                <a href="#"><i class="fa fa-flask"></i> <span >会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
                     <li><a href="">我的会议</a></li>
                     <li><a href="#">加入会议</a></li>
-                    <li><a href="#">会议大厅</a></li>
+                    <li><a href="#"><span onclick="ShowMeetingInfo()">会议大厅</span></a></li>
                 </ul>
             </li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-th-list"></i> <span>酒店预约</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="#">酒店信息</a></li>
+                    <li><a href="#"><span onclick="ShowHotelInfo()">酒店信息</span></a></li>
                     <li><a href="#">预约</a></li>
                 </ul>
             </li>
@@ -356,11 +356,71 @@
         xmlhttp.onreadystatechange = function callback(){
             if (xmlhttp.status==200){
                 var date = xmlhttp.responseText;
-                var obj = JSON.parse(date);
-                var listHtml = " ";
+                //var obj = JSON.parse(date);
+                var obj =eval("("+date+")");
+                var listHtml = "<div class=\"widget-box\">\n" +
+                    "                <div class=\"widget-title\">\n" +
+                    "                    <span class=\"icon\">\n" +
+                    "                        <i class=\"fa fa-th\"></i>\n" +
+                    "                    </span>\n" +
+                    "                    <h5>会议信息</h5>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"widget-content nopadding\">\n" +
+                    "                    <table class=\"table table-bordered table-striped table-hover data-table\">\n" +
+                    "                        <thead>\n" +
+                    "                        <tr>\n" +
+                    "                            <th>会议ID</th>\n" +
+                    "                            <th>会议地点</th>\n" +
+                    "                            <th>会议人数</th>\n" +
+                    "                            <th>会议时间</th>\n" +
+                    "                            <th>会议细节</th>\n" +
+                    "                        </tr>\n" +
+                    "                        </thead>";
                 for(var i in obj){
-                    listHtml+=""
+                    listHtml+="<tr class=\"gradeX\">\n" +
+                        "                            <td>"+obj[i].meetingId+"</td>\n" +
+                        "                            <td>"+obj[i].place+"</td>\n" +
+                        "                            <td>"+obj[i].pepleCount+"</td>\n" +
+                        "                            <td>"+obj[i].time+"</td>\n"+
+                        "                            <td class=\"center\">"+obj[i].detail+"</td>\n" +
+                        "                        </tr>"
                 }
+                document.getElementById("userin").innerHTML=listHtml+"</table>"+"</div>"+"</div>";
+            }
+        }
+    }
+
+    function ShowHotelInfo() {
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("get", "/task/ShowHotelInfo", true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback() {
+            if (xmlhttp.status == 200) {
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                //var obj =eval("("+date+")");
+                var listHtml = "<div class=\"widget-box\">\n" +
+                    "                <div class=\"widget-title\">\n" +
+                    "                    <span class=\"icon\">\n" +
+                    "                        <i class=\"fa fa-th\"></i>\n" +
+                    "                    </span>\n" +
+                    "                    <h5>酒店信息</h5>\n" +
+                    "                </div>\n" +
+                    "                <div class=\"widget-content nopadding\">\n" +
+                    "                    <table class=\"table table-bordered table-striped table-hover data-table\">\n" +
+                    "                        <thead>\n" +
+                    "                        <tr>\n" +
+                    "                            <th>酒店ID</th>\n" +
+                    "                            <th>酒店描述</th>\n" +
+                    "                        </tr>\n" +
+                    "                        </thead>";
+                for (var i in obj) {
+                    listHtml += "<tr class=\"gradeX\">\n" +
+                        "                            <td>" + obj[i].hotelId + "</td>\n" +
+                        "                            <td>" + obj[i].description + "</td>\n" +
+                        "                        </tr>"
+                }
+                document.getElementById("userin").innerHTML = listHtml + "</table>" + "</div>" + "</div>";
             }
         }
     }

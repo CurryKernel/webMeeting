@@ -175,7 +175,7 @@
 								<span class="icon">
 									<i class="fa fa-th"></i>
 								</span>
-                    <h5>信息名字</h5>
+                    <h5>会议信息</h5>
 
                 </div>
                 <div class="widget-content nopadding">
@@ -234,19 +234,20 @@
             <!-- 以下模板具有切换页数目的效果 -->
             <div class="widget-box">
                 <div class="widget-title">
-								<span class="icon">
-									<i class="fa fa-th"></i>
-								</span>
-                    <h5>表的名字</h5>
+                    <span class="icon">
+                        <i class="fa fa-th"></i>
+                    </span>
+                    <h5>会议信息</h5>
                 </div>
                 <div class="widget-content nopadding">
                     <table class="table table-bordered table-striped table-hover data-table">
                         <thead>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
+                            <th>会议ID</th>
+                            <th>会议地点</th>
+                            <th>会议人数</th>
+                            <th>会议时间</th>
+                            <th>会议细节</th>
                         </tr>
                         </thead>
                         <tbody>
