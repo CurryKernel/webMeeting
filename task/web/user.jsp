@@ -542,6 +542,7 @@
         console.log(userId);
         xmlhttp.open("get","/task/MyOderHotelInfo?userId="+userId,true);
         xmlhttp.send();
+        //
         xmlhttp.onreadystatechange = function callback() {
             if (xmlhttp.status==200) {
                 var date = xmlhttp.responseText;
