@@ -30,7 +30,7 @@ public class UserController extends HttpServlet{
         //resp.setContentType("text/json");
         UserService userService= new UserService();
         int userId =Integer.parseInt(req.getParameter("userId"));
-        List<User> userList = userService.findByUserId(userId);
+        List<User> userList = userService.findByUserId(String.valueOf(userId));
 //        System.out.println(userId);
 //        System.out.println(userList);
 //        req.setAttribute("userList",userList);
