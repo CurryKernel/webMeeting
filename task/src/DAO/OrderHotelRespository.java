@@ -22,11 +22,14 @@ public interface OrderHotelRespository {
 
     //增
     public void insert(String userId, int people, int state,String hotelId);
+    //增
+    public void insertorder(OrderHotel orderHotel);
 
 
 
-    //根据用户 id 删
-    public void deleteByUserId(String userId);
+    //根据用户 id和酒店id删
+    public void deleteByUserId_Hotelid(String userId,String hotelid);
+
 
     //改,根据用户 id 改
     public void update(String userId, String userId1, int people, int state,String hotel);

@@ -1,4 +1,14 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%--
+  Created by IntelliJ IDEA.
+  User: 李婉芸
+  Date: 2020/12/8
+  Time: 23:53
+  To change this template use File | Settings | File Templates.
+--%>
+
+<%@ page import="VO.OrderHotel" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,12 +22,10 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="format-detection" content="telephone=no">
 
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
-		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="layout.css" media="all" />
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/layout.css" media="all" />
+		<link rel="stylesheet" href="css/layui.css" media="all" />
 		<link rel="stylesheet" href="css/global.css" media="all">
-		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 		<link rel="stylesheet" href="css/table.css" />
 
 
@@ -30,10 +38,13 @@
 				xmlHttp.send();
 			}
 
+			$("").click(function(){
+				操作
+			})
+
 			function findhotelorder(category,hotelid){
 				var xmlHttp = new XMLHttpRequest();
-				xmlHttp.open("GET","http://localhost:8080/MeetingWeb/OrderHotel?hotelId="+hotelid,true);
-				//"category="+category
+				xmlHttp.open("GET","http://localhost:8080/MeetingWeb/OrderHotel?hotelId="+hotelid+"category="+category,true);
 				xmlHttp.onreadystatechange = function(){
 					if (xmlHttp.readyState == 4) {
 						var data = xmlHttp.responseText;
@@ -46,8 +57,6 @@
 							var userid=obj[i].userId;
 							var people=obj[i].people;
 							var state=obj[i].state;
-							//alert(userid,people,state);
-							//xmlHttp.open("GET","hoteltable.jsp?userid="+userid+"people="+people+"state="+state,true);
 							list += `<tr>` +
 									'<td><input type="checkbox"></td>' +
 									'<td>'+now+'</td>' +
@@ -76,7 +85,7 @@
 		</script>
 	</head>
 
-	<body onload="initAJAX(),findhotelorder()">
+	<body>
 		<div class="layui-layout layui-layout-admin beg-layout-container">
 			<div class="layui-header beg-layout-header">
 				<div class="beg-layout-main beg-layout-logo">
@@ -141,7 +150,7 @@
 					<ul class="layui-nav beg-layout-nav" lay-filter="user">
 						<li class="layui-nav-item">
 							<a href="javascript:;" class="beg-layou-head">
-								<img src="images/0.jpg" />
+								<img src="img/icons/32/client.png" />
 								<span>beginner</span>
 							</a>
 							<dl class="layui-nav-child">
@@ -168,39 +177,45 @@
 					</ul>
 				</div>
 			</div>
+
+
 			<!--侧边导航栏-->
 			<div class="layui-side beg-layout-side" id="side" lay-filter="side">
 				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-					<legend>垂直导航菜单</legend>
+					<legend>酒店查询</legend>
 				</fieldset>
+				<%
+					String hotel=(String) request.getAttribute("hotelid");
+				%>
 
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item layui-nav-itemed">
-						<a href="javascript:;">全部订单</a>
+						<a href="javascript:;">房型订单</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="">选项1</a>
+								<a href="/MeetingWeb/OrderHotel?action=orderbyPeople_Hotel&minpeople=3&maxpeople=5&hotelid=1">套房(3<=人数<=5)</a>
 							</dd>
 							<dd>
-								<a href="">选项2</a>
+								<a href="/MeetingWeb/OrderHotel?action=orderbyPeople_Hotel&minpeople=1&maxpeople=2&hotelid=1">标间/大床房(<=2)</a>
 							</dd>
 						</dl>
 					</li>
 
 					<li class="layui-nav-item">
-						<a href="javascript:findhotelorder(1,1)">全部订单</a>
+						<a href="/MeetingWeb/OrderHotel?action=totalorder&hotelid=1">全部订单</a>
 					</li>
+
 					<li class="layui-nav-item">
 						<a href="javascript:;">审核状态</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="">未审核订单</a>
+								<a href="/MeetingWeb/OrderHotel?action=orderbyState_Hotel&state=0&hotelid=1">未审核订单</a>
 							</dd>
 							<dd>
-								<a href="">审核通过订单</a>
+								<a href="/MeetingWeb/OrderHotel?action=orderbyState_Hotel&state=1&hotelid=1">审核通过订单</a>
 							</dd>
 							<dd>
-								<a href="">审核未通过订单</a>
+								<a href="/MeetingWeb/OrderHotel?action=orderbyState_Hotel&state=2&hotelid=1">审核未通过订单</a>
 							</dd>
 						</dl>
 					</li>
@@ -212,6 +227,7 @@
 					</li>
 				</ul>
 			</div>
+
 			<!--内容区域-->
 			<div class="layui-body beg-layout-body">
 				<div class="layui-tab layui-tab-brief layout-nav-card" lay-filter="layout-tab" style="border: 0; margin: 0;box-shadow: none; height: 100%;">
@@ -230,7 +246,7 @@
 							<div class="admin-main">
 
 								<blockquote class="layui-elem-quote">
-									<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+									<a href="/MeetingWeb/addhotelorder.jsp" class="layui-btn layui-btn-small" id="add">
 										<i class="layui-icon">&#xe608;</i> 增加订单
 									</a>
 									<a href="#" class="layui-btn layui-btn-small" id="import">
@@ -260,18 +276,20 @@
 												<th> &nbsp&nbsp操作</th>
 											</tr>
 											</thead>
+
 											<tbody id="tablebody">
-											<div >
+											<div>
+												<c:set value="1" var="num" />
+												<c:set value="Beginner" var="name"/>
+												<c:forEach items="${requestScope.orderHotels}" var="OrderHotel">
 											<tr>
 												<td><input type="checkbox"></td>
-												<td>1</td>
-												<td>
-													<a href="/manage/article_edit_1">123</a>
-												</td>
+												<td>${num}</td>
+												<td><a href="#">${OrderHotel.userId}</a></td>
 												<td>Beginner</td>
 												<td>13446789230</td>
-												<td>2</td>
-												<td>正常</td>
+												<td>${OrderHotel.people}</td>
+												<td>${OrderHotel.state}</td>
 												<td style="text-align:center;"><i class="layui-icon" style="color:green;"></i></td>
 												<td width="50px">
 													<a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
@@ -279,6 +297,9 @@
 													<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
 												</td>
 											</tr>
+													<c:set value="${num+1}" var="num"/>
+													<c:set value="Beginner+${num+1}" var="name"/>
+												</c:forEach>
 											</div>
 											</tbody>
 
@@ -329,7 +350,8 @@
 				</li>
 			</ul>
 		</div>
-		<script src="plugins/layui/layui.js "></script>
+
+		<script src="js/layui.js "></script>
 		<script src="js/layout.js "></script>
 		<!--<script>
             //这是js的枚举，哈哈。
@@ -415,7 +437,9 @@
 				});
 			});
 		</script>-->
+
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+
 		<script>
 			layui.use('element', function() {
 				var element = layui.element(); //导航的hover效果、二级菜单等功能，需要依赖element模块

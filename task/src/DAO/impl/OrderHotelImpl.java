@@ -126,7 +126,7 @@ public class OrderHotelImpl implements OrderHotelRespository {
     }
 
     @Override
-    public void insert(String userId, int people, int state,String hotelId) {
+    public void insert(String userId, int people, int state, String hotelId) {
         String sql="insert into orderHotel values (?,?,?,?)";
         try {
             conn = JDBCUtils.getConnect();
@@ -144,13 +144,33 @@ public class OrderHotelImpl implements OrderHotelRespository {
     }
 
     @Override
-    //这个未更新为酒店的
-    public void deleteByUserId(String userId) {
-        String sql = "delete from orderHotel where userId = ?";
+    public void insertorder(OrderHotel orderHotel){
+        String sql="insert into orderHotel values (?,?,?,?)";
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,orderHotel.getUserId());
+            pre.setInt(2,orderHotel.getPeople());
+            pre.setInt(3,orderHotel.getState());
+            pre.setString(4,orderHotel.getHotelId());
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();
+        }
+
+    }
+
+
+    @Override
+    public void deleteByUserId_Hotelid(String userId,String hotelid) {
+        String sql = "delete from orderHotel where userId = ? and hotelid=?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setString(1,userId);
+            pre.setString(2,hotelid);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

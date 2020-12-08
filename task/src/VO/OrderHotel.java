@@ -8,6 +8,10 @@ public class OrderHotel {
     private Integer state;//预定状态，0表示未审核，1表示未通过，2,表示已通过
     private String hotelId;//酒店ID
 
+    public OrderHotel() {
+
+    }
+
     public String getUserId() {
         return userId;
     }

@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Table</title>
-		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/layui.css" media="all" />
 		<link rel="stylesheet" href="css/global.css" media="all">
 		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 		<link rel="stylesheet" href="css/table.css" />
@@ -427,7 +427,7 @@
 			</div>
 		</div>
 
-		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="js/layui.js"></script>
 		<script>
 			layui.config({
 				base: 'plugins/layui/modules/'
