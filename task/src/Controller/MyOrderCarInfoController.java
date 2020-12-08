@@ -20,6 +20,7 @@ public class MyOrderCarInfoController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
+        resp.setContentType("text/html;charset=UTF-8");
         MyOrderCarInfoService myOrderCarInfoService = new MyOrderCarInfoService();
         String userId = req.getParameter("userId");
         List<OrderCar> myOrderCarInfoList = myOrderCarInfoService.findByUserId(userId);

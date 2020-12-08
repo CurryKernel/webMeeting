@@ -20,6 +20,7 @@ public class MyOrderHotelInfoController  extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
+        resp.setContentType("text/html;charset=UTF-8");
         MyOrderHotelInfoService myOrderHotelInfoService = new MyOrderHotelInfoService();
         String userId = req.getParameter("userId");
         List<OrderHotel> myOrderHotelInfoList = myOrderHotelInfoService.findByUserId(userId);

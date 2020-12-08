@@ -17,6 +17,7 @@ public class User_OrderCarController  extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
+        resp.setContentType("text/html;charset=UTF-8");
         String userId = req.getParameter("Urequired");
         int people = Integer.parseInt(req.getParameter("Pcount"));
         String driverId = req.getParameter("Drequired");

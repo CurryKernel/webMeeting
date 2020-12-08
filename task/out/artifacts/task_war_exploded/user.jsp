@@ -17,7 +17,12 @@
     <link rel="stylesheet" href="css/fullcalendar.css" />
     <link rel="stylesheet" href="css/jquery.jscrollpane.css" />
     <link rel="stylesheet" href="css/unicorn.css" />
-
+    <style>
+        td {
+            text-align:center; /*设置水平居中bai*/
+            vertical-align:middle;/*设置垂直du居中*/
+        }
+    </style>
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -30,19 +35,6 @@
     </script>
 </head>
 <body onload="initAJAX();" data-color="grey" class="flat" >
-
-<%--<script src="js/excanvas.min.js"></script>--%>
-<%--<script src="js/jquery.min.js"></script>--%>
-<%--<script src="js/jquery-ui.custom.js"></script>--%>
-<%--<script src="js/bootstrap.min.js"></script>--%>
-<%--<script src="js/jquery.flot.min.js"></script>--%>
-<%--<script src="js/jquery.flot.resize.min.js"></script>--%>
-<%--<script src="js/jquery.sparkline.min.js"></script>--%>
-<%--<script src="js/fullcalendar.min.js"></script>--%>
-<%--<script src="js/commons.js"></script>--%>
-<%--<script src="js/jquery.nicescroll.min.js"></script>--%>
-<%--<script src="js/unicorn.js"></script>--%>
-<%--<script src="js/unicorn.dashboard.js"></script>--%>
 
 <!-- 主体 -->
 <div id="wrapper">
@@ -147,8 +139,8 @@
             <li class="submenu">
                 <a href="#"><i class="fa fa-file"></i> <span>日期事务管理</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="#" ><span>日历</span>日历</a></li>
-                    <li><a href="#" ><span>事务个性化</span></a></li>
+                    <li><a href="#" ><span onclick="Calendar()">日历</span></a></li>
+                    <li><a href="#" ><span onclick="Things()">事务个性化</span></a></li>
                 </ul>
             </li>
         </ul>
@@ -160,7 +152,7 @@
     <!-- 个人信息侧边栏信息 -->
     <div id="content">
         <div id="content-header" class="mini">
-            <h1>个人展示....</h1>
+            <h1>欢迎访问(｡･ω･｡)ﾉ♡</h1>
             <ul class="mini-stats box-3">
                 <li>
                     <div class="left sparkline_bar_good"><span>2,4,9,7,12,10,12</span></div>
@@ -198,39 +190,39 @@
                 <div class="col-xs-12 center" style="text-align: center;">
                     <ul class="quick-actions">
                         <li>
-                            <a href="#">
-                                <i class="icon-cal"></i>
-                                Manage Events
+                            <a href="https://www.aliyun.com/" target="_blank">
+                                <i class="icon-cabinet"></i>
+                                阿里云
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://www.jd.com/" target="_blank">
                                 <i class="icon-shopping-bag"></i>
-                                Manage Orders
+                                购物
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="http://www.dangdang.com/" target="_blank">
+                                <i class="icon-book"></i>
+                                当当书城
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.csdn.net/"target="_blank">
                                 <i class="icon-database"></i>
-                                Manage DB
+                                CSDN
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="icon-people"></i>
-                                Manage Users
+                            <a href="https://mail.qq.com/" target="_blank">
+                                <i class="icon-mail"></i>
+                                QQ邮箱
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="icon-lock"></i>
-                                Security
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
+                            <a href="www.baidu.com" target="_blank">
                                 <i class="icon-piechart"></i>
-                                Statistics
+                                百度
                             </a>
                         </li>
                     </ul>
@@ -366,7 +358,7 @@
                     listHtml+="<tr class=\"gradeX\">\n" +
                         "                            <td>"+obj[i].meetingId+"</td>\n" +
                         "                            <td>"+obj[i].place+"</td>\n" +
-                        "                            <td>"+obj[i].pepleCount+"</td>\n" +
+                        "                            <td>"+obj[i].peopleCount+"</td>\n" +
                         "                            <td>"+obj[i].time+"</td>\n"+
                         "                            <td class=\"center\">"+obj[i].detail+"</td>\n" +
                         "                        </tr>"
@@ -479,7 +471,7 @@
                 for (var i in obj) {
                     listHtml += "<tr class=\"gradeX\">\n" +
                         "                            <td>" + obj[i].meetingId + "</td>\n" +
-                        "                            <td>" + obj[i].place + "</td>\n" +
+                        "                            <td>" + (obj[i].place).toString() + "</td>\n" +
                         "                            <td>" + obj[i].peopleCount + "</td>\n" +
                         "                            <td>" + obj[i].time + "</td>\n" +
                         "                            <td>" + obj[i].detail + "</td>\n" +
@@ -504,7 +496,11 @@
             if (xmlhttp.status==200) {
                 var date = xmlhttp.responseText;
                 var obj = JSON.parse(date);
-                var listHtml = "<div class=\"widget-box\">\n" +
+                var listHtml = "<div class=\"alert alert-info\">\n" +
+                    "                    受理状态中0代表未受理,1代表已经受理,2代表拒绝接单\n" +
+                    "                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>\n" +
+                    "                </div>"+
+                    "<div class=\"widget-box\">\n" +
                     "                <div class=\"widget-title\">\n" +
                     "                    <span class=\"icon\">\n" +
                     "                        <i class=\"fa fa-th\"></i>\n" +
@@ -519,14 +515,14 @@
                     "                            <th>接车地点</th>\n"+
                     "                            <th>接车时间</th>\n" +
                     "                            <th>乘客人数</th>\n" +
-                    "                            <th><strong>受理状态</Strong><small>0代表未受理,1代表已经受理,2代表拒绝接单</small></th>\n" +
+                    "                            <th>受理状态</th>\n" +
                     "                        </tr>\n" +
                     "                        </thead>";
                 for (var i in obj) {
                     listHtml += "<tr class=\"gradeX\">\n" +
                         "                            <td>" + obj[i].driverId + "</td>\n" +
                         "                            <td>" + obj[i].place + "</td>\n" +
-                        "                            <td>" + obj[i].time + "</td>\n" +
+                        "                            <td>" + obj[i].deadline + "</td>\n" +
                         "                            <td>" + obj[i].people + "</td>\n" +
                         "                            <td>" + obj[i].state + "</td>\n" +
                         "                        </tr>"
@@ -550,7 +546,11 @@
             if (xmlhttp.status==200) {
                 var date = xmlhttp.responseText;
                 var obj = JSON.parse(date);
-                var listHtml = "<div class=\"widget-box\">\n" +
+                var listHtml ="<div class=\"alert alert-info\">\n" +
+                    "                     受理状态中0代表未受理,1代表已经受理,2代表拒绝接单\n" +
+                    "                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>\n" +
+                    "                </div>"+
+                    "<div class=\"widget-box\">\n" +
                     "                <div class=\"widget-title\">\n" +
                     "                    <span class=\"icon\">\n" +
                     "                        <i class=\"fa fa-th\"></i>\n" +
@@ -562,7 +562,7 @@
                     "                        <thead>\n" +
                     "                        <tr>\n" +
                     "                            <th>酒店ID</th>\n" +
-                    "                            <th><strong>受理状态</Strong><small>0代表未受理,1代表已经受理,2代表拒绝接单</small></th>\n" +
+                    "                            <th>受理状态</th>\n" +
                     "                        </tr>\n" +
                     "                        </thead>";
                 for (var i in obj) {
@@ -608,7 +608,7 @@
             "                                </div>\n" +
             "                            </div>"+
             "<div class=\"form-actions\">\n" +
-            "                                <input type=\"submit\" value=\"Validate\" class=\"btn btn-primary\"  >\n" +
+            "                                <input type=\"submit\" value=\"提交\" class=\"btn btn-primary\" >\n" +
             "                            </div>\n" +
             "                        </form>"+
             "</div>"+
@@ -657,7 +657,7 @@
             "                                </div>\n" +
             "                            </div>"+
             "<div class=\"form-actions\">\n" +
-            "                                <input type=\"submit\" value=\"Validate\" class=\"btn btn-primary\"  >\n" +
+            "                                <input type=\"submit\" value=\"提交\" class=\"btn btn-primary\"  >\n" +
             "                            </div>\n" +
             "                        </form>"+
             "</div>"+
@@ -700,7 +700,7 @@
             "                                </div>\n" +
             "                            </div>"+
             "<div class=\"form-actions\">\n" +
-            "                                <input type=\"submit\" value=\"Validate\" class=\"btn btn-primary\"  >\n" +
+            "                                <input type=\"submit\" value=\"提交\" class=\"btn btn-primary\"  >\n" +
             "                            </div>\n" +
             "                        </form>"+
             "</div>"+
