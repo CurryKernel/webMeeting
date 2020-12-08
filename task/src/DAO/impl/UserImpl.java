@@ -169,7 +169,7 @@ public class UserImpl implements UserRespository {
         return rowCount;
     }
     @Override
-    public List<User> findByUserId(int userId) {
+    public List<User> findByUserId(String userId) {
         List<User> list = new ArrayList<>();
         String sql = "select * from user where userId = ?";
 

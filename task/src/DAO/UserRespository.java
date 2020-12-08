@@ -15,7 +15,7 @@ public interface UserRespository {
 /*
 * 2020/11/26  findByUserId(int userId)功能完成
 * */
-    public List<User> findByUserId(int userId);
+    public List<User> findByUserId(String userId);
 
     //查该用户参加的会议，返回的是 会议号 集合，需要通过会议号去找相应的会议
     public List<String> getJoinMeetings(String userId);
