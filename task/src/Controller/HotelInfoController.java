@@ -26,6 +26,7 @@ public class HotelInfoController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
+        resp.setContentType("text/html;charset=UTF-8");
         HotelInfoService hotelInfoService = new HotelInfoService();
         List<Hotel>  hotelInfoList =hotelInfoService.findAll();
         ObjectMapper mapper = new ObjectMapper();

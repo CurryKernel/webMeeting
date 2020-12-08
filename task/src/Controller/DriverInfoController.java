@@ -27,6 +27,7 @@ public class DriverInfoController extends HttpServlet {
         String jsonStr = mapper.writeValueAsString(driverInfoList);
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/json");
+        resp.setContentType("text/html;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         out.write(jsonStr);
         System.out.println(jsonStr);

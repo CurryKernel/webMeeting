@@ -9,7 +9,10 @@ import java.util.List;
 public class UserService {
 //    功能一 返回用户的个人信息。
     private UserRespository user= new UserImpl();
-    public List<User> findByUserId(int userId){
+    public List<User> findByUserId(String userId){
         return user.findByUserId(userId);
+    }
+    public List<User> findAll(){
+        return user.findAll();
     }
 }
