@@ -665,6 +665,7 @@
             "</div>";
         document.getElementById("ineer").innerHTML=listHtml;
     }
+//
 
     function MjoinInfo(){
         var listHtml = "<div class=\"widget-box\">"+"<div class=\"widget-title\">\n" +
