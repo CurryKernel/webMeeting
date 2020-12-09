@@ -2,8 +2,19 @@
   <library name="commons-beanutils-1.8.0">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/task/lib/commons-beanutils-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/aopalliance-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/javax.annotation.jar!/" />
+      <root url="file://$PROJECT_DIR$/task/lib" />
+      <root url="jar://$PROJECT_DIR$/task/lib/javax.ejb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/javax.jms.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/javax.persistence.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/javax.resource.jar!/" />
+      <root url="jar://$PROJECT_DIR$/task/lib/javax.servlet.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/task/lib" recursive="false" />
   </library>
 </component>
