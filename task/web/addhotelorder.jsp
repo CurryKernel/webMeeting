@@ -19,7 +19,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="css/layui.css" media="all" />
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 </head>
 
@@ -36,16 +36,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label">用户ID</label>
             <div class="layui-input-block">
-                <input type="text" name="userid" lay-verify="title" autocomplete="off" placeholder="请输入用户的ID" class="layui-input" >
+                <input type="text" name="userId" lay-verify="title" autocomplete="off" placeholder="请输入用户的ID" class="layui-input" >
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">酒店ID</label>
-            <div class="layui-input-block">
-                <input type="text" name="hotelid" lay-verify="title" autocomplete="off" placeholder="请输入用户的ID" class="layui-input" >
-            </div>
-        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">住房人数</label>
@@ -70,6 +64,13 @@
             </div>
         </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">酒店ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="hotelId" lay-verify="title" autocomplete="off" placeholder="请输入用户的ID" class="layui-input" >
+            </div>
+        </div>
+
 
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -82,37 +83,6 @@
 
 <script type="text/javascript" src="plugins/layui/layui.js"></script>
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function() {
-        var form = layui.form(),
-            layer = layui.layer,
-            layedit = layui.layedit,
-            laydate = layui.laydate;
-
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            userid: function(value) {
-                if(value.length < 5) {
-                    return 'ID至少得5个字符啊';
-                }
-            };
-
-            pass: [/(.+){6,12}$/, '密码必须6到12位'],
-            content: function(value) {
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听提交
-        form.on('submit(demo1)', function(data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
-    });
 
 </script>
 
