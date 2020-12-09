@@ -5,21 +5,21 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.util.Map;
 
 /**
- * @author ÀîÍñÜ¿
+ * @author æå©‰èŠ¸
  */
 
-//·â×°³ÉÎªBeanUtilsÏà¹Ø²Ù×÷
+//å°è£…æˆä¸ºBeanUtilsç›¸å…³æ“ä½œ
 
 public class WebUtils {
     /**
-     * °ÑMapÖĞµÄÖµ×¢Èëµ½¶ÔÓ¦µÄJavaBeanÊôĞÔÖĞ¡£
+     * æŠŠMapä¸­çš„å€¼æ³¨å…¥åˆ°å¯¹åº”çš„JavaBeanå±æ€§ä¸­ã€‚
      * @param value
      * @param bean
      */
     public static <T> T copyParamToBean(Map value , T bean ){
         try {
             /**
-             * °ÑËùÓĞÇëÇóµÄ²ÎÊı¶¼×¢Èëµ½user¶ÔÏóÖĞ
+             * æŠŠæ‰€æœ‰è¯·æ±‚çš„å‚æ•°éƒ½æ³¨å…¥åˆ°userå¯¹è±¡ä¸­
              */
             BeanUtils.populate(bean, value);
         } catch (Exception e) {
@@ -29,7 +29,7 @@ public class WebUtils {
     }
 
     /**
-     * ½«×Ö·û´®×ª»»³ÉÎªintÀàĞÍµÄÊı¾İ
+     * å°†å­—ç¬¦ä¸²è½¬æ¢æˆä¸ºintç±»å‹çš„æ•°æ®
      * @param strInt
      * @param defaultValue
      * @return
