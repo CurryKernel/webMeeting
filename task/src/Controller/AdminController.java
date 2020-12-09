@@ -1,6 +1,8 @@
 package Controller;
 
+import Service.AdminService;
 import Service.UserService;
+import VO.Admin;
 import VO.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,6 +31,16 @@ public class AdminController extends HttpServlet{
             req.setAttribute("UserId", UserId);
             req.getRequestDispatcher("/Admin/AdminChangeUser.jsp").forward(req, resp);
         }
+        else if("ChangeAdminPass".equals(para)){
+            //修改管理员密码
+            String CPassword = req.getParameter("inputPasswordCurrent");
+            String NPassword = req.getParameter("inputPasswordNew2");
+            String AdminId = req.getParameter("AdminId");
+            AdminService adminService = new AdminService();
+            out.print("旧密码="+CPassword);
+            out.print("新密码="+NPassword);
+            out.print("Id="+AdminId);
+        }
 
     }
 
@@ -55,7 +67,7 @@ public class AdminController extends HttpServlet{
 
     }
 
-    private void changeUser(){
+    private void ChangeAdminPass(){
 
     }
 

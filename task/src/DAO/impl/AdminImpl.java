@@ -158,4 +158,27 @@ public class AdminImpl implements AdminRespository {
         }
         return flag;
     }
+
+    @Override
+    public Admin findById(String id) {
+
+        String sql = "select * from admin where AdminId=?";
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,id);
+            rs = pre.executeQuery();
+            while(rs.next()){
+                String Id = rs.getString(1);
+                String password = rs.getString(2);
+                admin = new Admin(Id,password);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();//关闭数据库连接
+        }
+        return admin;
+    }
 }
