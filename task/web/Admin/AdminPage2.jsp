@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <link href="css/admin.css" rel="stylesheet">
+    <link href="../css/admin.css" rel="stylesheet">
 </head>
 <body>
 <main class="content">
@@ -51,7 +51,7 @@
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getUsername()%></td>
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getPhone()%></td>
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getEmail()%></td>
-                    <td class="d-none d-xl-table-cell" href="#">修改密码</td>
+                    <td class="d-none d-xl-table-cell" ><a href="javascript:ChangeUser(<%=userList.get(i).getUserId()%>)">修改密码</a></td>
                 </tr>
                 <%
                     }

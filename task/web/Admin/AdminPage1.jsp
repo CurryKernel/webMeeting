@@ -12,9 +12,9 @@
     <meta name="description" content="Responsive Web UI Kit &amp; Dashboard Template based on Bootstrap">
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, web ui kit, dashboard template, admin template">
-    <link rel="shortcut icon" href="img/icons/icon-48x48.png" />
-    <link href="css/admin.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
+    <link href="../css/admin.css" rel="stylesheet">
+    <link href="../css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
     <main class="content">
@@ -71,7 +71,7 @@
                             <td class="d-none d-xl-table-cell"><%=user.get(0).getUsername()%></td>
                             <td class="d-none d-xl-table-cell"><%=meetingInfoList.get(i).getTime()%></td>
                             <td class="d-none d-xl-table-cell"><%=meetingInfoList.get(i).getPlace()%></td>
-                            <td class="d-none d-xl-table-cell" href="#">编辑</td>
+                            <td class="d-none d-xl-table-cell" href="">编辑</td>
                         </tr>
                     <%
                         }
