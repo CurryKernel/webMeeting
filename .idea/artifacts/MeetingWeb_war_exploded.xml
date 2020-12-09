@@ -1,0 +1,28 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="MeetingWeb:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/MeetingWeb_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="MeetingWeb" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="D:/JAVAWEB/实验七  JSP+JavaBean+Servlet开发/jackson-databind-2.9.7.jar" />
+          <element id="file-copy" path="D:/JAVAWEB/实验七  JSP+JavaBean+Servlet开发/jackson-core-2.9.7.jar" />
+          <element id="file-copy" path="D:/JAVAWEB/实验七  JSP+JavaBean+Servlet开发/jackson-annotations-2.9.7.jar" />
+          <element id="file-copy" path="D:/JAVAWEB/mysql-connector-java-5.1.40-bin.jar" />
+          <element id="file-copy" path="D:/JAVAWEB/mysql-connector-java-8.0.20.jar" />
+          <element id="library" level="project" name="Spring-5.2.3.RELEASE" />
+          <element id="library" level="project" name="Spring MVC-5.2.3.RELEASE" />
+          <element id="library" level="project" name="taglibs-standard-spec-1.2.1" />
+          <element id="library" level="project" name="taglibs-standard-spec-1.2.1 (2)" />
+          <element id="library" level="project" name="taglibs-standard-impl-1.2.1" />
+          <element id="library" level="project" name="commons-logging-1.2" />
+          <element id="library" level="project" name="commons-beanutils-1.8.0" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="MeetingWeb/web/Web2" />
+      <element id="javaee-facet-resources" facet="MeetingWeb/web/Web" />
+    </root>
+  </artifact>
+</component>
