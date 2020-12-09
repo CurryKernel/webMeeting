@@ -85,5 +85,7 @@
     <orderEntry type="library" name="taglibs-standard-spec-1.2.1 (2)" level="project" />
     <orderEntry type="library" name="commons-beanutils-1.8.0" level="project" />
     <orderEntry type="library" name="commons-logging-1.2" level="project" />
+    <orderEntry type="library" name="commons-beanutils-1.8.0 (2)" level="project" />
+    <orderEntry type="library" name="aopalliance-1.0" level="project" />
   </component>
 </module>
