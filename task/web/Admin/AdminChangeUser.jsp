@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <link href="../css/admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 </head>
 <body>
 <main class="content">
@@ -26,7 +26,7 @@
                                 <h5 class="card-title mb-0">正在修改的账号为:<%=UserId%></h5>
                             </div>
                             <div class="card-body">
-                                <form name="ChangeUser" action="/AdminController?method=ChangeUser" method="post">
+                                <form name="ChangeUser" action="${pageContext.request.contextPath}/AdminController?method=ChangeUser" method="post">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="inputUserName">用户名</label>

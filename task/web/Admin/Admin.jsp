@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% session.setAttribute("AdminId","Admin001");%>
 <html lang="en">
 
 <head>
@@ -12,16 +11,14 @@
     <meta name="keywords" content="adminkit, bootstrap, web ui kit, dashboard template, admin template">
     <link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
     <title>管理员</title>
-    <link href="../css/admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 
-    <script src="../js/app.js"></script>
-    <script src="../js/jquery.min.js"></script>
-
+    <script src="${pageContext.request.contextPath}/js/app.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <!--ajax跳转页面-->
     <script language="JavaScript">
         function selectPages(i) {
             var xmlHttp = false;
-            console.log(<%=request.getParameter("AdminId")%>);
             if(window.XMLHttpRequest) {
                 xmlHttp = new XMLHttpRequest();
             }
@@ -44,7 +41,9 @@
                     }
                 }
             }
-            xmlHttp.open("GET", "AdminPage"+i+".jsp", true);
+
+            xmlHttp.open("GET", "${pageContext.request.contextPath}/AdminController?method=selectPages&i="+i+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
+            // xmlHttp.open("GET", "AdminPage"+i+".jsp", true);
             xmlHttp.send();
             //动态刷新主页面
         }
@@ -74,7 +73,7 @@
                     }
                 }
             }
-            xmlHttp.open("GET", '/MeetingWeb/AdminController?method=putId&UserId='+UserId, true);
+            xmlHttp.open("GET", '${pageContext.request.contextPath}/AdminController?method=putId&UserId='+UserId, true);
             xmlHttp.send();
             //动态刷新主页面
         }
@@ -107,7 +106,7 @@
 <div class="wrapper">
     <nav id="sidebar" class="sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="Admin/Admin.jsp">
+            <a class="sidebar-brand">
                 <span class="align-middle">管理员</span>
             </a>
 
@@ -149,7 +148,7 @@
                         </a>
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                            <span class="text-dark"><%=session.getAttribute("AdminId")%></span>
+                            <span class="text-dark" id="IdText"><%=request.getParameter("AdminId")%></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href='javascript:selectPages(1)'><i class="align-middle mr-1" data-feather="sliders"></i>会议管理</a>

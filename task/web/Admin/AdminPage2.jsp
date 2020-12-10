@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <link href="../css/admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 </head>
 <body>
 <main class="content">

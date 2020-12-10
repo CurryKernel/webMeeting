@@ -6,15 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Responsive Web UI Kit &amp; Dashboard Template based on Bootstrap">
-    <meta name="author" content="AdminKit">
-    <meta name="keywords" content="adminkit, bootstrap, web ui kit, dashboard template, admin template">
-    <link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
-    <link href="../css/admin.css" rel="stylesheet">
-    <link href="../css/font-awesome.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 </head>
 <body>
     <main class="content">

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <link href="../css/admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 </head>
 <body>
     <main class="content">
@@ -15,11 +15,13 @@
                             <div class="card-body">
                                 <h5 class="card-title">修改密码</h5>
 
-                                <form action="/AdminController?method=ChangeAdminPass" method="post">
+                                <%  String path = request.getContextPath();
+                                    String url = path+"/AdminController?method=ChangeAdminPass&AdminId="+request.getParameter("AdminId");%>
+                                <form action=<%=url%> method="post">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="inputPasswordCurrent">输入旧密码</label>
-                                            <input type="password" class="form-control" id="inputPasswordCurrent" name="">
+                                            <input type="password" class="form-control" id="inputPasswordCurrent" name="inputPasswordCurrent">
                                         </div>
                                     </div>
                                     <div class="form-row">
