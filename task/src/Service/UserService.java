@@ -15,4 +15,7 @@ public class UserService {
     public List<User> findAll(){
         return user.findAll();
     }
+    public void updatePasswordById(String id, String password){
+        user.updatePasswordById(id,password);
+    }
 }

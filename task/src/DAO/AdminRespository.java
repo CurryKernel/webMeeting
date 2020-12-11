@@ -14,7 +14,7 @@ public interface AdminRespository {
     //根据 id 删除
     public void deleteById(String id);
     //根据 id 修改，修改密码和账号为password，id1
-    public void update(String id, String id1, String password);
+    public void update(String id, String password);
     //查表的总记录数
     public int count();
     //查表是否存在

@@ -9,15 +9,15 @@
     <meta name="description" content="Responsive Web UI Kit &amp; Dashboard Template based on Bootstrap">
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, web ui kit, dashboard template, admin template">
-    <link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icons/icon-48x48.png" />
     <title>管理员</title>
     <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <!--ajax跳转页面-->
-    <script language="JavaScript">
-        function selectPages(i) {
+    <script type="text/javascript">
+        function setAjax() {
             var xmlHttp = false;
             if(window.XMLHttpRequest) {
                 xmlHttp = new XMLHttpRequest();
@@ -41,14 +41,17 @@
                     }
                 }
             }
-
-            xmlHttp.open("GET", "${pageContext.request.contextPath}/AdminController?method=selectPages&i="+i+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
+            return xmlHttp;
+        }
+        function selectPages(i) {
+            var xmlHttp=setAjax();
+            xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=selectPages&i="+i+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
             // xmlHttp.open("GET", "AdminPage"+i+".jsp", true);
             xmlHttp.send();
             //动态刷新主页面
         }
-    </script>
-    <script language="JavaScript">
+
+        <%--<a href="javascript:ChangeUser(<%=userList.get(i).getUserId()%>)">--%>
         function ChangeUser(UserId) {
             var xmlHttp = false;
             if(window.XMLHttpRequest) {
@@ -78,8 +81,10 @@
             //动态刷新主页面
         }
     </script>
-    <script language="JavaScript">
-        <!--判断两次密码是否相同-->
+
+    <script type="text/javascript">
+
+        //判断两次密码是否相同
         function check() {
             var pass1=document.getElementById("inputPasswordNew");
             var pass2=document.getElementById("inputPasswordNew2");
@@ -100,14 +105,38 @@
                 document.getElementById("explain2").innerText="密码为空";
             }
         }
+
+
+        // 提示信息
+        function sendMessage(){
+            var msg="<%=request.getAttribute("msg")%>";
+            if(msg !="null"){
+                alert(msg);
+            }
+        }
+
+
+        //重置用户密码
+        function resetUserPassword(UserId) {
+            var confirmMsg = "是否要重置账户为: " + UserId +" 的密码？"
+            var r = confirm(confirmMsg);
+            if(r==true){
+                var xmlHttp=setAjax();
+                xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=resetUserPassword&UserId="+UserId+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
+                // xmlHttp.open("GET", "AdminPage"+i+".jsp", true);
+                xmlHttp.send();
+                //动态刷新主页面
+            }
+        }
     </script>
 </head>
-<body onload="selectPages(1)">
+<body onload="selectPages(1);sendMessage()">
 <div class="wrapper">
     <nav id="sidebar" class="sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand">
                 <span class="align-middle">管理员</span>
+                <%=request.getParameter("AdminId")%>
             </a>
 
             <ul class="sidebar-nav">

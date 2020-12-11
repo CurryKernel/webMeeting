@@ -31,15 +31,6 @@ public class AdminController extends HttpServlet{
             request.setAttribute("UserId", UserId);
             request.getRequestDispatcher("/Admin/AdminChangeUser.jsp").forward(request, response);
         }
-        /**
-         * 跳转页面
-         * */
-        if("selectPages".equals(para)){
-            String AdminId=request.getParameter("AdminId");
-            String i = request.getParameter("i");
-            request.setAttribute("AdminId", AdminId);
-            request.getRequestDispatcher("/Admin/AdminPage"+i+".jsp").forward(request, response);
-        }
     }
 
     @Override
@@ -57,16 +48,14 @@ public class AdminController extends HttpServlet{
             request.setAttribute("AdminId",AdminId);
             request.getRequestDispatcher("/Admin/Admin.jsp").forward(request,response);
         }
-        else if ("ChangeUser".equals(para)) {
-            //获取信息
-            String UserName = request.getParameter("inputUserName");
-            String Password = request.getParameter("inputUserPassword");
-            String Email= request.getParameter("inputEmail");
-            String Department = request.getParameter("inputDepartment");
-            String Phone = request.getParameter("inputUserPhone");
-//            User user = new User(UserId, UserName,Password,Email,Department,Phone)
-            UserService userService = new UserService();
-
+        /**
+         * 跳转页面
+         * */
+        else if("selectPages".equals(para)){
+            String AdminId = request.getParameter("AdminId");
+            String i = request.getParameter("i");
+            request.setAttribute("AdminId", AdminId);
+            request.getRequestDispatcher("/Admin/AdminPage"+i+".jsp").forward(request, response);
         }
         /**
          * 修改管理员密码
@@ -79,14 +68,35 @@ public class AdminController extends HttpServlet{
             Admin admin = adminService.findById(AdminId);
             if(CPassword.equals(admin.getPassword())){
                 //如果旧密码和库中一样就修改密码
+                adminService.update(AdminId,NPassword);
+                String msg = "密码修改成功";
+
+                request.setAttribute("AdminId",AdminId);
+                request.setAttribute("msg",msg);
+                request.getRequestDispatcher("/Admin/Admin.jsp").forward(request,response);
             }
             else{//如果和旧密码不一样，就返回修改密码失败
-                String msg = "密码错误，修改失败";
+                String msg = "原先密码错误，修改失败";
+
                 request.setAttribute("AdminId",AdminId);
                 request.setAttribute("msg",msg);
                 request.getRequestDispatcher("/Admin/Admin.jsp").forward(request,response);
             }
         }
+        /**
+         * 重置用户密码
+         * */
+        else if("resetUserPassword".equals(para)){
+            String UserId = request.getParameter("UserId");
+            String AdminId = request.getParameter("AdminId");
+            String password = "111111";
+            UserService userService = new UserService();
+            userService.updatePasswordById(UserId,password);
+            String msg = "将账户为: "+UserId+" 的用户密码重置为: "+password+" ";
 
+            request.setAttribute("AdminId",AdminId);
+            request.setAttribute("msg",msg);
+            request.getRequestDispatcher("/Admin/Admin.jsp").forward(request,response);
+        }
     }
 }

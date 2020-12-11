@@ -196,4 +196,20 @@ public class UserImpl implements UserRespository {
         }
         return list;
     }
+
+    @Override
+    public void updatePasswordById(String id, String password) {
+        String sql="update user set password = ? where userId = ?";
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,password);
+            pre.setString(2,id);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();
+        }
+    }
 }

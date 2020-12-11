@@ -9,4 +9,7 @@ public class AdminService {
     public Admin findById(String id){
         return adminRespository.findById(id);
     }
+    public void update(String id, String password){
+        adminRespository.update(id, password);
+    }
 }

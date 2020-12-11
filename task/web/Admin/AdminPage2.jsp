@@ -51,7 +51,9 @@
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getUsername()%></td>
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getPhone()%></td>
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getEmail()%></td>
-                    <td class="d-none d-xl-table-cell" ><a href="javascript:ChangeUser(<%=userList.get(i).getUserId()%>)">修改密码</a></td>
+                    <td class="d-none d-xl-table-cell" >
+                        <button type="submit" class="btn btn-primary"onclick='javascript:resetUserPassword("<%=userList.get(i).getUserId()%>")'>重置密码</button>
+                    </td>
                 </tr>
                 <%
                     }
