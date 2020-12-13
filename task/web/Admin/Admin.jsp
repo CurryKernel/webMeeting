@@ -1,3 +1,4 @@
+<%@ page import="Service.UserService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 
@@ -33,56 +34,83 @@
                     }
                 }
             }
-            xmlHttp.onreadystatechange = function() {
-                if (xmlHttp.readyState == 4) {
-                    if(xmlHttp.status == 200) {
-                        var data = xmlHttp.responseText;
-                        document.getElementById("main").innerHTML = data;
-                    }
-                }
-            }
             return xmlHttp;
         }
-        function selectPages(i) {
-            var xmlHttp=setAjax();
-            xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=selectPages&i="+i+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
-            // xmlHttp.open("GET", "AdminPage"+i+".jsp", true);
-            xmlHttp.send();
-            //动态刷新主页面
-        }
 
-        <%--<a href="javascript:ChangeUser(<%=userList.get(i).getUserId()%>)">--%>
-        function ChangeUser(UserId) {
-            var xmlHttp = false;
-            if(window.XMLHttpRequest) {
-                xmlHttp = new XMLHttpRequest();
-            }
-            else if(window.ActiveXObject){
-                try{
-                    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-                }catch (e){
-                    try{
-                        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-                    }catch (e){
-                        window.alert("不支持ajax")
-                    }
-                }
-            }
+
+        function selectPages(i,p,searchId) {
+            var xmlHttp=setAjax();
             xmlHttp.onreadystatechange = function() {
                 if (xmlHttp.readyState == 4) {
                     if(xmlHttp.status == 200) {
                         var data = xmlHttp.responseText;
-                        document.getElementById("main").innerHTML = data;
+                        document.getElementById("content").innerHTML = data;
                     }
                 }
             }
-            xmlHttp.open("GET", '${pageContext.request.contextPath}/AdminController?method=putId&UserId='+UserId, true);
+            xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=selectPages&i="+i+"&p="+p+"&searchId="+searchId+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
             xmlHttp.send();
             //动态刷新主页面
         }
-    </script>
 
-    <script type="text/javascript">
+
+        function changeMeeting(MeetingId) {
+            var xmlHttp=setAjax();
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4) {
+                    if(xmlHttp.status == 200) {
+                        var data = xmlHttp.responseText;
+                        document.getElementById("content").innerHTML = data;
+                    }
+                }
+            }
+            xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=changeMeeting&MeetingId="+MeetingId+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
+            xmlHttp.send();
+        }
+
+
+        //保存修改的会议信息
+        function saveChangeMeeting() {
+            var meetingId = $('#MeetingId').val();
+            var detail = $('#MeetingDetail').val();
+            var time = $('#MeetingTime').val();
+            var place = $('#MeetingPlace').val();
+            var xmlHttp=setAjax();
+            xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=saveChangeMeeting&meetingId="+meetingId+"&detail="+detail+"&time="+time+"&place="+place, true);
+            xmlHttp.send();
+            alert("会议信息已修改")
+        }
+
+
+        //查看参加会议的人员
+        function searchUserInMeeting(meetingId,p,searchId) {
+            var xmlHttp=setAjax();
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4) {
+                    if(xmlHttp.status == 200) {
+                        var data = xmlHttp.responseText;
+                        document.getElementById("content").innerHTML = data;
+                    }
+                }
+            }
+            xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=searchUserInMeeting&meetingId="+meetingId+"&p="+p+"&searchId="+searchId, true);
+            xmlHttp.send();
+        }
+
+
+        //删除参加会议的某个人员
+        function deleteUserInMeeting(userId,userName,meetingId) {
+            var confirmMsg = "是否要将用户: " + userName + " 从会议编号为: " + meetingId + "的会议中移除？"
+            var r = confirm(confirmMsg);
+            if(r==true){
+                var xmlHttp=setAjax();
+                xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=deleteUserInMeeting&userId="+userId+"&meetingId="+meetingId, true);
+                xmlHttp.send();
+                var msg = "已将用户: " + userName + " 从会议中移除，请重新加载此页面"
+                alert(msg)
+            }
+
+        }
 
         //判断两次密码是否相同
         function check() {
@@ -122,43 +150,60 @@
             var r = confirm(confirmMsg);
             if(r==true){
                 var xmlHttp=setAjax();
-                xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=resetUserPassword&UserId="+UserId+"&AdminId="+"<%=request.getParameter("AdminId")%>", true);
-                // xmlHttp.open("GET", "AdminPage"+i+".jsp", true);
+                xmlHttp.open("POST", "${pageContext.request.contextPath}/AdminController?method=resetUserPassword&UserId="+UserId, true);
                 xmlHttp.send();
-                //动态刷新主页面
+                var msg = "将账户为: "+UserId+" 的用户密码重置为: 111111 ";
+                alert(msg)
+            }
+        }
+
+
+        //查询用户或会议
+        function searchById(i,meetingId) {
+            if(i=="1"){
+                //查询会议ID
+                var meetingId = document.getElementById("searchMeetingId").value;
+                selectPages(i,1,meetingId)
+            }
+            else if(i=="2"){
+                //查询用户ID
+                var userId = $('#searchUserId').val();
+                selectPages(i,1,userId)
+            }
+            else if(i=="3"){
+                var userId = $('#searchUserId2').val();
+                searchUserInMeeting(meetingId,1,userId)
             }
         }
     </script>
 </head>
-<body onload="selectPages(1);sendMessage()">
-<div class="wrapper">
+<body onload="selectPages(1,1,'');sendMessage()">
+<div class="wrapper" id="main">
     <nav id="sidebar" class="sidebar">
         <div class="sidebar-content js-simplebar">
             <a class="sidebar-brand">
                 <span class="align-middle">管理员</span>
-                <%=request.getParameter("AdminId")%>
             </a>
 
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href='javascript:selectPages(1)'>
+                    <a class="sidebar-link" href='javascript:selectPages(1,1,"")'>
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">会议管理</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href='javascript:selectPages(2)'>
+                    <a class="sidebar-link" href='javascript:selectPages(2,1,"")'>
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">用户管理</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href='javascript:selectPages(3)'>
+                    <a class="sidebar-link" href='javascript:selectPages(3,1,"")'>
                         <i class="align-middle" data-feather="settings"></i> <span class="align-middle">账户管理</span>
                     </a>
                 </li>
             </ul>
-
 
         </div>
     </nav>
@@ -180,18 +225,18 @@
                             <span class="text-dark" id="IdText"><%=request.getParameter("AdminId")%></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href='javascript:selectPages(1)'><i class="align-middle mr-1" data-feather="sliders"></i>会议管理</a>
-                            <a class="dropdown-item" href='javascript:selectPages(2)'><i class="align-middle mr-1" data-feather="user"></i>用户管理</a>
-                            <a class="dropdown-item" href='javascript:selectPages(3)'><i class="align-middle mr-1" data-feather="settings"></i>账号管理</a>
+                            <a class="dropdown-item" href='javascript:selectPages(1,1,"")'><i class="align-middle mr-1" data-feather="sliders"></i>会议管理</a>
+                            <a class="dropdown-item" href='javascript:selectPages(2,1,"")'><i class="align-middle mr-1" data-feather="user"></i>用户管理</a>
+                            <a class="dropdown-item" href='javascript:selectPages(3,1,"")'><i class="align-middle mr-1" data-feather="settings"></i>账号管理</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">登出</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Admin/AdminLogin.jsp">登出</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
         <!--上边框-->
-        <main id = "main">
+        <main id = "content">
         </main>
     </div>
 </div>

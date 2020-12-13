@@ -1,6 +1,7 @@
 package DAO;
 
 import VO.Meeting;
+import VO.User;
 
 import java.util.List;
 
@@ -30,4 +31,9 @@ public interface MeetingRespository {
     //查表的总记录数
     public int count();
 
+    //根据会议ID一部分查询全部用户
+    public List<Meeting> findByPartOfUserId(String partId);
+
+    //根据会议id修改
+    public void update(String meetingId,Meeting meeting);
 }

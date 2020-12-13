@@ -1,8 +1,11 @@
 package Controller;
 
 import Service.AdminService;
+import Service.JoinMeetingService;
+import Service.MeetingInfoService;
 import Service.UserService;
 import VO.Admin;
+import VO.Meeting;
 import VO.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,13 +27,6 @@ public class AdminController extends HttpServlet{
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         String para = request.getParameter("method");
-        if ("putId".equals(para)) {
-            String UserId=request.getParameter("UserId");
-//            byte[] bUserId=UserId.getBytes();
-//            UserId = new String(bUserId, "UTF-8");
-            request.setAttribute("UserId", UserId);
-            request.getRequestDispatcher("/Admin/AdminChangeUser.jsp").forward(request, response);
-        }
     }
 
     @Override
@@ -54,7 +50,12 @@ public class AdminController extends HttpServlet{
         else if("selectPages".equals(para)){
             String AdminId = request.getParameter("AdminId");
             String i = request.getParameter("i");
+            String p = request.getParameter("p");
+            String searchId = request.getParameter("searchId");
+
             request.setAttribute("AdminId", AdminId);
+            request.setAttribute("p",p);
+            request.setAttribute("searchId",searchId);
             request.getRequestDispatcher("/Admin/AdminPage"+i+".jsp").forward(request, response);
         }
         /**
@@ -88,15 +89,61 @@ public class AdminController extends HttpServlet{
          * */
         else if("resetUserPassword".equals(para)){
             String UserId = request.getParameter("UserId");
-            String AdminId = request.getParameter("AdminId");
             String password = "111111";
             UserService userService = new UserService();
             userService.updatePasswordById(UserId,password);
-            String msg = "将账户为: "+UserId+" 的用户密码重置为: "+password+" ";
 
+        }
+        /**
+         * 跳转到修改会议的页面
+         * */
+        else if("changeMeeting".equals(para)){
+            String MeetingId = request.getParameter("MeetingId");
+            String AdminId = request.getParameter("AdminId");
+
+            request.setAttribute("MeetingId",MeetingId);
             request.setAttribute("AdminId",AdminId);
-            request.setAttribute("msg",msg);
-            request.getRequestDispatcher("/Admin/Admin.jsp").forward(request,response);
+            request.getRequestDispatcher("/Admin/AdminChangeMeeting.jsp").forward(request,response);
+        }
+        /**
+         * 保存修改的会议信息
+         * */
+        else if("saveChangeMeeting".equals(para)){
+            String meetingId = request.getParameter("meetingId");
+            String detail = request.getParameter("detail");
+            String time = request.getParameter("time");
+            String place = request.getParameter("place");
+
+            MeetingInfoService meetingInfoService = new MeetingInfoService();
+            Meeting meeting = meetingInfoService.findByPartOfUserId(meetingId).get(0);
+            meeting.setDetail(detail);
+            meeting.setTime(time);
+            meeting.setPlace(place);
+            out.print(meeting);
+            meetingInfoService.update(meetingId,meeting);
+        }
+        /**
+         * 查看参加会议的人员
+         * */
+        else if("searchUserInMeeting".equals(para)){
+            String meetingId = request.getParameter("meetingId");
+            String p = request.getParameter("p");
+            String searchId = request.getParameter("searchId");
+
+            request.setAttribute("meetingId",meetingId);
+            request.setAttribute("p",p);
+            request.setAttribute("searchId",searchId);
+            request.getRequestDispatcher("/Admin/AdminSearchUserInMeeting.jsp").forward(request, response);
+        }
+        /**
+         * 将某个用户从会议移除
+         * */
+        else if("deleteUserInMeeting".equals(para)){
+            String userId = request.getParameter("userId");
+            String meetingId = request.getParameter("meetingId");
+
+            JoinMeetingService joinMeetingService = new JoinMeetingService();
+            joinMeetingService.deleteByUserIdAndMeetingId(userId,meetingId);
         }
     }
 }

@@ -126,7 +126,7 @@ public class MeetingImpl implements MeetingRespository {
     public List<Meeting> findAll(int pageId, int pageSize) {
         List<Meeting> list = new ArrayList<>();
 
-        String sql = "select * from meeting limit ?,? order by userId";
+        String sql = "select * from meeting limit ?,? order by meetingId";
 
         pageId = (pageId-1)*pageSize;
         try {
@@ -157,7 +157,7 @@ public class MeetingImpl implements MeetingRespository {
     public List<Meeting> findAll() {
         List<Meeting> list = new ArrayList<>();
 
-        String sql = "select * from meeting order by userId";
+        String sql = "select * from meeting order by meetingId";
 
         try {
             conn = JDBCUtils.getConnect();
@@ -255,4 +255,53 @@ public class MeetingImpl implements MeetingRespository {
         return rowCount;
     }
 
+    @Override
+    public List<Meeting> findByPartOfUserId(String partId) {
+        List<Meeting> list = new ArrayList<>();
+        String sql = "select * from meeting where meetingId like ? order by meetingId";
+
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            String NPartId = "%"+partId+"%";
+            pre.setString(1, NPartId);
+            rs = pre.executeQuery();
+            while(rs.next()){
+                String meetingId = rs.getString(1);
+                String userId1 = rs.getString(2);
+                String place = rs.getString(3);
+                int peopleCount = rs.getInt(4);
+                String time = rs.getString(5);
+                String detail = rs.getString(6);
+                m = new Meeting(meetingId,userId1,place,peopleCount,time,detail);
+                list.add(m);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();//关闭数据库连接
+        }
+        return list;
+    }
+
+    @Override
+    public void update(String meetingId, Meeting meeting) {
+        String sql="update meeting set meetingId=?,userId=?,place=?,peopleCount=?,time=?,detail=? where meetingId = ?";
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,meeting.getMeetingId());
+            pre.setString(2,meeting.getUserId());
+            pre.setString(3,meeting.getPlace());
+            pre.setInt(4,meeting.getPeopleCount());
+            pre.setString(5,meeting.getTime());
+            pre.setString(6,meeting.getDetail());
+            pre.setString(7,meetingId);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  finally{
+            JDBCUtils.closeConnect();
+        }
+    }
 }

@@ -150,13 +150,15 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
     }
 
     @Override
-    public List<String> findByMeetingId(String meetingId) {
+    public List<String> findByMeetingId(String meetingId, String partUserId) {
         List<String> list = new ArrayList<>();
-        String sql = "select * from joinMeeting where meetingId = ? order by userId asc";
+        String sql = "select * from joinMeeting where meetingId = ? AND userId like ? order by userId asc";
         conn = JDBCUtils.getConnect();
         try {
             pre = conn.prepareStatement(sql);
+            String NPartUserId = "%"+partUserId+"%";
             pre.setString(1,meetingId);
+            pre.setString(2,NPartUserId);
             rs = pre.executeQuery();
             while(rs.next()){
                 String userId = rs.getString(1);
@@ -190,5 +192,21 @@ public class JoinMeetingImpl implements JoinMeetingRespository {
             JDBCUtils.closeConnect();//关闭数据库连接
         }
         return list;
+    }
+
+    @Override
+    public void deleteByUserIdAndMeetingId(String userId, String meetingId) {
+        String sql="delete from joinMeeting where userId = ? AND meetingId = ?";
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,userId);
+            pre.setString(2,meetingId);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();
+        }
     }
 }
