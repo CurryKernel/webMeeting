@@ -31,7 +31,7 @@
     var time= document.getElementById("time");
     function showtime(){
         second--;
-        if(second<=0){
+        if(second <= 0){
             close();
         }
         time.innerHTML=second+"";

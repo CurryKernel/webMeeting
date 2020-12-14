@@ -12,11 +12,11 @@
     <title>Unicorn User</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/font-awesome.css" />
-    <link rel="stylesheet" href="css/fullcalendar.css" />
-    <link rel="stylesheet" href="css/jquery.jscrollpane.css" />
-    <link rel="stylesheet" href="css/unicorn.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/fullcalendar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.jscrollpane.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/unicorn.css" />
     <style>
         td {
             text-align:center; /*设置水平居中bai*/
@@ -40,7 +40,7 @@
 <div id="wrapper">
     <!--此处为界面的主通栏  -->
     <div id="header">
-        <h1><a href="./user.jsp">Unicorn User</a></h1>
+        <h1>用户中心</h1>
         <a id="menu-trigger" href="#"><i class="fa fa-bars"></i></a>
     </div>
     <!--此处为界面的主通栏  -->
@@ -50,12 +50,13 @@
         <ul class="btn-group">
             <li class="btn" ><a title="" href="#">
                 <i class="fa fa-user"></i>
-                <span class="text">用户</span>
+                <% int userId =Integer.parseInt(request.getParameter("userId"));%>
+                <span class="text">用户<%=userId%></span>
             </a>
             </li>
             <li class="btn"><a title="" href="#">
                 <i class="fa fa-cog"></i>
-                <span class="text">设置</span>
+                <span class="text"><span onclick="setPassword()">设置</span></span>
             </a>
             </li>
             <li class="btn">
@@ -105,8 +106,9 @@
             </button>
         </div>
         <ul>
-            <%--            onclick="showUser()"--%>
-            <li class="active "><a href="#"><i class="fa fa-home" ></i> <span onclick="showUserID()">个人信息</span></a></li>
+            <li class="active">
+                <a href="#"><i class="fa fa-home" ></i> <span onclick="showUserID()">个人信息</span></a>
+            </li>
             <li class="submenu">
                 <a href="#"><i class="fa fa-flask"></i> <span >会议中心</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
@@ -139,8 +141,8 @@
             <li class="submenu">
                 <a href="#"><i class="fa fa-file"></i> <span>日期事务管理</span> <i class="arrow fa fa-chevron-right"></i></a>
                 <ul>
-                    <li><a href="#" ><span onclick="Calendar()">日历</span></a></li>
-                    <li><a href="#" ><span onclick="Things()">事务个性化</span></a></li>
+                    <li><a href="${pageContext.request.contextPath}/calendar.html" target="_blank" >日历</a></li>
+                    <li><a href="${pageContext.request.contextPath}/calendarMangment.html" target="_blank">事务个性化</a></li>
                 </ul>
             </li>
         </ul>
@@ -220,7 +222,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="www.baidu.com" target="_blank">
+                            <a href="https://www.baidu.com" target="_blank">
                                 <i class="icon-piechart"></i>
                                 百度
                             </a>
@@ -244,25 +246,25 @@
     <!-- 页脚部分，做成一致 -->
     <div class="row">
         <div id="footer" class="col-xs-12">
-            <% int userId =Integer.parseInt(request.getParameter("userId"));%>
+<%--            <% int userId =Integer.parseInt(request.getParameter("userId"));%>--%>
             2020 - 2021 &copy; Kernel. Brought to <span id="info" ><%=userId%></span> by <a href="#">MyWork</a>
         </div>
     </div>
     <!-- 页脚部分，做成一致 -->
 </div>>
 <!-- 主体 -->
-<script src="js/excanvas.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-ui.custom.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.flot.min.js"></script>
-<script src="js/jquery.flot.resize.min.js"></script>
-<script src="js/jquery.sparkline.min.js"></script>
-<script src="js/fullcalendar.min.js"></script>
-<script src="js/commons.js"></script>
-<script src="js/jquery.nicescroll.min.js"></script>
-<script src="js/unicorn.js"></script>
-<script src="js/unicorn.dashboard.js"></script>
+<script src="${pageContext.request.contextPath}/js/excanvas.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-ui.custom.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.flot.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.flot.resize.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.sparkline.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/commons.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.nicescroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/unicorn.js"></script>
+<script src="${pageContext.request.contextPath}/js/unicorn.dashboard.js"></script>
 
 
 </body>
@@ -273,16 +275,12 @@
         //console.log("到这");
         var userId =document.getElementById("info").innerText;
         console.log(userId);
-        xmlhttp.open("get","/task/findByUserId?userId="+userId,true);
+        xmlhttp.open("get","${pageContext.request.contextPath}/findByUserId?userId="+userId,true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback() {
-            // console.log("到这");
-            // xmlhttp.readyState == 4
             if (xmlhttp.status==200) {
                 var date = xmlhttp.responseText;
                 var obj = JSON.parse(date);
-                // console.log(obj);
-                // console.log(date);
                 var listHtml = " ";
                 for(var i in obj) {
                     listHtml += "<div class=\"alert alert-info\">\n" +
@@ -314,12 +312,17 @@
                         "       </div>" +
                         "<div class=\"col-xs-12 col-sm-8\">\n" +
                         " <div>" +
-                        "   <img src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2274662792,161237713&fm=26&gp=0.jpg'>" +
+                        "   <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2266790837,3806975123&fm=11&gp=0.jpg' height='400px'>" +
                         " </div>"+
                         "</div>"+
-                        "       </div>"+
+                        // "<div class=\"col-xs-12 col-sm-4\">\n" +
+                        // "<div>" +
+                        // "   <img src= \"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1775516601,1815140982&fm=26&gp=0.jpg\" width='100px' height='80'>" +
+                        // "</div>"+
+                        // "</div>"+
+                        " </div>"+
                         "</div>"+
-                        "</div>"
+                        "</div>";
                 }
                 document.getElementById("ineer").innerHTML=listHtml;
             } else {
@@ -329,7 +332,7 @@
     }
     function ShowMeetingInfo() {
         xmlhttp =new XMLHttpRequest();
-        xmlhttp.open("get","/task/ShowMeetingInfo",true);
+        xmlhttp.open("get","${pageContext.request.contextPath}/ShowMeetingInfo",true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback(){
             if (xmlhttp.status==200){
@@ -370,7 +373,7 @@
 
     function ShowHotelInfo() {
         xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("get", "/task/ShowHotelInfo", true);
+        xmlhttp.open("get", "${pageContext.request.contextPath}/ShowHotelInfo", true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback() {
             if (xmlhttp.status == 200) {
@@ -405,7 +408,7 @@
 
     function ShowDriverInfo(){
         xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("get", "/task/ShowDriverInfo", true);
+        xmlhttp.open("get", "${pageContext.request.contextPath}/ShowDriverInfo", true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback(){
             if (xmlhttp.status == 200) {
@@ -444,7 +447,7 @@
         //console.log("到这");
         var userId =document.getElementById("info").innerText;
         console.log(userId);
-        xmlhttp.open("get","/task/MyMeetingInfo?userId="+userId,true);
+        xmlhttp.open("get","${pageContext.request.contextPath}/MyMeetingInfo?userId="+userId,true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback() {
             if (xmlhttp.status==200) {
@@ -490,7 +493,7 @@
         //console.log("到这");
         var userId =document.getElementById("info").innerText;
         console.log(userId);
-        xmlhttp.open("get","/task/MyOderCarInfo?userId="+userId,true);
+        xmlhttp.open("get","${pageContext.request.contextPath}/MyOderCarInfo?userId="+userId,true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback() {
             if (xmlhttp.status==200) {
@@ -540,7 +543,7 @@
         //console.log("到这");
         var userId =document.getElementById("info").innerText;
         console.log(userId);
-        xmlhttp.open("get","/task/MyOderHotelInfo?userId="+userId,true);
+        xmlhttp.open("get","${pageContext.request.contextPath}/MyOderHotelInfo?userId="+userId,true);
         xmlhttp.send();
         //test
         xmlhttp.onreadystatechange = function callback() {
@@ -589,7 +592,7 @@
             "                        <span class=\"label label-danger\">notices</span>\n" +
             "                    </div>"+
             "<div class=\"widget-content nopadding\">\n" +
-            "                        <form class=\"form-horizontal\" method=\"get\" action='/task/UserorderHotel' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"get\" action='${pageContext.request.contextPath}/UserorderHotel' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
             "                            <div class=\"form-group\">\n" +
             "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">酒店ID</label>\n" +
             "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
@@ -626,7 +629,7 @@
             "                        <span class=\"label label-danger\">notices</span>\n" +
             "                    </div>"+
             "<div class=\"widget-content nopadding\">\n" +
-            "                        <form class=\"form-horizontal\" method=\"get\" action='/task/UserOrderCar' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"get\" action='${pageContext.request.contextPath}/UserOrderCar' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
             "                            <div class=\"form-group\">\n" +
             "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">司机ID</label>\n" +
             "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
@@ -665,7 +668,69 @@
             "</div>";
         document.getElementById("ineer").innerHTML=listHtml;
     }
-//
+
+    function setPassword(){
+        var userId =document.getElementById("info").innerText;
+        var listHtml = "<div class=\"widget-box\">\n" +
+            "                    <div class=\"widget-title\">\n" +
+            "<span class=\"icon\">\n" +
+            "<i class=\"fa fa-align-justify\"></i>\n" +
+            "</span>\n" +
+            "                        <h5>修改个人信息</h5>\n" +
+            "                        <span class=\"label label-danger\">notices</span>\n" +
+            "                    </div>\n" +
+            "                    <div class=\"widget-content nopadding\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"get\" action='${pageContext.request.contextPath}/updateUser' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">用户ID</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"userId\" id=\"userId\" placeholder = userId>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">姓名</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"name\" id=\"name\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">老密码</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"oldPassword\" id=\"oldPassword\" >\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">新密码</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"newPassword\" id=\"newPassword\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">电话</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"phone\" id=\"phone\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">部门</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"department\" id=\"department\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-group\">\n" +
+            "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">邮箱</label>\n" +
+            "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
+            "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"email\" id=\"email\">\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"form-actions\">\n" +
+            "                                <input type=\"submit\" value=\"更新\" class=\"btn btn-primary\">\n" +
+            "                            </div>\n" +
+            "                        </form>\n" +
+            "                    </div>\n" +
+            "                </div>";
+            document.getElementById("ineer").innerHTML=listHtml;
+    }
 
     function MjoinInfo(){
         var listHtml = "<div class=\"widget-box\">"+"<div class=\"widget-title\">\n" +
@@ -676,7 +741,7 @@
             "                        <span class=\"label label-danger\">notices</span>\n" +
             "                    </div>"+
             "<div class=\"widget-content nopadding\">\n" +
-            "                        <form class=\"form-horizontal\" method=\"get\" action='/task/UserJoinMeeting' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
+            "                        <form class=\"form-horizontal\" method=\"get\" action='${pageContext.request.contextPath}/UserJoinMeeting' name=\"basic_validate\" id=\"basic_validate\" novalidate=\"novalidate\" target=\"_blank\">\n" +
             "                            <div class=\"form-group\">\n" +
             "                                <label class=\"col-sm-3 col-md-3 col-lg-2 control-label\">会议ID</label>\n" +
             "                                <div class=\"col-sm-9 col-md-9 col-lg-10\">\n" +
@@ -710,58 +775,6 @@
         document.getElementById("ineer").innerHTML=listHtml;
     }
 
-    function Things(){
-        var listHtml ="               <div class=\"alert alert-info\">\n" +
-            "                    This page demonstrates a jQuery calendar plugin. Try to add a new event!\n" +
-            "                    <a href=\"#\" class=\"close\" data-dismiss=\"alert\">×</a>\n" +
-            "                </div>"+
-            "<div class=\"widget-box widget-calendar\">\n" +
-            "                    <div class=\"widget-title\">\n" +
-            "                        <span class=\"icon\"><i class=\"fa fa-calendar\"></i></span>\n" +
-            "                        <h5>Calendar</h5>\n" +
-            "                        <!-- 添加事务 -->\n" +
-            "                        <div class=\"buttons\">\n" +
-            "                            <a id=\"add-event\" data-toggle=\"modal\" href=\"#modal-add-event\" class=\"btn\"><i class=\"fa fa-plus\"></i> <span class=\"text\">Add new event</span></a>\n" +
-            "                        </div>\n" +
-            "                        <!-- 添加事务 -->\n" +
-            "                    </div>\n" +
-            "                    <!-- 日历表 -->\n" +
-            "                    <div class=\"widget-content nopadding\">\n" +
-            "                        <div class=\"panel-left\">\n" +
-            "                            <div id=\"fullcalendar\"></div>\n" +
-            "                        </div>\n" +
-            "                        <!-- 预估的事务 -->\n" +
-            "                        <div id=\"external-events\" class=\"panel-right\">\n" +
-            "                            <div class=\"panel-title\"><h5>Events</h5></div>\n" +
-            "                            <div class=\"panel-content\">\n" +
-            "                                <div class=\"external-event ui-draggable label label-inverse\">会客人</div>\n" +
-            "                                <div class=\"external-event ui-draggable label label-success\">聚会</div>\n" +
-            "                                <div class=\"external-event ui-draggable label label-purple\">度假</div>\n" +
-            "                                <div class=\"external-event ui-draggable label label-warning\">休息</div>\n" +
-            "                                <div class=\"external-event ui-draggable label label-info\">运动</div>\n" +
-            "                            </div>\n" +
-            "                        </div>\n" +
-            "                        <!-- 预估的事务 -->\n" +
-            "                    </div>\n" +
-            "                    <!-- 日历表 -->\n" +
-            "                </div>";
-        document.getElementById("ineer").innerHTML=listHtml;
-    }
-
-    function Calendar(){
-        var listHtml="<div class=\"widget-box widget-calendar\">\n" +
-            "                        <div class=\"widget-title\">\n" +
-            "                         </n><span class=\"icon\">\n" +
-            "                           <i class=\"fa fa-calendar\"></i>\n" +
-            "                           </span>\n" +
-            "                            <h5>日历</h5>\n" +
-            "                        </div>\n" +
-            "                        <div class=\"widget-content \">\n" +
-            "                            <div class=\"calendar\"></div>\n"+
-            "                        </div>\n" +
-            "                    </div>";
-        document.getElementById("ineer").innerHTML=listHtml;
-    }
 </script>
 <script>
     window.onload=showUserID();

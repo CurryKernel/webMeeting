@@ -141,6 +141,7 @@ public class UserImpl implements UserRespository {
             pre.setString(3,phone);
             pre.setString(4,department);
             pre.setString(5,email);
+            pre.setString(6,userId);
             pre.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
