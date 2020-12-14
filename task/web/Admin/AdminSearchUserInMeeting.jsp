@@ -3,6 +3,7 @@
 <%@ page import="Service.UserService" %>
 <%@ page import="java.util.List" %>
 <%@ page import="VO.User" %>
+<%@ page import="Service.JoinMeetingService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -50,14 +51,14 @@
         <div class="card flex-fill">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <div class="col-md-1">
-                    <h5 class="card-title mb-0">用户管理</h5>
+                    <h5 class="card-title mb-0">会议:<%=request.getParameter("meetingId")%></h5>
                 </div>
                 <div class="col-md-7">
                     <form class="form-inline d-none d-sm-inline-block">
                         <div class="input-group input-group-navbar">
-                            <input type="text" class="form-control" placeholder="请输入需要查询的用户账号..." aria-label="Search" id="searchUserId" value="<%=request.getParameter("searchId")%>">
+                            <input type="text" class="form-control" placeholder="请输入需要查询的用户账号..." aria-label="Search" id="searchUserId2" value="<%=request.getParameter("searchId")%>">
                             <div class="input-group-append">
-                                <button class="btn" type="button" onclick='javascript:searchById(2,"")'>
+                                <button class="btn" type="button" onclick='javascript:searchById(3,"<%=request.getParameter("meetingId")%>")'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                 </button>
                             </div>
@@ -78,10 +79,18 @@
                 </thead>
                 <tbody>
                 <%
+                    String meetingId = request.getParameter("meetingId");
                     String searchId = request.getParameter("searchId");
                     UserService userService = new UserService();
-                    List<User> userList = userService.findByPartOfUserId(searchId);
+                    MeetingInfoService meetingInfoService = new MeetingInfoService();
+                    JoinMeetingService joinMeetingService = new JoinMeetingService();
+                    List<User> userList = joinMeetingService.findByMeetingId(meetingId,searchId);
                     //全拿过来了
+
+                    Meeting meeting = meetingInfoService.findByPartOfUserId(meetingId).get(0);
+                    String builderId = meeting.getUserId();
+                    //获取创建者的ID
+
                     String Sp = request.getParameter("p");
                     int p = Integer.parseInt(Sp);
                     int pageSize = 6;//页面大小
@@ -110,9 +119,23 @@
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getUsername()%></td>
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getPhone()%></td>
                     <td class="d-none d-xl-table-cell"><%=userList.get(i).getEmail()%></td>
+                    <%
+                        if(userList.get(i).getUserId().equals(builderId)) {
+
+                    %>
                     <td class="d-none d-xl-table-cell" >
-                        <button type="submit" class="btn btn-primary"onclick='javascript:resetUserPassword("<%=userList.get(i).getUserId()%>")'>重置密码</button>
+                        <button type="submit" class="btn btn-primary">创建者</button>
                     </td>
+                    <%
+                        }
+                        else{
+                    %>
+                    <td class="d-none d-xl-table-cell" >
+                        <button type="submit" class="btn btn-primary" onclick='javascript:deleteUserInMeeting("<%=userList.get(i).getUserId()%>","<%=userList.get(i).getUsername()%>","<%=meetingId%>")'>移除</button>
+                    </td>
+                    <%
+                        }
+                    %>
                 </tr>
                 <%
                     }
@@ -121,8 +144,8 @@
             </table>
 <%--            以下为目录--%>
             <ul class="pagination">
-                <li><a href='javascript:selectPages(2,1,"<%=searchId%>")'>首页</a></li>
-                <li><a href='javascript:selectPages(2,"<%=fp%>","<%=searchId%>")'><</a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>",1,"<%=searchId%>")'>首页</a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=fp%>","<%=searchId%>")'><</a></li>
 
                 <%//目录只显示5条
 
@@ -131,12 +154,12 @@
                         for(int i = 0;i<pages;i++){
                             if(i+1==p){
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
                 <%
                             }
                             else{
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
                 <%
                             }
                         }
@@ -146,12 +169,12 @@
                         for(int i = 0;i<5;i++){
                             if(i+1==p){
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
                 <%
                             }
                              else{
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
                 <%
                              }
                         }
@@ -161,12 +184,12 @@
                         for(int i = pages-5;i<pages;i++){
                             if(i+1==p){
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
                 <%
                             }
                             else{
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
                 <%
                             }
                         }
@@ -175,20 +198,20 @@
                         for(int i = p-3;i<p+2;i++){
                             if(i+1==p){
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
                 <%
                             }
                             else{
                 %>
-                <li><a href='javascript:selectPages(2,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
                 <%
                             }
                         }
                     }
                 %>
 
-                <li><a href='javascript:selectPages(2,"<%=np%>","<%=searchId%>")'>></a></li>
-                <li><a href='javascript:selectPages(2,"<%=pages%>","<%=searchId%>")'>尾页</a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=np%>","<%=searchId%>")'>></a></li>
+                <li><a href='javascript:searchUserInMeeting("<%=meetingId%>","<%=pages%>","<%=searchId%>")'>尾页</a></li>
             </ul>
 
         </div>

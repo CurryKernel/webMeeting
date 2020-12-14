@@ -25,6 +25,8 @@ public interface JoinMeetingRespository {
     public int count();
     //根据用户Id查所参加的会议，返回一个meetingId的集合，查会议信息还得根据会议号去查表
     public List<String> findByUserId(String userId);
-    //根据会议id查所有参加的用户，返回一个userId的集合，查用户信息还得根据用户名去查表
-    public List<String> findByMeetingId(String meetingId);
+    //根据会议id，和用户ID的一部分，查所有参加的用户，返回一个userId的集合
+    public List<String> findByMeetingId(String meetingId, String partUserId);
+    //根据用户id和会议id删除记录
+    public void deleteByUserIdAndMeetingId(String userId, String meetingId);
 }

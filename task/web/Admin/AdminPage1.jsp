@@ -6,16 +6,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Responsive Web UI Kit &amp; Dashboard Template based on Bootstrap">
-    <meta name="author" content="AdminKit">
-    <meta name="keywords" content="adminkit, bootstrap, web ui kit, dashboard template, admin template">
-    <link rel="shortcut icon" href="../img/icons/icon-48x48.png" />
-    <link href="../css/admin.css" rel="stylesheet">
-    <link href="../css/font-awesome.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
 </head>
+<style>
+    ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.pagination li {display: inline;}
+
+    ul.pagination li a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    .pagination li:first-child a {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .pagination li:last-child a {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    ul.pagination li a.active {
+        background-color: #3b7ddd;
+        color: white;
+        border: 1px solid #3b7ddd;
+    }
+
+    ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+</style>
 <body>
     <main class="content">
 
@@ -29,9 +57,9 @@
                     <div class="col-md-7">
                         <form class="form-inline d-none d-sm-inline-block">
                             <div class="input-group input-group-navbar">
-                                <input type="text" class="form-control" placeholder="Search…" aria-label="Search">
+                                <input type="text" class="form-control" placeholder="请输入需要查询的会议编号..." aria-label="Search" id="searchMeetingId" value="<%=request.getParameter("searchId")%>">
                                 <div class="input-group-append">
-                                    <button class="btn" type="button">
+                                    <button class="btn" type="button" onclick='javascript:searchById(1,"")'>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search align-middle"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                     </button>
                                 </div>
@@ -52,17 +80,32 @@
                     </tr>
                     </thead>
                     <tbody>
-<!--                    <tr>-->
-<!--                        <td>Project Apollo</td>-->
-<!--                        <td class="d-none d-xl-table-cell">01/01/2020</td>-->
-<!--                        <td class="d-none d-xl-table-cell">31/06/2020</td>-->
-<!--                        <td><span class="badge badge-success">Done</span></td>-->
-<!--                        <td class="d-none d-md-table-cell">Vanessa Tucker</td>-->
-<!--                    </tr>-->
                     <%
+                        String searchId = request.getParameter("searchId");
                         MeetingInfoService meetingInfoService = new MeetingInfoService();
-                        List<Meeting> meetingInfoList =meetingInfoService.findAll();
-                        for(int i=0;i<meetingInfoList.size();i++){
+                        List<Meeting> meetingInfoList =meetingInfoService.findByPartOfUserId(searchId);
+
+                        String Sp = request.getParameter("p");
+                        int p = Integer.parseInt(Sp);
+                        int pageSize = 6;//页面大小
+                        int pages = (int)Math.ceil((double)meetingInfoList.size()/pageSize);//总页数
+                        int fp,np;//上一页和下一页的页码
+                        if(pages == 1){
+                            fp = 1;
+                            np = 1;
+                        }
+                        else if(p==1){
+                            fp = 1;
+                            np = p+1;
+                        }
+                        else if(p==pages){
+                            fp = p-1;
+                            np = pages;
+                        }else{
+                            fp = p-1;
+                            np = p+1;
+                        }
+                        for(int i=(p-1)*pageSize;i<p*pageSize&&i<meetingInfoList.size();i++){
                             UserService userService = new UserService();
                             List<User> user = userService.findByUserId(meetingInfoList.get(i).getUserId());
                     %>
@@ -71,14 +114,88 @@
                             <td class="d-none d-xl-table-cell"><%=user.get(0).getUsername()%></td>
                             <td class="d-none d-xl-table-cell"><%=meetingInfoList.get(i).getTime()%></td>
                             <td class="d-none d-xl-table-cell"><%=meetingInfoList.get(i).getPlace()%></td>
-                            <td class="d-none d-xl-table-cell" href="">编辑</td>
+                            <td class="d-none d-xl-table-cell">
+                                <button type="submit" class="btn btn-primary"onclick='javascript:changeMeeting("<%=meetingInfoList.get(i).getMeetingId()%>")'>编辑</button>
+                            </td>
+                            <td class="d-none d-xl-table-cell">
+                                <button type="submit" class="btn btn-primary"onclick='javascript:searchUserInMeeting("<%=meetingInfoList.get(i).getMeetingId()%>",1,"")'>参加人员</button>
+                            </td>
                         </tr>
                     <%
                         }
                     %>
-
                     </tbody>
                 </table>
+                <ul class="pagination">
+                    <li><a href='javascript:selectPages(1,1,"<%=searchId%>")'>首页</a></li>
+                    <li><a href='javascript:selectPages(1,"<%=fp%>","<%=searchId%>")'><</a></li>
+
+                    <%//目录只显示5条
+
+                        if(pages<=5){
+                            //12pages
+                            for(int i = 0;i<pages;i++){
+                                if(i+1==p){
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                    <%
+                    }
+                    else{
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                    <%
+                            }
+                        }
+                    }
+                    else if(p == 1 || p == 2){
+                        //12345
+                        for(int i = 0;i<5;i++){
+                            if(i+1==p){
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                    <%
+                    }
+                    else{
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                    <%
+                            }
+                        }
+                    }
+                    else if(p == pages || p == pages-1){
+                        //56789
+                        for(int i = pages-5;i<pages;i++){
+                            if(i+1==p){
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                    <%
+                    }
+                    else{
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                    <%
+                            }
+                        }
+                    }
+                    else{
+                        for(int i = p-3;i<p+2;i++){
+                            if(i+1==p){
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")' class="active"><%=i+1%></a></li>
+                    <%
+                    }
+                    else{
+                    %>
+                    <li><a href='javascript:selectPages(1,"<%=i+1%>","<%=searchId%>")'><%=i+1%></a></li>
+                    <%
+                                }
+                            }
+                        }
+                    %>
+
+                    <li><a href='javascript:selectPages(1,"<%=np%>","<%=searchId%>")'>></a></li>
+                    <li><a href='javascript:selectPages(1,"<%=pages%>","<%=searchId%>")'>尾页</a></li>
+                </ul>
             </div>
         </div>
     </main>

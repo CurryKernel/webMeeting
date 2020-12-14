@@ -68,7 +68,7 @@ public class UserImpl implements UserRespository {
     public List<User> findAll(int pageId, int pageSize) {
         List<User> list = new ArrayList<>();
 
-        String sql = "select * from user limit ?,? order by userId";
+        String sql = "select * from user order by userId limit ?,?";
 
         pageId = (pageId-1)*pageSize;
         try {
@@ -178,6 +178,52 @@ public class UserImpl implements UserRespository {
         try {
             pre = conn.prepareStatement(sql);
             pre.setString(1, String.valueOf(userId));
+            rs = pre.executeQuery();
+            while(rs.next()){
+
+                String userId1 = rs.getString(1);
+                String userName = rs.getString(2);
+                String password = rs.getString(3);
+                String phone = rs.getString(4);
+                String department=rs.getString(5);
+                String email=rs.getString(6);
+                u = new User(userId1,userName,password,phone,department,email);
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JDBCUtils.closeConnect();
+        }
+        return list;
+    }
+
+    @Override
+    public void updatePasswordById(String id, String password) {
+        String sql="update user set password = ? where userId = ?";
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,password);
+            pre.setString(2,id);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();
+        }
+    }
+
+    @Override
+    public List<User> findByPartOfUserId(String partId) {
+        List<User> list = new ArrayList<>();
+        String sql = "select * from user where userId like ? order by userId";
+
+        conn = JDBCUtils.getConnect();
+        try {
+            pre = conn.prepareStatement(sql);
+            String NPartId = "%"+partId+"%";
+            pre.setString(1, NPartId);
             rs = pre.executeQuery();
             while(rs.next()){
 
