@@ -1,6 +1,7 @@
 package DAO;
 
 import VO.Driver;
+import VO.OrderCar;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface DriverRespository {
     public int count();
     //查表是否存在
     public boolean check(String id, String password);
+
+    public List<Driver> findByDriverId(String driverId);
+
+    public List<OrderCar> findOrderCarByDriverId(String driverId);
 }

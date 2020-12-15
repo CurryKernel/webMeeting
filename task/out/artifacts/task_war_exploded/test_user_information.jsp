@@ -11,11 +11,11 @@
     <title>Title</title>
 </head>
 <body>
-<form action="user.jsp" method="get">
+<form action="driver.jsp" method="get">
     <fieldset>
         <legend>登录</legend>
         <p>
-            用户名：<input type="text" name="userId">
+            用户名：<input type="text" name="Id">
         </p>
         <p>
             密码：<input type="password" name="password">

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/fullcalendar.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.jscrollpane.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/unicorn.css" />
+
+    <script src="assets/js/ace-extra.min.js"></script>
     <style>
         td {
             text-align:center; /*设置水平居中bai*/

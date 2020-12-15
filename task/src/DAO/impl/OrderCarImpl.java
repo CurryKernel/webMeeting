@@ -4,6 +4,7 @@ package DAO.impl;
 import DAO.JDBCUtils;
 import DAO.OrderCarRespository;
 import VO.OrderCar;
+import VO.OrderInfo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class OrderCarImpl implements OrderCarRespository {
     PreparedStatement pre = null;
     ResultSet rs = null;
     OrderCar oc = null;
-
+    OrderInfo oi = null;
     @Override
     public List<OrderCar> findByUserId(String userId) {
         List<OrderCar> list = new ArrayList<>();
@@ -73,6 +74,35 @@ public class OrderCarImpl implements OrderCarRespository {
         }
         return list;
     }
+
+    @Override
+    public List<OrderInfo> findOrderInfos(String driverId) {
+        List<OrderInfo> list = new ArrayList<>();
+
+        String sql ="select userName, phone,place,deadline,people from orderCar inner join user on orderCar.userId = user.userId  where orderCar.driverId = ? and orderCar.state =1 ";
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, driverId);
+            rs = pre.executeQuery();
+            while(rs.next()){
+                String userName = rs.getString(1);
+                //System.out.println(userName);
+                String phone = rs.getString(2);
+                String place = rs.getString(3);
+                String deadline = rs.getString(4);
+                String people = rs.getString(5);
+                oi = new OrderInfo(userName, phone, place, deadline,people);
+                list.add(oi);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();//关闭数据库连接
+        }
+        return list;
+    }
+
     @Override
     public List<OrderCar> findAll() {
         List<OrderCar> list = new ArrayList<>();
@@ -185,6 +215,40 @@ public class OrderCarImpl implements OrderCarRespository {
             JDBCUtils.closeConnect();
         }
     }
+    @Override
+    public boolean changeStatue(String userId, String deadline) {
+        String sql = "UPDATE orderCar set state = 2 WHERE userId = ? and deadline = ?";
+        conn = JDBCUtils.getConnect();
+        try {
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, userId);
+            pre.setString(2, deadline);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+/*
+* 修改为接单状态
+* */
+    @Override
+    public boolean changeStatus(String userId ,String deadline) {
+        String sql = "UPDATE orderCar set state = 1 WHERE userId = ? and deadline = ?";
+        conn = JDBCUtils.getConnect();
+        try {
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, userId);
+            pre.setString(2, deadline);
+            pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+
+
     @Override
     public int count() {
         int rowCount = 0;
