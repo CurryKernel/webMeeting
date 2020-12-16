@@ -5,10 +5,7 @@ import DAO.HotelRespository;
 import DAO.JDBCUtils;
 import VO.Hotel;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,20 +69,27 @@ public class HotelImpl implements HotelRespository {
     }
 
     @Override
-    public void insert(String id, String password,String description) {
-        String sql="insert into hotel values (?,?,?)";
+    public String insert(String hotelId, String password,String description) {
+        conn = JDBCUtils.getConnect();
+        String sql = "insert into hotel(hotelId,password,description)values(?,?,?)";
+        String str = null;
         try {
-            conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
-            pre.setString(1,id);
+            //pre = conn.prepareStatement(sql);
+            pre.setString(1,hotelId);
             pre.setString(2,password);
-            pre.setString(3, description);
-            pre.executeUpdate();
+            pre.setString(3,description);
+            int row = pre.executeUpdate();
+            if(row>0){
+                str="1";
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            str="0";
         } finally{
             JDBCUtils.closeConnect();
         }
+        return str;
     }
 
     @Override
@@ -141,26 +145,54 @@ public class HotelImpl implements HotelRespository {
     }
 
     @Override
-    public boolean check(String id, String password) {
-        boolean flag = false;
-        String sql = "select * from hotel where hotelId = ?";
-        try {
-            conn = JDBCUtils.getConnect();
-            pre = conn.prepareStatement(sql);
-            pre.setString(1,id);
-            rs = pre.executeQuery();
-            while(rs.next()){
-                String password1 = rs.getString(2);
-                if(password.equals(password1))
-                {
-                    flag = true;
+    public String check(String hotelId,String password) {
+        conn = JDBCUtils.getConnect();
+        String str = null;
+        String sql = "select * from hotel";
+        if(conn!=null) {
+            try {
+                Statement statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(sql);
+                //pre = conn.prepareStatement(sql);
+                //pre.setString(1,adminId);
+                //rs = pre.executeQuery();
+                while(rs.next()){
+                    String hotelId1=rs.getString("hotelId");
+                    String password1 = rs.getString("password");
+                    if(hotelId.equals(hotelId1)&&password.equals(password1)) {
+                        str = "1";
+                        break;
+                    }
+                    else{
+                        str="0";
+                    }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                JDBCUtils.closeConnect();
+            }
+        } else{
+            str="0";
+        }
+        return str;
+    }
+    @Override
+    public String checkHotelId(String hotelId){
+        conn = JDBCUtils.getConnect();
+        String sql = "select * from hotel where hotelId="+ hotelId ;
+        //System.out.println("用户查询时的SQL：" + sql);
+        String str = null;
+        try {
+            pre = conn.prepareStatement(sql);
+            if (pre.executeQuery().next() == true) {
+                str = "0";
+            } else {
+                str = "1";
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JDBCUtils.closeConnect();
         }
-        return flag;
+        return str;
     }
 }

@@ -21,7 +21,7 @@ public interface UserRespository {
     public List<String> getJoinMeetings(String userId);
 
     //增
-    public void insert(String userId, String userName, String password, String phone,String department,String email);
+    public String insert(String userId, String username, String password, String phone,String department,String email);
 
     //删
     public void deleteByUserId(String userId);
@@ -37,4 +37,9 @@ public interface UserRespository {
 
     //根据用户ID一部分查询全部用户
     public List<User> findByPartOfUserId(String partId);
+
+    public String checkUserId(String userId);
+
+    public String check(String userId,String password);
+
 }

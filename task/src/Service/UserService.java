@@ -22,6 +22,17 @@ public class UserService {
     public void updatePasswordById(String id, String password){
         user.updatePasswordById(id,password);
     }
+    public String insert(String userId,String userName,String password,String phone,String department,String email){
+        return user.insert(userId,userName,password,phone,department,email);
+    }
+    public String checkUserId(String userId){
+        return user.checkUserId(userId);
+    }
+
+    public String check(String userId,String password){
+        return user.check(userId,password);
+    }
+
     //总记录数
     public int count(){
         return user.count();

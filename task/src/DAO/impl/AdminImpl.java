@@ -4,10 +4,7 @@ import DAO.AdminRespository;
 import DAO.JDBCUtils;
 import VO.Admin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,27 +133,36 @@ public class AdminImpl implements AdminRespository {
     }
 
     @Override
-    public boolean check(String id,String password) {
-        boolean flag = false;
-        String sql = "select * from admin where adminId = ?";
-        try {
-            conn = JDBCUtils.getConnect();
-            pre = conn.prepareStatement(sql);
-            pre.setString(1,id);
-            rs = pre.executeQuery();
-            while(rs.next()){
-                String password1 = rs.getString(2);
-                if(password.equals(password1)) {
-                    flag = true;
+    public String check(String adminId,String password) {
+        conn = JDBCUtils.getConnect();
+        String str = null;
+        String sql = "select * from admin";
+        if(conn!=null) {
+            try {
+                Statement statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(sql);
+                while(rs.next()){
+                    String adminId1=rs.getString("adminId");
+                    String password1 = rs.getString(2);
+                    if(adminId.equals(adminId1)&&password.equals(password1)) {
+                        str = "1";
+                        break;
+                    }
+                    else{
+                        str="0";
+                    }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                JDBCUtils.closeConnect();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.closeConnect();
+        } else{
+            str="0";
         }
-        return flag;
+        return str;
     }
+
 
     @Override
     public Admin findById(String id) {

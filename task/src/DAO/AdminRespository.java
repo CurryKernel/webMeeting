@@ -18,7 +18,8 @@ public interface AdminRespository {
     //查表的总记录数
     public int count();
     //查表是否存在
-    public boolean check(String id, String password);
     //根据id查询
     public Admin findById(String id);
+
+    public String check(String adminId, String password);
 }

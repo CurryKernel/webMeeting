@@ -42,7 +42,7 @@
 <div id="wrapper">
     <!--此处为界面的主通栏  -->
     <div id="header">
-        <h1><a href="./test.jsp">Unicorn User</a></h1>
+        <h1><a href="#">Unicorn User</a></h1>
         <a id="menu-trigger" href="#"><i class="fa fa-bars"></i></a>
     </div>
     <!--此处为界面的主通栏  -->
@@ -484,18 +484,14 @@
         if(f){
             alert("删除成功");
             CheckAttendInfo();
-            // location.href="test.jsp?userId=passward="+userId+k;
         }else{
             alert("您取消删除");
             CheckAttendInfo();
         }
     }
     function CheckAttendInfo(){
-        //  CheckInfoController del=new CheckInfoController();
-        // location.href="DeleteInfo.jsp?ids="+userid;
         xmlhttp =new XMLHttpRequest();
         var userId =document.getElementById("info").innerText;
-        console.log(userId);
         xmlhttp.open("get","${pageContext.request.contextPath}/CheckInfo?userId="+userId,true);
         xmlhttp.send();
         xmlhttp.onreadystatechange = function callback(){
@@ -651,12 +647,6 @@
         xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
         //4.请求体
         xhr.send("meetingId="+meetingId);
-        // xhr.send();
-        // if(meetingId.length==0||!name_reg.test(meetingId) ){
-        //     document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>meetingId不可为空</em>";
-        //     document.getElementById("meetingId").focus();
-        // }
-        // else {
         xhr.onreadystatechange = function (){
             //正常交互
             if (xhr.status == 200 && xhr.readyState == 4) {

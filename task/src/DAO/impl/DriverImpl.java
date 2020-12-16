@@ -6,10 +6,7 @@ import DAO.JDBCUtils;
 import VO.Driver;
 import VO.OrderCar;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,21 +76,28 @@ public class DriverImpl implements DriverRespository {
     }
 
     @Override
-    public void insert(String id, String password, String phone,String description) {
-        String sql="insert into driver values (?,?,?,?)";
+    public String insert(String driverId,String password,String phone,String description){
+        conn = JDBCUtils.getConnect();
+        String sql = "insert into driver(driverId,password,phone,description)values(?,?,?,?)";
+        String str = null;
         try {
-            conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
-            pre.setString(1,id);
+            //pre = conn.prepareStatement(sql);
+            pre.setString(1,driverId);
             pre.setString(2,password);
             pre.setString(3,phone);
             pre.setString(4,description);
-            pre.executeUpdate();
+            int row = pre.executeUpdate();
+            if(row>0){
+                str="1";
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            str="0";
         } finally{
             JDBCUtils.closeConnect();
         }
+        return str;
     }
 
     @Override
@@ -157,28 +161,55 @@ public class DriverImpl implements DriverRespository {
     }
 
     @Override
-    public boolean check(String id, String password) {
-        boolean flag = false;
-        String sql = "select * from driver where driverId = ?";
-        try {
-            conn = JDBCUtils.getConnect();
-            pre = conn.prepareStatement(sql);
-            pre.setString(1,id);
-            rs = pre.executeQuery();
-            while(rs.next()){
-                String password1 = rs.getString(2);
-                if(password.equals(password1)) {
-                    flag = true;
+    public String check(String driverId,String password) {
+        conn = JDBCUtils.getConnect();
+        String str = null;
+        String sql = "select * from driver";
+        if(conn!=null) {
+            try {
+                Statement statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(sql);
+                while(rs.next()){
+                    String driverId1=rs.getString("driverId");
+                    String password1 = rs.getString("password");
+                    if(driverId.equals(driverId1)&&password.equals(password1)) {
+                        str = "1";
+                        break;
+                    }
+                    else{
+                        str="0";
+                    }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                JDBCUtils.closeConnect();
+            }
+        } else{
+            str="0";
+        }
+        return str;
+    }
+
+
+    @Override
+    public String checkDriverId(String driverId) {
+        conn = JDBCUtils.getConnect();
+        String sql = "select * from driver where driverId="+ driverId ;
+        //System.out.println("用户查询时的SQL：" + sql);
+        String str = null;
+        try {
+            pre = conn.prepareStatement(sql);
+            if (pre.executeQuery().next() == true) {
+                str = "0";
+            } else {
+                str = "1";
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JDBCUtils.closeConnect();
         }
-        return flag;
+        return str;
     }
-
 
     @Override
     public List<Driver> findByDriverId(String driverId) {
@@ -232,7 +263,6 @@ public class DriverImpl implements DriverRespository {
         }
         return list;
     }
-
 
 }
 
