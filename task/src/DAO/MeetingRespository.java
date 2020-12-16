@@ -1,7 +1,6 @@
 package DAO;
 
 import VO.Meeting;
-import VO.User;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ public interface MeetingRespository {
     public List<Meeting> findByMeetingId(String MeetingId);
 
     //增
-    public void insert(String meetingId, String userId, String place, int peopleCount, String time, String detail);
 
     //根据 meetingId删
     public void deleteByMeetingId(String meetingId);
@@ -36,4 +34,10 @@ public interface MeetingRespository {
 
     //根据会议id修改
     public void update(String meetingId,Meeting meeting);
+
+    public String checkMeetingId(String meetingId);
+
+    public int insert(String meetingId, String userId, String place, int peopleCount, String time, String detail);
+    public int updatePeopleByMeetingId(String meetingID,int peopleCount);
+
 }

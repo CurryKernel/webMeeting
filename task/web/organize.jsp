@@ -453,7 +453,7 @@
                         "                            <td>"+obj[i].peopleCount+"</td>\n" +
                         "                            <td>"+obj[i].time+"</td>\n"+
                         "                            <td class=\"center\">"+obj[i].detail+"</td>\n" +
-                        "<td><form action = \"UpdateMyMeetingInfo\" method=\"get\">\n" +
+                        "<td><form action = \"${pageContext.request.contextPath}/UpdateMyMeetingInfo\" method=\"get\" target=\"_blank\">\n" +
 
                         "   请输入会议Id：<input name=\"meetingId\" type=\"text\"size=\"3\">"+
                         "&nbsp;&nbsp;&nbsp;"+
@@ -712,7 +712,7 @@
             "                </div>\n" +
             "</div>";
         listHtml+=
-            "<tr><form action = \"CreateMeeting\" method=\"get\">\n" +
+            "<tr><form action = \"${pageContext.request.contextPath}/CreateMeeting\" method=\"get\" target=\"_blank\">\n" +
             "<td>  <div style=\"text-align:center;vertical-align:middel;\"> 请输入会议Id：<input id= \"meetingId\" name=\"meetingId\" type=\"text\" onblur=\"checkMeetingId()\" ><br></td>"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">meetingId</p></span></tr>\n" +
             " <td> <div style=\"text-align:center;vertical-align:middel;\"> 请输入用户Id： <input name=\"userId\" type=\"text\" ><br><br></td>"+

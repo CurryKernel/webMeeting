@@ -12,10 +12,12 @@ import java.io.PrintWriter;
 
 @WebServlet( "/CheckMeetingId")
 public class CheckMeetingIdController extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("come");
         request.setCharacterEncoding("UTF-8");
@@ -26,16 +28,11 @@ public class CheckMeetingIdController extends HttpServlet {
         System.out.println(organizeList);
         //用于向后台传数据
         PrintWriter out = response.getWriter();
-        if (organizeList == "0")
+        if (organizeList == "0") {
             out.write("true");
-        else
+        } else {
             out.write("false");
-//        String method = request.getParameter("method");
-//        System.out.println(method);
-//        if("validateName".equals(method))
-//            validateName(request,response);
-//        String meetingId = request.getParameter("meetingId");
-//        System.out.println(meetingId);
+        }
 
     }
 

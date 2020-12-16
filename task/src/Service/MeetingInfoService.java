@@ -3,7 +3,6 @@ package Service;
 import DAO.MeetingRespository;
 import DAO.impl.MeetingImpl;
 import VO.Meeting;
-import VO.User;
 
 import java.util.List;
 
@@ -21,5 +20,16 @@ public class MeetingInfoService {
     //根据会议id修改
     public void update(String meetingId,Meeting meeting){
         meetingInfo.update(meetingId,meeting);
+    }
+
+    public String checkMeetingId(String meetingId){
+        return meetingInfo.checkMeetingId(meetingId);
+    }
+
+    public int updatePeopleByMeetingId(String meetingId,int peopleCount){
+        return meetingInfo.updatePeopleByMeetingId(meetingId,peopleCount);
+    }
+    public int insert(String meetingId, String userId, String place, int peopleCount, String time, String detail ){
+        return meetingInfo.insert(meetingId,userId,place,peopleCount,time,detail);
     }
 }

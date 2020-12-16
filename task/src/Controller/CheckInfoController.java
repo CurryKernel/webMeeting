@@ -14,14 +14,6 @@ import java.util.List;
 
 @WebServlet("/CheckInfo")
 public class CheckInfoController extends HttpServlet {
- //   CheckInfoService ts = new CheckInfoService();
-   // String userId = request.getParameter("userId");
-   /* public List<CheckInfo> selets(){
-        List<CheckInfo> list=new ArrayList<CheckInfo>();
-        list=ts.selets(null);
-        return list;
-       // return list;
-    }*/
 
   @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

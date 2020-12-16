@@ -10,7 +10,6 @@ public interface CheckInfoRespository {
 
     //查全部用户的信息，分页
     public List<CheckInfo> findAll(int pageId, int pageSize);
-    public List<CheckInfo> selets(CheckInfo t);
 
     //通过userId查，得到该用户信息
     /*

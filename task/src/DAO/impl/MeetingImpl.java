@@ -180,25 +180,6 @@ public class MeetingImpl implements MeetingRespository {
         }
         return list;
     }
-    @Override
-    public void insert(String meetingId, String userId, String place, int peopleCount, String time,String detail) {
-        String sql="insert into meeting values (?,?,?,?,?,?)";
-        try {
-            conn = JDBCUtils.getConnect();
-            pre = conn.prepareStatement(sql);
-            pre.setString(1,meetingId);
-            pre.setString(2,userId);
-            pre.setString(3,place);
-            pre.setInt(4,peopleCount);
-            pre.setString(5,time);
-            pre.setString(6,detail);
-            pre.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally{
-            JDBCUtils.closeConnect();
-        }
-    }
 
     @Override
     public void deleteByMeetingId(String meetingId) {
@@ -303,5 +284,64 @@ public class MeetingImpl implements MeetingRespository {
         }  finally{
             JDBCUtils.closeConnect();
         }
+    }
+
+    @Override
+    public String checkMeetingId(String meetingId){
+        conn = JDBCUtils.getConnect();
+        String sql = "select meetingId from meeting where meetingId=?";
+        String str = null;
+        try {
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,meetingId);
+            if (pre.executeQuery().next() == true) {
+                str = "1";
+            } else {
+                str = "0";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    @Override
+    public int insert(String meetingId, String userId, String place, int peopleCount, String time,String detail) {
+        String sql="insert into meeting values (?,?,?,?,?,?)";
+        int result=0;
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1,meetingId);
+            pre.setString(2,userId);
+            pre.setString(3,place);
+            pre.setInt(4,peopleCount);
+            pre.setString(5,time);
+            pre.setString(6,detail);
+            result= pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            JDBCUtils.closeConnect();
+        }
+        return result;
+    }
+
+    @Override
+    public int updatePeopleByMeetingId(String meetingId, int peopleCount) {
+        String sql="update meeting set peopleCount=? where meetingId = ?";
+        int result = 0;
+        try {
+            conn = JDBCUtils.getConnect();
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1,peopleCount);
+            pre.setString(2,meetingId);
+            result=pre.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  finally{
+            JDBCUtils.closeConnect();
+        }
+        return result;
     }
 }
