@@ -56,7 +56,7 @@
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
-                        <% int Id =Integer.parseInt(request.getParameter("Id"));%>
+                        <% int Id =Integer.parseInt(request.getParameter("driverId"));%>
                         <span class="user-info">
 									<small>欢迎光临,</small>
                             <span id="info"><%=Id%></span>
@@ -348,7 +348,7 @@
                         "</div>"+
                         "<div class=\"col-xs-12 col-sm-6\">\n" +
                         " <div>" +
-                        "   <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2266790837,3806975123&fm=11&gp=0.jpg' height='400px'>" +
+                        "   <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2266790837,3806975123&fm=11&gp=0.jpg' height='300px'>" +
                         " </div>"+
                         "</div>"+
                         " </div>"+

@@ -324,14 +324,14 @@
                 <div class="col_md_login">
                     <div class="cont_ba_opcitiy">
                         <h2>登录</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                        <p>柳庭风静人眠昼，昼眠人静风庭柳.</p>
                         <button class="btn_login" onClick="cambiar_login()">登录</button>
                     </div>
                 </div>
                 <div class="col_md_sign_up">
                     <div class="cont_ba_opcitiy">
                         <h2>注册</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                        <p>独上高楼，望尽天涯路.</p>
                         <button class="btn_sign_up" onClick="cambiar_sign_up()">注册</button>
                     </div>
                 </div>
@@ -350,8 +350,8 @@
                         超级管理员<input name="selected" id="Admin1" type="radio" onclick="adminLogin()">
                         <br>
                         <br>
-                        会务参加者<input name="selected" id="User1" type="radio" onclick="userLogin()">
-                        会务组织者<input name="selected" id="Organizer1" type="radio" onclick="organizeLogin()">
+                        参加者<input name="selected" id="User1" type="radio" onclick="userLogin()">
+                        组织者<input name="selected" id="Organizer1" type="radio" onclick="organizeLogin()">
                         车队司机<input name="selected" id="Driver1" type="radio" onclick="driverLogin()">
                         酒店管理员<input name="selected" id="Hotel1" type="radio" onclick="hotelLogin()">
                     </div>
@@ -367,8 +367,8 @@
                 <div class="cont_form_sign_up"> <a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
                     <h2>注册</h2>
                     <div>
-                        会务参加者<input name="select" id="User" type="radio" onclick="meetingJoiner()">
-                        会务组织者<input name="select" id="Organizer" type="radio" onclick="meetingController()">
+                        参加者<input name="select" id="User" type="radio" onclick="meetingJoiner()">
+                        组织者<input name="select" id="Organizer" type="radio" onclick="meetingController()">
                         车队司机<input name="select" id="Driver" type="radio" onclick="carDriver()">
                         酒店管理员<input name="select" id="Hotel" type="radio" onclick="hotelController()">
                     </div>
