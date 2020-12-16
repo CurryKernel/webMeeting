@@ -51,7 +51,7 @@ box-shadow: 1px 10px 30px -10px rgba(0,0,0,0.5);
   overflow: hidden;
   top:100px;
 left: 0px;
-  width: 320px;
+  width: 420px;
   height: 280px;
   background-color: #eee;
 -webkit-transition: all 0.5s;
@@ -280,7 +280,7 @@ transform: scale(1.5); }
   position: absolute;
   opacity: 0;
 display: none;
-  width: 320px;
+  width: 420px;
   -webkit-transition: all 0.5s;
 -moz-transition: all 0.5s;
 -ms-transition: all 0.5s;
@@ -296,7 +296,7 @@ z-index: 2;
 
 .cont_form_sign_up {
   position: absolute;
-  width: 320px;
+  width: 420px;
   float: left;
   opacity: 0;
   display: none;
