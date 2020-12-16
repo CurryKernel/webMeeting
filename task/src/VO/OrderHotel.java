@@ -7,9 +7,18 @@ public class OrderHotel {
     private Integer people;//住房人数
     private Integer state;//预定状态，0表示未审核，1表示未通过，2,表示已通过
     private String hotelId;//酒店ID
+    private String meetingId;//会议ID;
 
     public OrderHotel() {
 
+    }
+
+    public String getMeetingId() {
+        return meetingId;
+    }
+
+    public void setMeetingId(String meetingId) {
+        this.meetingId = meetingId;
     }
 
     public String getUserId() {

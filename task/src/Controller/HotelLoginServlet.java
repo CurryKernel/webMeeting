@@ -18,7 +18,7 @@ public class HotelLoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
         HotelInfoService hotelInfoService= new HotelInfoService();
 
-        String hotelId =request.getParameter("hotelId");
+        String hotelId =request.getParameter("hotelid");
         String password=request.getParameter("password");
 
         String hotelCheck = hotelInfoService.check(hotelId,password);
@@ -26,7 +26,8 @@ public class HotelLoginServlet extends HttpServlet {
         if (hotelCheck == "0") {
             response.sendRedirect("login.jsp?error=yes");
         } else {
-            request.getRequestDispatcher("/hotel.jsp").forward(request,response);
+            request.setAttribute("hotelid",hotelId);
+            request.getRequestDispatcher("/OrderHotel?action=page&hotelid="+hotelId).forward(request,response);
         }
     }
 

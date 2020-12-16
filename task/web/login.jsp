@@ -578,7 +578,7 @@
         var listHtml="<form action = \"${pageContext.request.contextPath}/HotelLoginServlet\" method=\"post\">\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
-            "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"hotelId\" name=\"hotelId\" placeholder=\"酒店用户名\" onblur=\"checkName9()\" /></tr>\n" +
+            "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"hotelId\" name=\"hotelid\" placeholder=\"酒店用户名\" onblur=\"checkName9()\" /></tr>\n" +
             "<br>\n" +
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +

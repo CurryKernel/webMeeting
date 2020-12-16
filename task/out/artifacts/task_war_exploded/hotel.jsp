@@ -27,66 +27,38 @@
 		<link rel="stylesheet" href="css/layui.css" media="all" />
 		<link rel="stylesheet" href="css/global.css" media="all">
 		<link rel="stylesheet" href="css/table.css" />
-
-
-		<script language="JavaScript">
-			function updatehoteltable(obj){
-				xmlHttp.open("GET","hoteltable.jsp?order="+obj,true);
-				xmlHttp.onreadystatechange = function(){
-					var data = xmlHttp.responseText;
-				}
-				xmlHttp.send();
+		<style>
+			div.search {padding: 0px 0;}
+			.bar1 input {
+				border: 2px solid #7BA7AB;
+				border-radius: 5px;
+				height: 25px;
+				background: white;
+				color: #9E9C9C;
 			}
+		</style>
 
-			$("").click(function(){
-				操作
-			})
 
-			function findhotelorder(category,hotelid){
-				var xmlHttp = new XMLHttpRequest();
-				xmlHttp.open("GET","http://localhost:8080/MeetingWeb/OrderHotel?hotelId="+hotelid+"category="+category,true);
-				xmlHttp.onreadystatechange = function(){
-					if (xmlHttp.readyState == 4) {
-						var data = xmlHttp.responseText;
-						alert(data);
-						var obj = JSON.parse(data);
-						var list = '';
-						var now=1;
-						var people=1;
-						for(var i in obj){
-							var userid=obj[i].userId;
-							var people=obj[i].people;
-							var state=obj[i].state;
-							list += `<tr>` +
-									'<td><input type="checkbox"></td>' +
-									'<td>'+now+'</td>' +
-									'<td>' +
-									'<a href="/manage/article_edit_19">'+userid+'</a>' +
-									'</td>' +
-									'<td>lll</td>' +
-									'<td>15684730222</td>' +
-									'<td>'+people+'</td>' +
-									'<td>'+state+'</td>' +
-									'<td style="text-align:center;"><i class="layui-icon" style="color:green;"></i></td>' +
-									'<td>' +
-									'<a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>'+
-									'<a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a>'+
-									'<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>'+
-									'</td>' +
-									'</tr>'
-							now++;
-						}
-						document.getElementById("tablebody").innerHTML = list;
-					}
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.js"></script>
+		<script>
+			$(function () {
+				// 给删除的a标签绑定单击事件，用于删除的确认提示操作
+				$("#deletebutton").click(function () {
+					return confirm("你确定要删除这条信息吗?");
+				});
+			});
+
+			function searchUser_hotel(){
+				var userid = $("#searchid").val();
+				location.href = "${pageContext.request.contextPath}/OrderHotel?action=orderbyUser_Hotel&hotelid=<%=request.getParameter("hotelid")%>&userid="+userid;
 			}
-			xmlHttp.send();
-		}
-
 		</script>
+
 	</head>
 
 	<body>
 		<div class="layui-layout layui-layout-admin beg-layout-container">
+
 			<div class="layui-header beg-layout-header">
 				<div class="beg-layout-main beg-layout-logo">
 					<a href="#" target="_blank">
@@ -96,6 +68,7 @@
 						%>
 					</a>
 				</div>
+
 				<div class="beg-layout-main beg-layout-side-toggle">
 					<i class="fa fa-bars" aria-hidden="true"></i>
 				</div>
@@ -146,6 +119,7 @@
 						</li>
 					</ul>
 				</div>
+
 				<div class="beg-layout-main beg-layout-panel">
 					<ul class="layui-nav beg-layout-nav" lay-filter="user">
 						<li class="layui-nav-item">
@@ -176,6 +150,7 @@
 						</li>
 					</ul>
 				</div>
+
 			</div>
 
 
@@ -184,69 +159,52 @@
 				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
 					<legend>酒店查询</legend>
 				</fieldset>
-				<%
-					String hotel=(String) request.getAttribute("hotelid");
-				%>
-
 				<ul class="layui-nav layui-nav-tree">
+
 					<li class="layui-nav-item layui-nav-itemed">
 						<a href="javascript:;">房型订单</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="/MeetingWeb/OrderHotel?action=orderbyPeople_Hotel&minpeople=3&maxpeople=5&hotelid=1">套房(3<=人数<=5)</a>
+								<a href="${pageContext.request.contextPath}/OrderHotel?action=orderbyPeople_Hotel&minpeople=3&maxpeople=5&hotelid=<%=request.getParameter("hotelid")%>">套房(3<=人数<=5)</a>
 							</dd>
 							<dd>
-								<a href="/MeetingWeb/OrderHotel?action=orderbyPeople_Hotel&minpeople=1&maxpeople=2&hotelid=1">标间/大床房(<=2)</a>
+								<a href="${pageContext.request.contextPath}/OrderHotel?action=orderbyPeople_Hotel&minpeople=1&maxpeople=2&hotelid=<%=request.getParameter("hotelid")%>">标间/大床房(<=2)</a>
 							</dd>
 						</dl>
 					</li>
 
 					<li class="layui-nav-item">
-						<a href="/MeetingWeb/OrderHotel?action=totalorder&hotelid=1">全部订单</a>
+						<a href="${pageContext.request.contextPath}/OrderHotel?action=page&hotelid=<%=request.getParameter("hotelid")%>">全部订单</a>
 					</li>
 
-					<li class="layui-nav-item">
+					<li class="layui-nav-item layui-nav-itemed">
 						<a href="javascript:;">审核状态</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="/MeetingWeb/OrderHotel?action=orderbyState_Hotel&state=0&hotelid=1">未审核订单</a>
+								<a href="${pageContext.request.contextPath}/OrderHotel?action=orderbyState_Hotel&state=0&hotelid=<%=request.getParameter("hotelid")%>">未审核订单</a>
 							</dd>
 							<dd>
-								<a href="/MeetingWeb/OrderHotel?action=orderbyState_Hotel&state=1&hotelid=1">审核通过订单</a>
+								<a href="${pageContext.request.contextPath}/OrderHotel?action=orderbyState_Hotel&state=1&hotelid=<%=request.getParameter("hotelid")%>">审核未通过订单</a>
 							</dd>
 							<dd>
-								<a href="/MeetingWeb/OrderHotel?action=orderbyState_Hotel&state=2&hotelid=1">审核未通过订单</a>
+								<a href="${pageContext.request.contextPath}/OrderHotel?action=orderbyState_Hotel&state=2&hotelid=<%=request.getParameter("hotelid")%>">审核通过订单</a>
 							</dd>
 						</dl>
 					</li>
-					<li class="layui-nav-item">
-						<a href="">大数据</a>
-					</li>
-					<li class="layui-nav-item">
-						<a href="">社区</a>
-					</li>
+
 				</ul>
 			</div>
 
 			<!--内容区域-->
 			<div class="layui-body beg-layout-body">
 				<div class="layui-tab layui-tab-brief layout-nav-card" lay-filter="layout-tab" style="border: 0; margin: 0;box-shadow: none; height: 100%;">
-					<ul class="layui-tab-title">
-						<li class="layui-this">
-							<a href="javascript:;">
-								<i class="fa fa-dashboard" aria-hidden="true"></i>
-								<cite>控制面板</cite>
-							</a>
-						</li>
-
-					</ul>
 					<div class="layui-tab-content" style="min-height: 500px; padding: 5px 0 0 0;">
 						<div class="layui-tab-item layui-show" style="height: 790px">
 							<!--<iframe src="hoteltable.jsp"></iframe>-->
 							<div class="admin-main">
 
 								<blockquote class="layui-elem-quote">
-									<a href="/MeetingWeb/addhotelorder.jsp" class="layui-btn layui-btn-small" id="add">
+									<a href="${pageContext.request.contextPath}/hotelorder_add.jsp?hotelid=<%=request.getParameter("hotelid")%>" class="layui-btn layui-btn-small" id="add">
 										<i class="layui-icon">&#xe608;</i> 增加订单
 									</a>
 									<a href="#" class="layui-btn layui-btn-small" id="import">
@@ -255,50 +213,52 @@
 									<a href="#" class="layui-btn layui-btn-small">
 										<i class="fa fa-shopping-cart" aria-hidden="true"></i> 删除信息
 									</a>
-									<a href="javascript:;" class="layui-btn layui-btn-small" id="search">
-										<i class="layui-icon">&#xe615;</i> 搜索
-									</a>
+									<span class="search bar1" style="position: relative;left: 500px;">
+											<input type="text" id="searchid" name="userid" placeholder="请输入搜索用户的ID" class="layui-input" style="width:200px;display: inline-block">
+										<button class="layui-btn layui-btn-small" style="display: inline-block" onclick="searchUser_hotel()">搜索</button>
+									</span>
 								</blockquote>
+
 								<fieldset class="layui-elem-field">
-									<legend>数据列表</legend>
+									<legend>酒店订单数据列表</legend>
 									<div class="layui-field-box">
 										<table class="site-table table-hover">
 											<thead>
-											<tr>
-												<th>&nbsp&nbsp<input type="checkbox" id="selected-all"></th>
-												<th>&nbsp&nbsp序号</th>
-												<th>&nbsp&nbsp用户id</th>
-												<th> &nbsp&nbsp订房人姓名</th>
-												<th> &nbsp&nbsp联系方式</th>
-												<th> &nbsp&nbsp住房人数</th>
-												<th> &nbsp&nbsp状态</th>
-												<th> &nbsp&nbsp置顶</th>
-												<th> &nbsp&nbsp操作</th>
+											<tr style="text-align: center">
+												<th><input type="checkbox" id="selected-all"></th>
+												<th>序号</th>
+												<th>用户id</th>
+												<th>订房人姓名</th>
+												<th>联系方式</th>
+												<th>住房人数</th>
+												<th>入住时间</th>
+												<th>状态</th>
+												<th>置顶</th>
+												<th>操作</th>
 											</tr>
 											</thead>
 
 											<tbody id="tablebody">
 											<div>
 												<c:set value="1" var="num" />
-												<c:set value="Beginner" var="name"/>
-												<c:forEach items="${requestScope.orderHotels}" var="OrderHotel">
+												<c:forEach items="${requestScope.page.items}" var="page1">
 											<tr>
 												<td><input type="checkbox"></td>
 												<td>${num}</td>
-												<td><a href="#">${OrderHotel.userId}</a></td>
-												<td>Beginner</td>
-												<td>13446789230</td>
-												<td>${OrderHotel.people}</td>
-												<td>${OrderHotel.state}</td>
+												<td><a href="#">${page1.getUserId()}</a></td>
+												<td>${page1.getUserName()}</td>
+												<td>${page1.phone}</td>
+												<td>${page1.getPeople()}</td>
+												<td>${page1.getTime()}</td>
+												<td>${page1.getState()}</td>
 												<td style="text-align:center;"><i class="layui-icon" style="color:green;"></i></td>
-												<td width="50px">
+												<td width="120px">
 													<a href="/detail-1" target="_blank" class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
-													<a href="/manage/article_edit_1" class="layui-btn layui-btn-mini">编辑</a>
-													<a href="javascript:;" data-id="1" data-opt="del" class="layui-btn layui-btn-danger layui-btn-mini">删除</a>
+													<a href="${pageContext.request.contextPath}/hotelorder_state_edit.jsp?&hotelid=${page1.getHotelId()}&userid=${page1.getUserId()}" class="layui-btn layui-btn-mini" id="stateedit">编辑</a>
+													<a href="${pageContext.request.contextPath}/OrderHotel?action=delete_order&hotelid=${page1.getHotelId()}&userid=${page1.getUserId()}" data-id="1" data-opt="del" id="deletebutton" class="layui-btn layui-btn-danger layui-btn-mini" >删除</a>
 												</td>
 											</tr>
 													<c:set value="${num+1}" var="num"/>
-													<c:set value="Beginner+${num+1}" var="name"/>
 												</c:forEach>
 											</div>
 											</tbody>
@@ -307,23 +267,31 @@
 
 									</div>
 								</fieldset>
-								<div class="admin-table-page">
-									<div id="page" class="page">
+
+								<!--<div class="admin-table-page" style="left: 900px">
+									<div id="page" class="page" >
 									</div>
-								</div>
+								</div>-->
+								<!--<div style="position:relative; left:650px; top:420px">-->
+							</div>
+
+								<!--<div style="position:fixed;left:650px;top:620px">-->
+								<!--</div>-->
+
 							</div>
 
 						</div>
 					</div>
 
 				</div>
-			</div>
 
 
 			<!--页脚-->
+			<!--<div lass="layui-footer beg-layout-footer">
+			</div>-->
 			<div class="layui-footer beg-layout-footer">
-				<p>2016 &copy;
-					<a href="#">beginner.zhengjinfan.cn</a> LGPL license
+				<p>
+					<%@include file="/hotelpage.jsp"%>
 				</p>
 			</div>
 		</div>
@@ -353,91 +321,6 @@
 
 		<script src="js/layui.js "></script>
 		<script src="js/layout.js "></script>
-		<!--<script>
-            //这是js的枚举，哈哈。
-			var closedEnum = {
-				closeCurrent:'closeCurrent', //关闭当前
-				refresh:'refresh',           //刷新
-				closeLeft:'closeLeft',       //关闭左侧
-				closeRight:'closeRight',     //关闭右侧
-				closeOther:'closeOther',     //关闭其他
-				closeAll:'closeAll'          //关闭所有
-			};
-		
-			layui.use('jquery', function() {
-				var $ = layui.jquery;
-
-				var $contextMenu = $('#contextmenu');
-
-				$(document).on('mousedown', '.layout-nav-card > ul.layui-tab-title', function (e) {
-                    //防止事件冒泡
-				    e.preventDefault();
-					//鼠标右击
-					if(e.which === 3) {
-						var $this = $(e.target);
-					    //元素定位
-						$contextMenu.css({
-						    left: e.pageX-2,
-						    top: e.pageY-2
-						}).show()
-						.children('ul.layui-nav').children('li.layui-nav-item').each(function () {
-						    var $that = $(this);
-						    //绑定点击事件
-						    $that.on('click', function () {
-						        var toggle = $that.data('toggle');
-						        var localName = $this[0].localName;
-						        var $li;
-						        if (localName === 'ul') {
-						            $li = $this.children('li.layui-this');
-						        } else if (localName === 'i' || localName === 'cite') {
-						            $li = $this.parent('li');
-						        } else {
-						            $li = $this;
-						        }
-						        switch (toggle) {
-						            //关闭当前标签
-						            case closedEnum.closeCurrent:
-						                $li.children('i.layui-tab-close').click();
-						                break;
-						            case closedEnum.refresh:
-						                layer.msg('你点击了刷新哦');
-						                break;
-						            case closedEnum.closeLeft:
-						                layer.msg('你点击了关闭左侧哦');
-						                break;
-						            case closedEnum.closeRight:
-						                layer.msg('你点击了关闭右侧哦');
-						                break;
-						            case closedEnum.closeOther:
-						                layer.msg('你点击了关闭其他哦');
-						                break;
-						            case closedEnum.closeAll:
-						                layer.msg('你点击了关闭所有哦');
-						                break;
-						            default:
-						                break;
-						        }
-
-						        console.log($li);
-						    });
-						});
-
-						
-					    $contextMenu.on('mouseover', function (e) {
-						    $(this).show();
-						}).on('mouseout', function () {
-						    $(this).hide();
-						});
-					}					
-				});
-				
-				//禁用鼠标右键
-				$(document).bind("contextmenu ", function(e) {
-					return false;
-				});
-			});
-		</script>-->
-
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
 
 		<script>
@@ -460,7 +343,7 @@
 				//page
 				laypage({
 					cont: 'page',
-					pages: 25 //总页数
+					pages:25 //总页数
 					,
 					groups: 5 //连续显示分页数
 					,
@@ -474,7 +357,7 @@
 				});
 
 				$('#search').on('click', function() {
-					parent.layer.alert('你点击了搜索按钮')
+
 				});
 
 				$('#add').on('click', function() {
@@ -535,6 +418,7 @@
 				});
 			});
 		</script>
+
 	</body>
 
 </html>
