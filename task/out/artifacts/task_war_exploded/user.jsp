@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <title>Unicorn User</title>
+    <title>用户中心</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
@@ -36,7 +36,7 @@
         ga('send', 'pageview');
     </script>
 </head>
-<body onload="initAJAX();" data-color="grey" class="flat" >
+<body onload="initAJAX();" data-color="blue" class="flat" >
 
 <!-- 主体 -->
 <div id="wrapper">
@@ -53,7 +53,7 @@
             <li class="btn" ><a title="" href="#">
                 <i class="fa fa-user"></i>
                 <% int userId =Integer.parseInt(request.getParameter("userId"));%>
-                <span class="text">用户<%=userId%></span>
+                <span class="text" onclick="showUserID()">用户<%=userId%></span>
             </a>
             </li>
             <li class="btn"><a title="" href="#">
@@ -313,14 +313,12 @@
                         "       </ul>"+
                         "       </div>" +
                         "<div class=\"col-xs-12 col-sm-8\">\n" +
-                        " <div>" +
-                        "   <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2266790837,3806975123&fm=11&gp=0.jpg' height='400px'>" +
+                        " <div style=\"text-align: center\">" +
+                        "   <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2266790837,3806975123&fm=11&gp=0.jpg' height='auto' width='300px'>" +
                         " </div>"+
                         "</div>"+
                         // "<div class=\"col-xs-12 col-sm-4\">\n" +
-                        // "<div>" +
-                        // "   <img src= \"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1775516601,1815140982&fm=26&gp=0.jpg\" width='100px' height='80'>" +
-                        // "</div>"+
+
                         // "</div>"+
                         " </div>"+
                         "</div>"+
@@ -725,7 +723,7 @@
             "                                    <input type=\"text\" class=\"form-control input-sm\" name=\"email\" id=\"email\">\n" +
             "                                </div>\n" +
             "                            </div>\n" +
-            "                            <div class=\"form-actions\">\n" +
+            "                            <div class=\"form-actions\" style=\"text-align:center;\">\n" +
             "                                <input type=\"submit\" value=\"更新\" class=\"btn btn-primary\">\n" +
             "                            </div>\n" +
             "                        </form>\n" +
@@ -777,8 +775,38 @@
         document.getElementById("ineer").innerHTML=listHtml;
     }
 
+
+
+    function index() {
+        var listHtml ="<div style=\"text-align: center;\" >\n" +
+            "\t\t\t<div class=\"text-primary\">\n" +
+            "\t\t\t\t<h2 >欢迎来到 MeetingWeb 用户服务系统</h1>\n" +
+            "\t\t\t</div>\n" +
+            "\t\t\t<span style=\"font-size: 22px;font-family: 楷体;\">本系统由 <b>打工人</b> 小组共同完成</span>\n" +
+            "\t\t\t<br>\n" +
+            "\t\t\t<p class=\"text-success\" style=\"font-size: 20px;font-family: 宋体;\">\n" +
+            "\t\t\t\t<span>  </span>\n" +
+            "\t\t\t\t您现在所处的界面是参会者界面，您可以在本界面中查找、加入以及查看已参加的会议。\n" +
+            "\t\t\t\t<br>\n" +
+            "\t\t\t\t同时，您还可以预约车辆、酒店同时查看自己的信息。\n" +
+            "\t\t\t\t<br>\n" +
+            "\t\t\t\t我们还为您提供了个性化日历功能，可以按照您的需要安排事务处理顺序。\n" +
+            "\t\t\t</p>\n" +
+            "\t\t\t<p class=\"text-info\" style=\"font-size: 16px;font-family: 宋体;\">\n" +
+            "\t\t\t\t祝您使用过程愉快！\n" +
+            "\t\t\t\t如在使用过程中出现了任何问题，欢迎致电我们团队。\n" +
+            "\t\t\t\t\n" +
+            "\t\t\t</p>\n" +
+            "\t\t\t<p class=\"text-warning\">联系电话：182****7526</p>\n" +
+            "\t\t</div>\n" +
+            "\t\t<div style=\"text-align: right;\"><b><i>2020/12/24</i></b></div>"+
+            "\t\t<div style=\"text-align: center;\"> \n" +
+            "              <img src= \"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1775516601,1815140982&fm=26&gp=0.jpg \" width='300px' height='atuo'>\n" +
+            "        </div>";
+        document.getElementById("ineer").innerHTML=listHtml;
+    }
 </script>
 <script>
-    window.onload=showUserID();
+    window.onload=index();
 </script>
 </html>

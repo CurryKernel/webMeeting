@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript">
         function checkName1() {
+            const t=false;
+            const s=true;
             //获取页面输入的用户名
             var userId = document.getElementById("userId").value;
             //1.创建AJAX对象
@@ -20,11 +22,11 @@
             //4.请求体
             xhr.send("method=validateName&userId="+userId);
             //5.前后台交互验证
-            if (userId.length == 0 || !name_reg.test(userId)) {
+            if(userId==0||!name_reg.test(userId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("userId").focus();
+                //document.getElementById("userId").focus();
+                return t;
             }
-            // document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
             else {
                 xhr.onreadystatechange = function () {
                     //正常交互
@@ -32,29 +34,25 @@
                         //得到返回结果,并利用结果判断用户名是否可用
                         var result = xhr.responseText;
                         //返回true,可用
-                        if ("true" == result) {
-                            //判用户名是否为空
-                            if (userId == null || userId == "") {
-                                //name_Span.style.color = "red";
-                                //name_Span.innerHTML = "用户名不可为空";
-                                document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名不可为空</em>";
-                                document.getElementById("userId").focus();
-                            } else {
-                                //name_Span.style.color = "green";
-                                //name_Span.innerHTML = "用户名可用";
+                        if("true" == result){
                                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名可用</em>";
-                            }
-                        } else {  //返回false,用户名不可用
+                                return s;
+                        }
+                        else {  //返回false,用户名不可用
                             //name_Span.style.color = "red";
                             //name_Span.innerHTML = "用户名不可用";
                             document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名已被注册</em>";
-                            document.getElementById("userId").focus();
+                            //document.getElementById("userId").focus();
+                            return t;
                         }
                     }
                 }
             }
+            return s;
         }
         function checkName4() {
+            const t=false;
+            const s=true;
             //获取页面输入的用户名
             var organizeId = document.getElementById("organizeId").value;
             //1.创建AJAX对象
@@ -69,7 +67,8 @@
             //5.前后台交互验证
             if (organizeId.length == 0 || !name_reg.test(organizeId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("organizeId").focus();
+                //document.getElementById("organizeId").focus();
+                return t;
             }
             // document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
             else {
@@ -80,28 +79,34 @@
                         var result = xhr.responseText;
                         //返回true,可用
                         if ("true" == result) {
-                            //判用户名是否为空
-                            if (organizeId == null || organizeId == "") {
-                                //name_Span.style.color = "red";
-                                //name_Span.innerHTML = "用户名不可为空";
-                                document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名不可为空</em>";
-                                document.getElementById("organizeId").focus();
-                            } else {
+                            // //判用户名是否为空
+                            // if (organizeId == null || organizeId == "") {
+                            //     //name_Span.style.color = "red";
+                            //     //name_Span.innerHTML = "用户名不可为空";
+                            //     document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名不可为空</em>";
+                            //     //document.getElementById("organizeId").focus();
+                            //
+                            // } else {
                                 //name_Span.style.color = "green";
                                 //name_Span.innerHTML = "用户名可用";
                                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名可用</em>";
-                            }
+                                return s;
+                            // }
                         } else {  //返回false,用户名不可用
                             //name_Span.style.color = "red";
                             //name_Span.innerHTML = "用户名不可用";
                             document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名已被注册</em>";
-                            document.getElementById("organizeId").focus();
+                            //document.getElementById("organizeId").focus();
+                            return t;
                         }
                     }
                 }
             }
+            return s;
         }
         function checkName2() {
+            const t=false;
+            const s=true;
             var driverId = document.getElementById("driverId").value;
             var xhr = new XMLHttpRequest();
             var name_reg = /^\d{3,5}$/; //正则表达式
@@ -112,7 +117,8 @@
             xhr.send("method=validateName&driverId="+driverId);
             if (driverId.length == 0 || !name_reg.test(driverId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("driverId").focus();
+                //document.getElementById("driverId").focus();
+                return t;
             }
             else {
                 // document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
@@ -124,27 +130,32 @@
                         //返回true,可用
                         if ("true" == result) {
                             //判用户名是否为空
-                            if (driverId == null || driverId == "") {
-                                //name_Span.style.color = "red";
-                                //name_Span.innerHTML = "用户名不可为空";
-                                document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名不可为空</em>";
-                                document.getElementById("driverId").focus();
-                            } else {
+                            // if (driverId == null || driverId == "") {
+                            //     //name_Span.style.color = "red";
+                            //     //name_Span.innerHTML = "用户名不可为空";
+                            //     document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名不可为空</em>";
+                            //     //document.getElementById("driverId").focus();
+                            // } else {
                                 //name_Span.style.color = "green";
                                 //name_Span.innerHTML = "用户名可用";
                                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名可用</em>";
-                            }
+                                return s;
+                            // }
                         } else {  //返回false,用户名不可用
                             //name_Span.style.color = "red";
                             //name_Span.innerHTML = "用户名不可用";
                             document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名已被注册</em>";
-                            document.getElementById("driverId").focus();
+                            //document.getElementById("driverId").focus();
+                            return t;
                         }
                     }
                 }
             }
+            return s;
         }
         function checkName3() {
+            const t=false;
+            const s=true;
             var hotelId = document.getElementById("hotelId").value;
             var xhr = new XMLHttpRequest();
             var name_reg = /^\d{3,5}$/; //正则表达式
@@ -155,7 +166,8 @@
             xhr.send("method=validateName&hotelId="+hotelId);
             if (hotelId.length == 0 || !name_reg.test(hotelId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("hotelId").focus();
+                //document.getElementById("hotelId").focus();
+                return t;
             } else {
                 //document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
                 xhr.onreadystatechange = function () {
@@ -166,52 +178,64 @@
                         //返回true,可用
                         if ("true" == result) {
                             //判用户名是否为空
-                            if (hotelId == null || hotelId == "") {
-                                //name_Span.style.color = "red";
-                                //name_Span.innerHTML = "用户名不可为空";
-                                document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名不可为空</em>";
-                                document.getElementById("hotelId").focus();
-                            } else {
+                            // if (hotelId == null || hotelId == "") {
+                            //     //name_Span.style.color = "red";
+                            //     //name_Span.innerHTML = "用户名不可为空";
+                            //     document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名不可为空</em>";
+                            //     //document.getElementById("hotelId").focus();
+                            // } else {
                                 //name_Span.style.color = "green";
                                 //name_Span.innerHTML = "用户名可用";
                                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名可用</em>";
-                            }
+                                return s;
+                        // }
                         } else {  //返回false,用户名不可用
                             //name_Span.style.color = "red";
                             //name_Span.innerHTML = "用户名不可用";
                             document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名已被注册</em>";
-                            document.getElementById("hotelId").focus();
+                            //document.getElementById("hotelId").focus();
+                            return t;
                         }
                     }
                 }
             }
+            return s;
         }
         function checkName5() {
             var adminId = document.getElementById("adminId").value;
             var name_reg = /^\d{3,5}$/; //正则表达式
             if (adminId.length == 0 || !name_reg.test(adminId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("adminId").focus();
+                //document.getElementById("adminId").focus();
             }
             else
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
         }
         function checkName6(){
+            //var t=false;
             var userId = document.getElementById("userId").value;
             var name_reg = /^\d{3,5}$/; //正则表达式
-            if (userId.length == 0 || !name_reg.test(userId)) {
+            if(userId==0){
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("userId").focus();
+
             }
-            else
+            else if(!name_reg.test(userId)) {
+                document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
+                //document.getElementById("userId").focus();
+
+            }
+            else {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
+
+            }
+
         }
         function checkName7(){
             var organizeId = document.getElementById("organizeId").value;
             var name_reg = /^\d{3,5}$/; //正则表达式
             if (organizeId.length == 0 || !name_reg.test(organizeId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("organizeId").focus();
+                //document.getElementById("organizeId").focus();
             }
             else
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
@@ -221,7 +245,7 @@
             var name_reg = /^\d{3,5}$/; //正则表达式
             if (driverId.length == 0 || !name_reg.test(driverId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("driverId").focus();
+                //document.getElementById("driverId").focus();
             }
             else
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
@@ -231,84 +255,158 @@
             var name_reg = /^\d{3,5}$/; //正则表达式
             if (hotelId.length == 0 || !name_reg.test(hotelId)) {
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#EF0000'>用户名由3-5个数字组成</em>";
-                document.getElementById("hotelId").focus();
+                //document.getElementById("hotelId").focus();
             }
             else
                 document.getElementById("name_Span").innerHTML = "<em style = 'color:#008000'>用户名由3-5个数字组成</em>";
         }
         function checkPassword() {
+            //var t=false;
             var password = document.getElementById("password").value;
-            if (password.length<8 || password.lenth>12) {
+            if(password.length==0){
                 document.getElementById("password_Span").innerHTML = "<em style = 'color:#EF0000'>请输入8-12位密码</em>";
-                document.getElementById("password").focus();
-            } else
-                document.getElementById("password_Span").innerHTML = "<em style = 'color:#008000'>请输入8-12位密码</em>";
-            var pwdRept = document.getElementById("pwdRept").value;
-            if (pwdRept != password) {
-                document.getElementById("pwdRept_Span").innerHTML = "<em style = 'color:#EF0000'>两次密码不一致</em>";
-                document.getElementById("pwdRept").focus();
+                //return 0;
+                return false;
             }
-            else
-                document.getElementById("pwdRept_Span").innerHTML = "<em style = 'color:#008000'>两次密码不一致</em>";
+            else if(password.length<8 || password.lenth>12) {
+                document.getElementById("password_Span").innerHTML = "<em style = 'color:#EF0000'>请输入8-12位密码</em>";
+                //document.getElementById("password").focus();
+                //return 0;
+                return false;
+            } else {
+                document.getElementById("password_Span").innerHTML = "<em style = 'color:#008000'>请输入8-12位密码</em>";
+                return true;
+            }
+
+        }
+        function checkPassword2() {
+            var password = document.getElementById("password").value;
+            var pwdRept = document.getElementById("pwdRept").value;
+            if(pwdRept.length==null){
+                document.getElementById("password_Span").innerHTML = "<em style = 'color:#EF0000'>两次密码一致</em>";
+                //return 0;
+                return false;
+            }
+            else if(pwdRept != password) {
+                document.getElementById("pwdRept_Span").innerHTML = "<em style = 'color:#EF0000'>两次密码一致</em>";
+                //document.getElementById("pwdRept").focus();
+                //return 0;
+                return false;
+            }else {
+                document.getElementById("pwdRept_Span").innerHTML = "<em style = 'color:#008000'>两次密码一致</em>";
+                return true;
+            }
+
         }
         function checkEmail() {
+            //var t=false;
             var email = document.getElementById("email").value;
             var pattern = /^[a-zA-Z0-9#_\^\$\.\+\-\?\=\!\|\:\\\/\(\)\[\]\{\}]+@[a-zA-Z0-9]+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
-            if (email.length == 0 || !pattern.test(email)) {
+            if(email.length == 0){
                 document.getElementById("email_Span").innerHTML = "<em style = 'color:#EF0000'>格式示例:xxxxxxxx@163.com</em>";
-                document.getElementById("email").focus();
+                return false;
             }
-            else
+            else if(!pattern.test(email)) {
+                document.getElementById("email_Span").innerHTML = "<em style = 'color:#EF0000'>格式示例:xxxxxxxx@163.com</em>";
+                //document.getElementById("email").focus();
+                return false;
+            }
+            else {
                 document.getElementById("email_Span").innerHTML = "<em style = 'color:#008000'>格式示例:xxxxxxxx@163.com</em>";
+                return true;
+            }
+
         }
         function checkPhone() {
+            //var t=false;
             var phone = document.getElementById("phone").value;
             var phone_reg = /^1[3|4|5|7|8]\d{9}$/; //正则表达式
-            if (phone.length == 0 || !phone_reg.test(phone)) {
+            if(phone.length == 0){
                 document.getElementById("phone_Span").innerHTML = "<em style = 'color:#EF0000'>格式示例:13800154200</em>";
-                document.getElementById("phone").focus();
-            } else
+                return false;
+            }
+            else if(!phone_reg.test(phone)) {
+                document.getElementById("phone_Span").innerHTML = "<em style = 'color:#EF0000'>格式示例:13800154200</em>";
+                //document.getElementById("phone").focus();
+                return false;
+            } else{
                 document.getElementById("phone_Span").innerHTML = "<em style = 'color:#008000'>格式示例:13800154200</em>";
+                return true;
+            }
+
         }
         function checkUserName() {
+            //var t=false;
             var name = document.getElementById("userName").value;
             var true_reg = /^[\u4e00-\u9fa5]{2,5}$/;
-            if (!true_reg.test(name)) {
+            if(name==0){
                 document.getElementById("userName_Span").innerHTML = "<em style = 'color:#EF0000'>由2-5个中文组成</em>";
-                document.getElementById("userName").focus();
+                return false;
             }
-            else
+            else if(!true_reg.test(name)) {
+                document.getElementById("userName_Span").innerHTML = "<em style = 'color:#EF0000'>由2-5个中文组成</em>";
+                //document.getElementById("userName").focus();
+                return false;
+            }
+            else {
                 document.getElementById("userName_Span").innerHTML = "<em style = 'color:#008000'>由2-5个中文组成</em>";
+                return true;
+            }
+
         }
         function checkOrganizeName(){
+            //var t=false;
             var name = document.getElementById("organizeName").value;
             var true_reg = /^[\u4e00-\u9fa5]{2,5}$/;
-            if (!true_reg.test(name)) {
+            if(name==0){
                 document.getElementById("organizeName_Span").innerHTML = "<em style = 'color:#EF0000'>由2-5个中文组成</em>";
-                document.getElementById("organizeName").focus();
+                return false;
             }
-            else
+            else if(!true_reg.test(name)) {
+                document.getElementById("organizeName_Span").innerHTML = "<em style = 'color:#EF0000'>由2-5个中文组成</em>";
+                //document.getElementById("organizeName").focus();
+                return false;
+            }
+            else {
                 document.getElementById("organizeName_Span").innerHTML = "<em style = 'color:#008000'>由2-5个中文组成</em>";
+                return true;
+            }
+
         }
-        function checkDepartment(){
+        function checkDepartment() {
+            //var t=false;
             var name = document.getElementById("department").value;
             var true_reg = /^[\u4e00-\u9fa5]{2,10}$/;
-            if (!true_reg.test(name)) {
+            if (name == 0) {
                 document.getElementById("department_Span").innerHTML = "<em style = 'color:#EF0000'>由2-10个中文组成</em>";
-                document.getElementById("department").focus();
-            }
-            else
+                return false;
+            } else if (!true_reg.test(name)) {
+                document.getElementById("department_Span").innerHTML = "<em style = 'color:#EF0000'>由2-10个中文组成</em>";
+                //document.getElementById("department").focus();
+                return false;
+            } else {
                 document.getElementById("department_Span").innerHTML = "<em style = 'color:#008000'>由2-10个中文组成</em>";
-        }
-        function checkDescription(){
-            var name = document.getElementById("description").value;
-            var true_reg = /^[\u4e00-\u9fa5]{2,10}$/;
-            if (!true_reg.test(name)) {
-                document.getElementById("description_Span").innerHTML = "<em style = 'color:#EF0000'>由2-10个中文组成</em>";
-                document.getElementById("description").focus();
+                return true;
             }
-            else
-                document.getElementById("description_Span").innerHTML = "<em style = 'color:#008000'>由2-10个中文组成</em>";
+
+        }
+        function checkDescription() {
+            //var t=false;
+            var name = document.getElementById("description").value;
+            var true_reg = /^[\u4e00-\u9fa5]{2,50}$/;
+            if (name == 0) {
+                document.getElementById("description_Span").innerHTML = "<em style = 'color:#EF0000'>由2-50个中文组成</em>";
+                return false;
+            }
+            if (!true_reg.test(name)) {
+                document.getElementById("description_Span").innerHTML = "<em style = 'color:#EF0000'>由2-50个中文组成</em>";
+                //document.getElementById("description").focus();
+                return false;
+            } else {
+                document.getElementById("description_Span").innerHTML = "<em style = 'color:#008000'>由2-50个中文组成</em>";
+                return true;
+            }
+
         }
     </script>
 </head>
@@ -404,29 +502,58 @@
         var listHtml = "<form action = \"${pageContext.request.contextPath}/RegistServlet\" method=\"post\">\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"userId\" name=\"userId\" placeholder=\"参加者用户名\" onblur=\"checkName1()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a1\" name=\"a1\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"userName\" name=\"userName\" placeholder=\"姓名\" onblur=\"checkUserName()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a2\" name=\"a2\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"userName_Span\"><p style=\"font-family:'新宋体','楷体';\">由2-5个中文组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a3\" name=\"a3\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword2()\" /></tr>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a4\" name=\"a4\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"pwdRept_Span\"><p style=\"font-family:'新宋体','楷体';\">两次密码不一致</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" maxlength=\"11\" id=\"phone\" name=\"phone\" placeholder=\"手机号码\" onblur=\"checkPhone()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a5\" name=\"a5\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"phone_Span\"><p style=\"font-family:'新宋体','楷体';\">格式示例:13800154200</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"email\" id=\"email\" name=\"email\" placeholder=\"邮箱\" onblur=\"checkEmail()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a6\" name=\"a6\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"email_Span\"><p style=\"font-family:'新宋体','楷体';\">格式示例:xxxxxxxx@163.com</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"department\" name=\"department\" placeholder=\"备注\" onblur=\"checkDepartment()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a7\" name=\"a7\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"department_Span\"><p style=\"font-family:'新宋体','楷体';\">由2-10个中文组成</p></span></tr>\n" +
-            "<br>\n" +
-            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\"></tr>\n" +  // onblur="check()", onclick="check()"
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\" onclick=\"lmTest1()\"></tr>\n" +  // onblur="check()", onclick="check()"
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("info").innerHTML=listHtml;
@@ -435,29 +562,58 @@
         var listHtml = "<form action = \"${pageContext.request.contextPath}/RegistOrganizeServlet\" method=\"post\" >\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"organizeId\" name=\"organizeId\" placeholder=\"组织者用户名\" onblur=\"checkName4()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a1\" name=\"a1\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"organizeName\" name=\"organizeName\" placeholder=\"姓名\" onblur=\"checkOrganizeName()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a2\" name=\"a2\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"organizeName_Span\"><p style=\"font-family:'新宋体','楷体';\">由2-5个中文组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a3\" name=\"a3\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword2()\" /></tr>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a4\" name=\"a4\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"pwdRept_Span\"><p style=\"font-family:'新宋体','楷体';\">两次密码不一致</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" maxlength=\"11\" id=\"phone\" name=\"phone\" placeholder=\"手机号码\" onblur=\"checkPhone()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a5\" name=\"a5\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"phone_Span\"><p style=\"font-family:'新宋体','楷体';\">格式示例:13800154200</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"email\" id=\"email\" placeholder=\"邮箱\" name=\"email\" onblur=\"checkEmail()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a6\" name=\"a6\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"email_Span\"><p style=\"font-family:'新宋体','楷体';\">格式示例:xxxxxxxx@163.com</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"department\" placeholder=\"备注\" name=\"department\" onblur=\"checkDepartment()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a7\" name=\"a7\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"department_Span\"><p style=\"font-family:'新宋体','楷体';\">由2-10个中文组成</p></span></tr>\n" +
-            "<br>\n" +
-            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\"></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\" onclick=\"lmTest2()\"></tr>\n" +
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("info").innerHTML=listHtml;
@@ -466,23 +622,44 @@
         var listHtml = "<form action = \"${pageContext.request.contextPath}/RegistDriverServlet\" method=\"post\" >\n" +       //onSubmit="checkForm2()"
             "<br>\n" + "<br>\n" + "<br>\n" + "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"driverId\" name=\"driverId\" placeholder=\"司机用户名\" onblur=\"checkName2()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a1\" name=\"a1\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a2\" name=\"a2\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword2()\" /></tr>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a3\" name=\"a3\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"pwdRept_Span\"><p style=\"font-family:'新宋体','楷体';\">两次密码不一致</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" maxlength=\"11\" id=\"phone\" name=\"phone\" placeholder=\"手机号码\" onblur=\"checkPhone()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a4\" name=\"a4\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"phone_Span\"><p style=\"font-family:'新宋体','楷体';\">格式示例:13800154200</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"description\" name=\"description\" placeholder=\"备注\" onblur=\"checkDescription()\" /></tr>\n" +
-            "<br>\n" +
-            "<tr><span id=\"description_Span\"><p style=\"font-family:'新宋体','楷体';\">自我描述（由2-10个中文组成）</p></span></tr>\n" +
-            "<br>\n" +
-            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\"></tr>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a5\" name=\"a5\" value=\"\"/></tr>\n" +
+            "<div>\n"+
+            "<tr><span id=\"description_Span\"><p style=\"font-family:'新宋体','楷体';\">自我描述（由2-50个中文组成）</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\" onclick=\"lmTest3()\"></tr>\n" +
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("info").innerHTML=listHtml;
@@ -491,37 +668,116 @@
         var listHtml = "<form action = \"${pageContext.request.contextPath}/RegistHotelServlet\" method=\"post\" >\n" +       //onSubmit="checkForm3()"
             "<br>\n" + "<br>\n" + "<br>\n" + "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"hotelId\" name=\"hotelId\" placeholder=\"酒店管理者用户名\" onblur=\"checkName3()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a1\" name=\"a1\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a2\" name=\"a2\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"pwdRept\" placeholder=\"确认密码\" onblur=\"checkPassword2()\" /></tr>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a3\" name=\"a3\" value=\"\"/></tr>\n" +
+            "<div>\n"+
             "<tr><span id=\"pwdRept_Span\"><p style=\"font-family:'新宋体','楷体';\">两次密码不一致</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"text\" id=\"description\" name=\"description\" placeholder=\"备注\" onblur=\"checkDescription()\" /></tr>\n" +
-            "<br>\n" +
-            "<tr><span id=\"description_Span\"><p style=\"font-family:'新宋体','楷体';\">自我描述（由2-10个中文组成）</p></span></tr>\n" +
-            "<br>\n" +
-            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\"></tr>\n" +
+            "</div>\n"+
+            "<tr><input type=\"hidden\" id=\"a4\" name=\"a4\" value=\"\"/></tr>\n" +
+            "<div>\n"+
+            "<tr><span id=\"description_Span\"><p style=\"font-family:'新宋体','楷体';\">自我描述（由2-50个中文组成）</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
+            "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"注册\" onclick=\"lmTest4()\"></tr>\n" +
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("info").innerHTML=listHtml;
+    }
+
+    function lmTest1(){
+        var a1=checkName1();
+        var a2=checkUserName();
+        var a3=checkPassword();
+        var a4=checkPassword2();
+        var a5=checkPhone();
+        var a6=checkEmail();
+        var a7=checkDepartment();
+        document.getElementById('a1').value=a1;
+        document.getElementById('a2').value=a2;
+        document.getElementById('a3').value=a3;
+        document.getElementById('a4').value=a4;
+        document.getElementById('a5').value=a5;
+        document.getElementById('a6').value=a6;
+        document.getElementById('a7').value=a7;
+    }
+    function lmTest2(){
+        var a1=checkName4();
+        var a2=checkOrganizeName();
+        var a3=checkPassword();
+        var a4=checkPassword2();
+        var a5=checkPhone();
+        var a6=checkEmail();
+        var a7=checkDepartment();
+        document.getElementById('a1').value=a1;
+        document.getElementById('a2').value=a2;
+        document.getElementById('a3').value=a3;
+        document.getElementById('a4').value=a4;
+        document.getElementById('a5').value=a5;
+        document.getElementById('a6').value=a6;
+        document.getElementById('a7').value=a7;
+    }
+    function lmTest3(){
+        var a1=checkName2();
+        var a2=checkPassword();
+        var a3=checkPassword2();
+        var a4=checkPhone();
+        var a5=checkDescription();
+        document.getElementById('a1').value=a1;
+        document.getElementById('a2').value=a2;
+        document.getElementById('a3').value=a3;
+        document.getElementById('a4').value=a4;
+        document.getElementById('a5').value=a5;
+    }
+    function lmTest4(){
+        var a1=checkName3();
+        var a2=checkPassword();
+        var a3=checkPassword2();
+        var a4=checkDescription();
+        document.getElementById('a1').value=a1;
+        document.getElementById('a2').value=a2;
+        document.getElementById('a3').value=a3;
+        document.getElementById('a4').value=a4;
     }
 
     function adminLogin(){
         var listHtml="<form action = \"${pageContext.request.contextPath}/AdminLoginServlet\" method=\"post\">\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"adminId\" name=\"AdminId\" placeholder=\"超级管理员用户名\" onblur=\"checkName5()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"登录\"></tr>\n" +  // onblur="check()", onclick="check()"
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("loginPart").innerHTML=listHtml;
@@ -530,14 +786,21 @@
         var listHtml="<form action = \"${pageContext.request.contextPath}/UserLoginServlet\" method=\"post\">\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"userId\" name=\"userId\" placeholder=\"会务参加者用户名\" onblur=\"checkName6()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"登录\"></tr>\n" +  // onblur="check()", onclick="check()"
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("loginPart").innerHTML=listHtml;
@@ -546,14 +809,21 @@
         var listHtml="<form action = \"${pageContext.request.contextPath}/OrganizeLoginServlet\" method=\"post\">\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"organizeId\" name=\"userId\" placeholder=\"会务组织者用户名\" onblur=\"checkName7()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"登录\"></tr>\n" +  // onblur="check()", onclick="check()"
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("loginPart").innerHTML=listHtml;
@@ -562,14 +832,21 @@
         var listHtml="<form action = \"${pageContext.request.contextPath}/DriverLoginServlet\" method=\"post\">\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"driverId\" name=\"driverId\" placeholder=\"司机用户名\" onblur=\"checkName8()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"登录\"></tr>\n" +  // onblur="check()", onclick="check()"
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("loginPart").innerHTML=listHtml;
@@ -578,14 +855,21 @@
         var listHtml="<form action = \"${pageContext.request.contextPath}/HotelLoginServlet\" method=\"post\">\n" +       //onSubmit="checkForm1()"
             "<br>\n" +
             "<div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px;\" type=\"text\" id=\"hotelId\" name=\"hotelid\" placeholder=\"酒店用户名\" onblur=\"checkName9()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"name_Span\"><p style=\"font-family:'新宋体','楷体';\">用户名由3-5位数字组成</p></span></tr>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:300px;height:40px;border-radius:18px\" type=\"password\" id=\"password\" name=\"password\" placeholder=\"密码\" onblur=\"checkPassword()\" /></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><span id=\"password_Span\"><p style=\"font-family:'新宋体','楷体';\">请输入8-12位密码</p></span></tr>\n" +
-            "<br>\n" +
+            "</div>\n"+
+            "<div>\n"+
             "<tr><input style=\"width:150px;height:40px;border-radius:18px\" type=\"submit\" class=\"btn_sign_up\" value=\"登录\"></tr>\n" +  // onblur="check()", onclick="check()"
+            "</div>\n"+
             "</div>\n"+
             "</form>";
         document.getElementById("loginPart").innerHTML=listHtml;
@@ -601,6 +885,21 @@
     var errori ='<%=request.getParameter("error")%>';
     if(errori=='yes'){
         alert("用户名或密码错误！登录失败!");
+    }
+
+    var zhuCe = '<%=request.getParameter("zhuCe")%>';
+    if(zhuCe=='yes'){
+        window.alert("注册成功！");
+    }
+
+    var tct8 = '<%=request.getParameter("tct8")%>';
+    if(tct8=='yes'){
+        alert("注册失败！请按提示填写注册信息！");
+    }
+
+    var com = '<%=request.getParameter("com")%>';
+    if(com=='yes'){
+        alert("用户名已存在，请重新填写注册信息！");
     }
 </script>
 <%--<script>--%>

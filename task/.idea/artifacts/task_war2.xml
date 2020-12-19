@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="task:war2">
+    <output-path>$PROJECT_DIR$/out/artifacts/task_war2</output-path>
+    <root id="archive" name="task_war.war">
+      <element id="artifact" artifact-name="task:war exploded" />
+      <element id="artifact" artifact-name="task:war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="aopalliance-1.0" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

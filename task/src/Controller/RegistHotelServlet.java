@@ -19,18 +19,28 @@ public class RegistHotelServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
         HotelInfoService hotelInfoService= new HotelInfoService();
 
-        String hotelId =request.getParameter("hotelId");
-        String password=request.getParameter("password");
-        String description=request.getParameter("description");
+        String a1=request.getParameter("a1");
+        String a2=request.getParameter("a2");
+        String a3=request.getParameter("a3");
+        String a4=request.getParameter("a4");
+        boolean a8=Boolean.parseBoolean(a1)&&Boolean.parseBoolean(a2)&&Boolean.parseBoolean(a3)&&Boolean.parseBoolean(a4);
+        if (a8 == true) {
+            String hotelId = request.getParameter("hotelId");
+            String password = request.getParameter("password");
+            String description = request.getParameter("description");
 
-        String hotelInsert = hotelInfoService.insert(hotelId,password,description);
-        PrintWriter out = response.getWriter();
-        if (hotelInsert == "0") {
-            out.println("false");
-        }
+            String hotelInsert = hotelInfoService.insert(hotelId, password, description);
+            PrintWriter out = response.getWriter();
+            if (hotelInsert == "0") {
+                response.sendRedirect("login.jsp?com=yes");
+            }
             //response.setHeader("refresh", "1;URL=/jump1.jsp");
-        else {
-            request.getRequestDispatcher("/login.jsp").forward(request,response);
+            else {
+                response.sendRedirect("login.jsp?zhuCe=yes");
+            }
+        }
+        else{
+            response.sendRedirect("login.jsp?tct8=yes");
         }
     }
 

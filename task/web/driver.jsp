@@ -81,7 +81,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="login.html">
+                            <a href="login.jsp">
                                 <i class="icon-off"></i>
                                 退出
                             </a>
@@ -348,7 +348,7 @@
                         "</div>"+
                         "<div class=\"col-xs-12 col-sm-6\">\n" +
                         " <div>" +
-                        "   <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2266790837,3806975123&fm=11&gp=0.jpg' height='300px'>" +
+                        "   <img src='https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2266790837,3806975123&fm=11&gp=0.jpg' height='auto' width='300px'>" +
                         " </div>"+
                         "</div>"+
                         " </div>"+
@@ -597,9 +597,38 @@
             "</form>";
         document.getElementById("ineer").innerHTML=listHtml;
     }
+
+    function index() {
+        var listHtml ="<div style=\"text-align: center;\" >\n" +
+            "\t\t\t<div class=\"text-primary\">\n" +
+            "\t\t\t\t<h2 >欢迎来到 MeetingWeb 司机信息服务系统</h1>\n" +
+            "\t\t\t</div>\n" +
+            "\t\t\t<span style=\"font-size: 22px;font-family: 楷体;\">本系统由 <b>打工人</b> 小组共同完成</span>\n" +
+            "\t\t\t<br>\n" +
+            "\t\t\t<p class=\"text-success\" style=\"font-size: 20px;font-family: 宋体;\">\n" +
+            "\t\t\t\t<span>  </span>\n" +
+            "\t\t\t\t您现在所处的界面是司机界面，您可以在本界面中查找客户预定车辆信息。\n" +
+            "\t\t\t\t<br>\n" +
+            "\t\t\t\t同时查看自己的信息。\n" +
+            "\t\t\t\t<br>\n" +
+            "\t\t\t\t我们还为您提供了个性化日历功能，可以按照您的需要安排事务处理顺序。\n" +
+            "\t\t\t</p>\n" +
+            "\t\t\t<p class=\"text-info\" style=\"font-size: 16px;font-family: 宋体;\">\n" +
+            "\t\t\t\t祝您使用过程愉快！\n" +
+            "\t\t\t\t如在使用过程中出现了任何问题，欢迎致电我们团队。\n" +
+            "\t\t\t\t\n" +
+            "\t\t\t</p>\n" +
+            "\t\t\t<p class=\"text-warning\">联系电话：182****7526</p>\n" +
+            "\t\t</div>\n" +
+            "\t\t<div style=\"text-align: right;\"><b><i>2020/12/24</i></b></div>"+
+            "\t\t<div style=\"text-align: center;\"> \n" +
+            "              <img src= \"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1775516601,1815140982&fm=26&gp=0.jpg \" width='300px' height='atuo'>\n" +
+            "        </div>";
+        document.getElementById("ineer").innerHTML=listHtml;
+    }
 </script>
 <script>
-    window.onload=ShowDriverInfo();
+    window.onload=index();
 </script>
 
 <script src="http://ajax.useso.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
