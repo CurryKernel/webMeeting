@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 
 @WebServlet("/DeleteInfo")
 public class DeleteInfo extends HttpServlet {
+      @Override
       protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
           String userId = request.getParameter("userId");
           String meetingId = request.getParameter("meetingId");
@@ -23,8 +24,11 @@ public class DeleteInfo extends HttpServlet {
         if (result != 0) {
             out.println("删除成功");
         }
-        else  out.println("删除失败");
+        else {
+            out.println("删除失败");
+        }
     }
+   @Override
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        String userId = request.getParameter("userId");
        String meetingId = request.getParameter("meetingId");
@@ -36,7 +40,9 @@ public class DeleteInfo extends HttpServlet {
        if (result != 0) {
            out.println("删除成功");
        }
-       else  out.println("删除失败");
+       else {
+           out.println("删除失败");
+       }
     }
 
 
