@@ -42,31 +42,6 @@ public class CheckInfoImpl implements CheckInfoRespository {
         }
         return list;
     }
-    public List<CheckInfo> selets(CheckInfo t) {
-        List<CheckInfo> list=new ArrayList<CheckInfo>();
-        conn = JDBCUtils.getConnect();
-        String sql = "select joinMeeting.meetingId,user.userId,userName,phone,department,email from meeting,joinMeeting,user where meeting.meetingId=joinMeeting.meetingId AND joinMeeting.userId=user.userId AND meeting.userID=? order by meeting.meetingId";
-        try {
-            //连接数据库
-            pre = conn.prepareStatement(sql);
-            rs = pre.executeQuery();
-            while(rs.next()){
-                String meetingId = rs.getString(1);
-                String userid = rs.getString(2);
-                String userName = rs.getString(3);
-                String phone = rs.getString(4);
-                String department=rs.getString(5);
-                String email=rs.getString(6);
-                u = new CheckInfo(meetingId,userid,userName,phone,department,email);
-                list.add(u);
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return list;
-    }
-
     @Override
     public List<CheckInfo> findByUserId(String userId, int currentPage, int pageSize) {
         return null;
@@ -160,13 +135,14 @@ public class CheckInfoImpl implements CheckInfoRespository {
     }
 
     @Override
-    public int deleteByUserId(String userId) {
+    public int deleteByUserId(String userId, String meetingId) {
        int result=0;
-        String sql="delete from joinMeeting where userId =?";
+        String sql="delete from joinMeeting where userId =? and meetingId=?";
         try {
             conn = JDBCUtils.getConnect();
             pre = conn.prepareStatement(sql);
             pre.setString(1,userId);
+            pre.setString(2,meetingId);
             result= pre.executeUpdate();
 
            // pre.executeUpdate();

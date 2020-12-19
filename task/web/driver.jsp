@@ -59,7 +59,7 @@
                         <% int Id =Integer.parseInt(request.getParameter("driverId"));%>
                         <span class="user-info">
 									<small>欢迎光临,</small>
-                            <span id="info"><%=Id%></span>
+                            <span id="info" onclick="index()"><%=Id%></span>
 								</span>
                         <i class="icon-caret-down"></i>
                     </a>

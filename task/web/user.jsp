@@ -1,11 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="VO.User" %><%--
-  Created by IntelliJ IDEA.
-  User: 柯淇文
-  Date: 2020/11/25
-  Time: 17:00
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="VO.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -53,7 +47,9 @@
             <li class="btn" ><a title="" href="#">
                 <i class="fa fa-user"></i>
                 <% int userId =Integer.parseInt(request.getParameter("userId"));%>
-                <span class="text" onclick="showUserID()">用户<%=userId%></span>
+                <span class="text" onclick="index()"  >
+                        <%=userId%>
+                </span>
             </a>
             </li>
             <li class="btn"><a title="" href="#">
@@ -156,7 +152,8 @@
     <!-- 个人信息侧边栏信息 -->
     <div id="content">
         <div id="content-header" class="mini">
-            <h1>欢迎访问(｡･ω･｡)ﾉ♡</h1>
+            <h1>欢迎访问(｡･ω･｡)ﾉ♡<span id="name" style="font-family: 华光行楷_CNKI"></span></h1>
+
             <ul class="mini-stats box-3">
                 <li>
                     <div class="left sparkline_bar_good"><span>2,4,9,7,12,10,12</span></div>
@@ -248,7 +245,7 @@
     <!-- 页脚部分，做成一致 -->
     <div class="row">
         <div id="footer" class="col-xs-12">
-<%--            <% int userId =Integer.parseInt(request.getParameter("userId"));%>--%>
+
             2020 - 2021 &copy; Kernel. Brought to <span id="info" ><%=userId%></span> by <a href="#">MyWork</a>
         </div>
     </div>
@@ -272,9 +269,7 @@
 </body>
 <script language="JavaScript">
     function showUserID(){
-        //alert("ni");
         xmlhttp =new XMLHttpRequest();
-        //console.log("到这");
         var userId =document.getElementById("info").innerText;
         console.log(userId);
         xmlhttp.open("get","${pageContext.request.contextPath}/findByUserId?userId="+userId,true);
@@ -805,8 +800,27 @@
             "        </div>";
         document.getElementById("ineer").innerHTML=listHtml;
     }
+
+    function Showname(){
+        xmlhttp =new XMLHttpRequest();
+        var userId =document.getElementById("info").innerText;
+        xmlhttp.open("get","${pageContext.request.contextPath}/findByUserId?userId="+userId,true);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function callback() {
+            if (xmlhttp.status == 200) {
+                var date = xmlhttp.responseText;
+                var obj = JSON.parse(date);
+                var listHtml = " ";
+                for (var i in obj) {
+                    listHtml +="<span>"+obj[i].username+"</span>"
+                }
+                document.getElementById("name").innerHTML = listHtml;
+            }
+        }
+    }
 </script>
 <script>
     window.onload=index();
+    window.onload=Showname();
 </script>
 </html>

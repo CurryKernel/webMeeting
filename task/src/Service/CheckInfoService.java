@@ -14,5 +14,5 @@ public class CheckInfoService {
     public List<CheckInfo> findAll(){
         return CheckInfo.findAll();
     }
-    public  int deleteByUserId(String userId){ return CheckInfo.deleteByUserId(userId); }
+    public  int deleteByUserId(String userId ,String meetingId){ return CheckInfo.deleteByUserId(userId,meetingId); }
     }

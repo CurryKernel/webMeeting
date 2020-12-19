@@ -25,7 +25,7 @@ public interface CheckInfoRespository {
     public void insert(String userId, String userName, String password, String phone, String department, String email);
 
     //删
-    public int deleteByUserId(String userId);
+    public int deleteByUserId(String userId,String meetingId);
    // public int delete(CheckInfo ci);
 
     //改
