@@ -46,7 +46,7 @@
             <a href="#" class="navbar-brand">
                 <small>
                     <i class="icon-leaf"></i>
-                    司机信息系统
+                    司机个人中心
                 </small>
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
@@ -58,7 +58,7 @@
                         <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
                         <% int Id =Integer.parseInt(request.getParameter("driverId"));%>
                         <span class="user-info">
-									<small>欢迎光临,</small>
+									<small>欢迎登录</small>
                             <span id="info" onclick="index()"><%=Id%></span>
 								</span>
                         <i class="icon-caret-down"></i>
@@ -136,13 +136,29 @@
                 </div>
             </div><!-- #sidebar-shortcuts -->
             <ul class="nav nav-list">
-                <li class="active">
-                    <a href="#">
-                        <i class="icon-dashboard"></i>
-                        <span class="menu-text" onclick="ShowDriverInfo()">个人信息</span>
+                <li>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="icon-list"></i>
+                        <span class="menu-text"> 个人账号 </span>
+
+
+                        <b class="arrow icon-angle-down"></b>
                     </a>
+                    <ul class="submenu">
+                        <li class="active">
+                            <a href="#">
+                                <i class="icon-double-angle-right"></i>
+                                <span class="menu-text" onclick="ShowDriverInfo()">个人信息</span>
+                            </a>
+                        <li class="active">
+                            <a href="#">
+                                <i class="icon-edit"></i>
+                                <span class="menu-text" onclick="UpdateDriver()">修改个人信息</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="active open">
+                <li>
                     <a href="#" class="dropdown-toggle">
                         <i class="icon-list"></i>
                         <span class="menu-text"> 乘客信息 </span>
@@ -156,7 +172,7 @@
                                 <span onclick="ShowPassergers()">乘客预定信息</span>
                             </a>
                         </li>
-                        <li>
+                        <li calss="active">
                             <a href="#">
                                 <i class="icon-double-angle-right"></i>
                                 <span onclick="ShowMyOrderInfo()">已接单信息</span>
@@ -165,17 +181,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#" class="dropdown-toggle">
-                        <i class="icon-edit"></i>
-                        <span class="menu-text" onclick="UpdateDriver()">修改个人信息</span>
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-                </li>
-                <li>
                     <a href="calendar.html">
                         <i class="icon-calendar"></i>
                         <span class="menu-text">
-                            日历
+                            任务时间
                             <span class="badge badge-transparent tooltip-error" title="2&nbsp;Important&nbsp;Events">
                                 <i class="icon-warning-sign red bigger-130"></i>
                             </span>
@@ -607,9 +616,9 @@
             "\t\t\t<br>\n" +
             "\t\t\t<p class=\"text-success\" style=\"font-size: 20px;font-family: 宋体;\">\n" +
             "\t\t\t\t<span>  </span>\n" +
-            "\t\t\t\t您现在所处的界面是司机界面，您可以在本界面中查找客户预定车辆信息。\n" +
+            "\t\t\t\t您现在所处的界面是司机界面。\n" +
             "\t\t\t\t<br>\n" +
-            "\t\t\t\t同时查看自己的信息。\n" +
+            "\t\t\t\t您可以在本界面中查找客户预定车辆信息，同时查看自己的信息。\n" +
             "\t\t\t\t<br>\n" +
             "\t\t\t\t我们还为您提供了个性化日历功能，可以按照您的需要安排事务处理顺序。\n" +
             "\t\t\t</p>\n" +
