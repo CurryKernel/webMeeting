@@ -1,11 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="VO.User" %><%--
-  Created by IntelliJ IDEA.
-  User: 柯淇文
-  Date: 2020/11/25
-  Time: 17:00
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="VO.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -275,9 +269,7 @@
 </body>
 <script language="JavaScript">
     function showUserID(){
-        //alert("ni");
         xmlhttp =new XMLHttpRequest();
-        //console.log("到这");
         var userId =document.getElementById("info").innerText;
         console.log(userId);
         xmlhttp.open("get","${pageContext.request.contextPath}/findByUserId?userId="+userId,true);
@@ -297,7 +289,7 @@
                         "<span class=\"icon\"><i class=\"fa fa-signal\"></i></span>\n" +
                         " <h5>个人资料</h5>\n" +
                         " <div class=\"buttons\">\n" +
-                        "  <a href=\"user.jsp\" class=\"btn\">" +
+                        "  <a href=\"#\" class=\"btn\">" +
                         "  <i class=\"fa fa-refresh\"></i> " +
                         "  <span class=\"text\">更新</span></a>\n" +
                         "  </div>\n" +

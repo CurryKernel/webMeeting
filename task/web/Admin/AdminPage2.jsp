@@ -73,7 +73,7 @@
                     <th class="d-none d-xl-table-cell">用户名</th>
                     <th class="d-none d-xl-table-cell">电话号码</th>
                     <th class="d-none d-md-table-cell">电子邮箱</th>
-                    <th class="d-none d-md-table-cell"></th>
+                    <th class="d-none d-md-table-cell">重置密码</th>
                 </tr>
                 </thead>
                 <tbody>

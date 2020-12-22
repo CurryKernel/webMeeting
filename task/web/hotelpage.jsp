@@ -12,8 +12,8 @@
 <div id="page_nav">
     <%--大于首页，才显示--%>
     <c:if test="${requestScope.page.pageNo > 1}">
-        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=1&hotelid=<%=request.getParameter("hotelid")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">首页</a>
-        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${requestScope.page.pageNo-1}&hotelid=<%=request.getParameter("hotelid")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">上一页</a>
+        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=1&hotelId=<%=request.getParameter("hotelId")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">首页</a>
+        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${requestScope.page.pageNo-1}&hotelId=<%=request.getParameter("hotelId")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">上一页</a>
     </c:if>
     <%--页码输出的开始--%>
     <c:choose>
@@ -49,7 +49,7 @@
             【${i}】
         </c:if>
         <c:if test="${i!= requestScope.page.pageNo}">
-            <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${i}&hotelid=<%=request.getParameter("hotelid")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">${i}</a>
+            <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${i}&hotelId=<%=request.getParameter("hotelId")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">${i}</a>
         </c:if>
     </c:forEach>
     <%--页码输出的结束--%>
@@ -57,8 +57,8 @@
 
     <%-- 如果已经 是最后一页，则不显示下一页，末页 --%>
     <c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
-        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${requestScope.page.pageNo+1}&hotelid=<%=request.getParameter("hotelid")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">下一页</a>
-        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${requestScope.page.pageTotal}&hotelid=<%=request.getParameter("hotelid")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">末页</a>
+        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${requestScope.page.pageNo+1}&hotelId=<%=request.getParameter("hotelId")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">下一页</a>
+        <a href="${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&pageNo=${requestScope.page.pageTotal}&hotelId=<%=request.getParameter("hotelId")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>">末页</a>
     </c:if>
 
     共${ requestScope.page.pageTotal }页，${ requestScope.page.pageTotalCount }条记录
@@ -76,7 +76,7 @@
                 <%--var pageTotal = ${requestScope.page.pageTotal};--%>
                 <%--alert(pageTotal);--%>
 
-                location.href = "${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&hotelid=<%=request.getParameter("hotelid")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>&pageNo="+pageNo1;
+                location.href = "${pageContext.request.contextPath}/OrderHotel?action=<%=request.getParameter("action")%>&hotelId=<%=request.getParameter("hotelId")%>&minpeople=<%=request.getParameter("minpeople")%>&maxpeople=<%=request.getParameter("maxpeople")%>&state=<%=request.getParameter("state")%>&pageNo="+pageNo1;
                 //document.write(location.href);
 
             });

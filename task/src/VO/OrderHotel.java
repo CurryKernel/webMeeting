@@ -53,11 +53,12 @@ public class OrderHotel {
         this.hotelId = hotelId;
     }
 
-    public OrderHotel(String userId, Integer people, Integer state, String hotelId) {
+    public OrderHotel(String userId, Integer people, Integer state, String hotelId, String meetingId) {
         this.userId = userId;
         this.people = people;
         this.state = state;
         this.hotelId = hotelId;
+        this.meetingId = meetingId;
     }
 
     //获取当前酒店的用户ID

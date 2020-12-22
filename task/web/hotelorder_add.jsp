@@ -19,8 +19,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" href="css/layui.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/font-awesome.css">
 </head>
 
 <body>
@@ -63,10 +63,16 @@
         <div class="layui-form-item">
             <label class="layui-form-label">酒店ID</label>
             <div class="layui-input-block">
-                <input type="text" name="hotelId" lay-verify="title" autocomplete="off" placeholder="请输入用户的ID" class="layui-input" >
+                <input type="text" name="hotelId" lay-verify="title" autocomplete="off" placeholder="请输入酒店的ID" class="layui-input" >
             </div>
         </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">会议ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="meetingId" lay-verify="title" autocomplete="off" placeholder="请输入此次酒店预订用户对于的会议ID" class="layui-input" >
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -77,7 +83,7 @@
     </form>
 </div>
 
-<script type="text/javascript" src="plugins/layui/layui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/layui/layui.js"></script>
 <script>
     layui.use('form', function(){
         var form = layui.form;

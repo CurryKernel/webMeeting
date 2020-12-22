@@ -9,8 +9,20 @@ public class ShowOrderHotel {
     private String time;//会议开始时间，记得使用DBDate类里的方法
     private Integer state;//预定状态，0表示未审核，1表示未通过，2,表示已通过
     private String hotelId;//酒店ID
+    private String meetingId;
 
-    public ShowOrderHotel(String userId, String userName, String phone,Integer people, String time,Integer state, String hotelId) {
+    public String getMeetingId() {
+        return meetingId;
+    }
+
+    public void setMeetingId(String meetingId) {
+        this.meetingId = meetingId;
+    }
+
+    public ShowOrderHotel() {
+    }
+
+    public ShowOrderHotel(String userId, String userName, String phone, Integer people, String time, Integer state, String hotelId, String meetingId) {
         this.userId = userId;
         this.people = people;
         this.state = state;
@@ -18,6 +30,7 @@ public class ShowOrderHotel {
         this.userName = userName;
         this.phone = phone;
         this.time = time;
+        this.meetingId=meetingId;
     }
 
     public String getUserId() {

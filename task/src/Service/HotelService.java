@@ -5,8 +5,12 @@ import DAO.impl.OrderHotelImpl;
 import VO.OrderHotel;
 import VO.Page;
 import VO.ShowOrderHotel;
+import VO.User;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HotelService {
     private OrderHotelRespository orderhotel = new OrderHotelImpl();
@@ -102,8 +106,8 @@ public class HotelService {
         return page;
     }
 
-    public void add_devide_order(String userid,int people,int state,String hotelid,String meetingId){
-        orderhotel.insert(userid,people,state,hotelid,meetingId);
+    public void add_devide_order(String userid,int people,int state,String hotelId,String meetingId){
+        orderhotel.insert(userid,people,state,hotelId,meetingId);
         return;
     }
 
@@ -112,18 +116,28 @@ public class HotelService {
         return;
     }
 
-    public void deleteByUserId_Hotelid(String userid,String hotelid){
-        orderhotel.deleteByUserId_Hotelid(userid,hotelid);
+    public void deleteByUserId_Hotelid(String userid,String hotelId){
+        orderhotel.deleteByUserId_Hotelid(userid,hotelId);
         return;
     }
 
-    public Page<ShowOrderHotel> findByHotel_Page(int currentPage, int pageSize,String hotelid) {
+    public void update_state(String userId,String hotelId,int newstate,String meetingId){
+        orderhotel.update_state(userId,hotelId,newstate,meetingId);
+        return;
+    }
+
+    public void update_state1(OrderHotel orderHotel){
+        orderhotel.update_state(orderHotel.getUserId(),orderHotel.getHotelId(),orderHotel.getState(),orderHotel.getMeetingId());
+        return;
+    }
+
+    public Page<ShowOrderHotel> findByHotel_Page(int currentPage, int pageSize,String hotelId) {
         Page<ShowOrderHotel> page = new Page<ShowOrderHotel>();
         page.setPageNo(currentPage);
         page.setPageSize(pageSize);
 
         //总记录数
-        Integer pageTotalRecord = orderhotel.countByHotelid(hotelid);
+        Integer pageTotalRecord = orderhotel.countByHotelid(hotelId);
         page.setPageTotalCount(pageTotalRecord);
 
         // 总页码
@@ -134,12 +148,41 @@ public class HotelService {
         page.setPageTotal(pageTotal);
 
         // 当前页数据
-        List<ShowOrderHotel>  orders_page= orderhotel.findByHotel_page(hotelid,currentPage,pageSize);
+        List<ShowOrderHotel>  orders_page= orderhotel.findByHotel_page(hotelId,currentPage,pageSize);
 
         // 设置当前页数据
         page.setItems(orders_page);
         return page;
     }
+
+    public Page<ShowOrderHotel> findByHotel_User_Meeting_Page(String hotelId,String userId,String meetingId,int currentPage, int pageSize) {
+        Page<ShowOrderHotel> page = new Page<ShowOrderHotel>();
+        page.setPageNo(currentPage);
+        page.setPageSize(pageSize);
+
+        //总记录数
+        Integer pageTotalRecord = orderhotel.countByUserId_Hotelid(userId,hotelId);
+        page.setPageTotalCount(pageTotalRecord);
+
+        // 总页码
+        Integer pageTotal = pageTotalRecord / pageSize;
+        if (pageTotalRecord % pageSize > 0) {
+            pageTotal+=1;
+        }
+        page.setPageTotal(pageTotal);
+
+        // 当前页数据
+        List<ShowOrderHotel>  orders_page= orderhotel.findByUser_Hotel_Meeting_Page(hotelId,userId,meetingId,currentPage,pageSize);
+
+        // 设置当前页数据
+        page.setItems(orders_page);
+
+        return page;
+    }
+
+
+
+
 
     /*public HashMap<OrderHotel,User> joinuserinfo(List<OrderHotel> order,HashMap<OrderHotel,User> map){
         UserService user=new UserService();

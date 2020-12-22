@@ -289,7 +289,7 @@
                         "<span class=\"icon\"><i class=\"fa fa-signal\"></i></span>\n" +
                         " <h5>个人资料</h5>\n" +
                         " <div class=\"buttons\">\n" +
-                        "  <a href=\"user.jsp\" class=\"btn\">" +
+                        "  <a href=\"#\" class=\"btn\">" +
                         "  <i class=\"fa fa-refresh\"></i> " +
                         "  <span class=\"text\">更新</span></a>\n" +
                         "  </div>\n" +

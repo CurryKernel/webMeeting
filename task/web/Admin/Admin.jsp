@@ -175,9 +175,61 @@
                 searchUserInMeeting(meetingId,1,userId)
             }
         }
+
+        function index() {
+            var listHtml ="<div style=\"text-align: center;\" >\n" +
+                "\t\t\t<div class=\"text-primary\">\n" +
+                "\t\t\t\t<h2 >欢迎来到 MeetingWeb 管理员信息服务系统</h1>\n" +
+                "\t\t\t</div>\n" +
+                "\t\t\t<span style=\"font-size: 22px;font-family: 楷体;\">本系统由 <b>打工人</b> 小组共同完成</span>\n" +
+                "\t\t\t<br>\n" +
+                "\t\t\t<p class=\"text-success\" style=\"font-size: 20px;font-family: 宋体;\">\n" +
+                "\t\t\t\t<span>  </span>\n" +
+                "\t\t\t\t您现在所处的界面是超级管理员界面，您可以在本界面中进行会议管理以及用户信息管理。\n" +
+                "\t\t\t\t<br>\n" +
+                "\t\t\t\t同时查看并修改自己的信息。\n" +
+                "\t\t\t\t<br>\n" +
+                "\t\t\t</p>\n" +
+                "\t\t\t<p class=\"text-info\" style=\"font-size: 16px;font-family: 宋体;\">\n" +
+                "\t\t\t\t祝您使用过程愉快！\n" +
+                "\t\t\t\t如在使用过程中出现了任何问题，欢迎致电我们团队。\n" +
+                "\t\t\t\t\n" +
+                "\t\t\t</p>\n" +
+                "\t\t\t<p class=\"text-warning\">联系电话：182****7526</p>\n" +
+                "\t\t</div>\n" +
+                "\t\t<div style=\"text-align: right;\"><b><i>2020/12/24</i></b></div>"+
+                "\t\t<div style=\"text-align: center;\"> \n" +
+                "              <img src= \"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1775516601,1815140982&fm=26&gp=0.jpg \" width='300px' height='atuo'>\n" +
+                "        </div>";
+            document.getElementById("content").innerHTML=listHtml;
+        }
     </script>
 </head>
-<body onload="selectPages(1,1,'');sendMessage()">
+<style>
+    table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #495057;
+        text-align:center;
+    }
+    td,th {
+        width:1px;
+        white-space:nowrap; /* 自适应宽度*/
+        word-break:keep-all; /* 避免长单词截断，保持全部 */
+        text-align:center;
+        white-space:pre-line;
+        word-break:break-all !important;
+        word-wrap:break-word !important;
+        display:table-cell;
+        vertical-align:middle !important;
+        white-space: normal !important;
+        height:auto;
+        vertical-align:text-top;
+        padding:2px 2px 0 2px;
+        display: table-cell;
+    }
+</style>
+<body onload="index()">
 <div class="wrapper" id="main">
     <nav id="sidebar" class="sidebar">
         <div class="sidebar-content js-simplebar">
@@ -229,7 +281,7 @@
                             <a class="dropdown-item" href='javascript:selectPages(2,1,"")'><i class="align-middle mr-1" data-feather="user"></i>用户管理</a>
                             <a class="dropdown-item" href='javascript:selectPages(3,1,"")'><i class="align-middle mr-1" data-feather="settings"></i>账号管理</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Admin/AdminLogin.jsp">登出</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/login.jsp">登出</a>
                         </div>
                     </li>
                 </ul>

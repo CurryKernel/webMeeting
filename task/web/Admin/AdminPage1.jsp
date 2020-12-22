@@ -69,14 +69,15 @@
                     </div>
                 </nav>
 
-                <table class="table table-hover my-0">
+                <table class="table table-hover my-0" >
                     <thead>
                     <tr>
                         <th class="d-none d-xl-table-cell">会议编号</th>
                         <th class="d-none d-xl-table-cell">创建人</th>
                         <th class="d-none d-xl-table-cell">会议时间</th>
                         <th class="d-none d-md-table-cell">会议地点</th>
-                        <th class="d-none d-md-table-cell"></th>
+                        <th class="d-none d-md-table-cell">编辑会议</th>
+                        <th class="d-none d-md-table-cell">参加人员</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -110,7 +111,7 @@
                             List<User> user = userService.findByUserId(meetingInfoList.get(i).getUserId());
                     %>
                         <tr>
-                            <td class="d-none d-xl-table-cell"><%=meetingInfoList.get(i).getMeetingId()%></td>
+                            <td class="d-none  d-xl-table-cell"><%=meetingInfoList.get(i).getMeetingId()%></td>
                             <td class="d-none d-xl-table-cell"><%=user.get(0).getUsername()%></td>
                             <td class="d-none d-xl-table-cell"><%=meetingInfoList.get(i).getTime()%></td>
                             <td class="d-none d-xl-table-cell"><%=meetingInfoList.get(i).getPlace()%></td>
