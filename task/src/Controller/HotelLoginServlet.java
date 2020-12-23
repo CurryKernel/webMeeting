@@ -27,7 +27,7 @@ public class HotelLoginServlet extends HttpServlet {
             response.sendRedirect("login.jsp?error=yes");
         } else {
             request.setAttribute("hotelid",hotelId);
-            request.getRequestDispatcher("/OrderHotel?action=page&hotelid="+hotelId).forward(request,response);
+            request.getRequestDispatcher("/OrderHotel?action=page&hotelId="+hotelId).forward(request,response);
         }
     }
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -20,22 +21,24 @@
 
     <link rel="stylesheet" href="css/layui.css" media="all" />
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <script>
+    </script>
 </head>
 
 <body>
 <div style="margin: 15px;">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>增加酒店订单</legend>
+        <legend>修改酒店订单-您只能状态</legend>
     </fieldset>
 
 
     <form class="layui-form" action="${pageContext.request.contextPath}/OrderHotel" method="post">
-        <input type="hidden" name="action" value="add_order"/>
+        <input type="hidden" name="action" value="update_state"/>
 
         <div class="layui-form-item">
             <label class="layui-form-label">用户ID</label>
             <div class="layui-input-block">
-                <input type="text" name="userId" lay-verify="title" autocomplete="off" placeholder="请输入用户的ID" class="layui-input" >
+                <input type="text" name="userId" lay-verify="title" autocomplete="off"  class="layui-input" value="${requestScope.page1.getUserId()}" readonly>
             </div>
         </div>
 
@@ -43,7 +46,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">住房人数</label>
             <div class="layui-input-block">
-                <input type="text" name="people" lay-verify="title" autocomplete="off" placeholder="请输入住房人数" class="layui-input" >
+                <input type="text" name="people" lay-verify="title" autocomplete="off"  class="layui-input" value="${requestScope.page1.getPeople()}" readonly>
             </div>
         </div>
 
@@ -62,7 +65,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">酒店ID</label>
             <div class="layui-input-block">
-                <input type="text" name="hotelId" lay-verify="title" autocomplete="off" placeholder="请输入用户的ID" class="layui-input" >
+                <input type="text" name="hotelId" lay-verify="title" autocomplete="off"  class="layui-input"  value="${requestScope.page1.getHotelId()}" readonly>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">会议ID</label>
+            <div class="layui-input-block">
+                <input type="text" name="meetingId" lay-verify="title" autocomplete="off"  class="layui-input"  value="${requestScope.page1.getMeetingId()}" readonly>
             </div>
         </div>
 
@@ -73,6 +83,7 @@
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
+
     </form>
 </div>
 
