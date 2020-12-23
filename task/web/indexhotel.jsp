@@ -42,7 +42,7 @@
 
 		<div class="htmleaf-links">
 			<a class="htmleaf-icon icon-htmleaf-home-outline" href="login.jsp" title="回到主页" target="_blank"><span> 回到主页</span></a>
-			<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="" title="回到酒店页" target="_blank"><span> 回到酒店页</span></a>
+			<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="#" title="回到酒店页" ><span> 回到酒店页</span></a>
 		</div>
 	</header>
 
