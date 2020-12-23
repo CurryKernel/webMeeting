@@ -28,7 +28,7 @@
 <body>
 <div style="margin: 15px;">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>修改酒店订单-您只能状态</legend>
+        <legend>修改酒店订单-您只能修改状态</legend>
     </fieldset>
 
 

@@ -56,7 +56,7 @@
 			<a class="button large regular red" style="background-color: #ff6c6f;display: inline-block" href="${pageContext.request.contextPath}/hotelorder_add.jsp?hotelId=<%=request.getParameter("hotelId")%>">增加订单</a>
 			<div class="search d4" style="display: inline-block">
 				<form style="display: inline-block">
-					<input type="text"  placeholder="请输入用户id进行搜索">
+					<input type="text" id="searchid"  placeholder="请输入用户id进行搜索">
 					<button type="button" onclick="searchUser_hotel()"></button>
 				</form>
 			</div>
