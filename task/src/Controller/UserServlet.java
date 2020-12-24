@@ -19,8 +19,9 @@ public class UserServlet extends HttpServlet {
         //调用哪个方法
         String method = request.getParameter("method");
 
-        if("validateName".equals(method))
+        if("validateName".equals(method)) {
             validateName(request,response);
+        }
 
     }
 
@@ -38,12 +39,14 @@ public class UserServlet extends HttpServlet {
         //String userId = request.getParameter("userId");
         //如果是zhangsan，数据库已经有了，重复不可用，返回false
         //List<User> userList = userService.checkUserId(String.valueOf(userId));
-        if (userList == "0")
+        if (userList == "0") {
             out.write("false");
-        else
+        } else {
             out.write("true");
+        }
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request,response);

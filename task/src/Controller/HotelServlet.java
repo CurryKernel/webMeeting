@@ -1,6 +1,5 @@
 package Controller;
 
-import Service.DriverInfoService;
 import Service.HotelInfoService;
 
 import javax.servlet.ServletException;
@@ -13,12 +12,14 @@ import java.io.PrintWriter;
 
 @WebServlet("/HotelServlet.do")
 public class HotelServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //调用哪个方法
         String method = request.getParameter("method");
 
-        if("validateName".equals(method))
+        if("validateName".equals(method)) {
             validateName(request,response);
+        }
     }
 
     private void validateName(HttpServletRequest request,
@@ -34,12 +35,14 @@ public class HotelServlet extends HttpServlet {
         //String userId = request.getParameter("userId");
         //如果是zhangsan，数据库已经有了，重复不可用，返回false
         //List<User> userList = userService.checkUserId(String.valueOf(userId));
-        if (hotelList == "0")
+        if (hotelList == "0") {
             out.write("false");
-        else
+        } else {
             out.write("true");
+        }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }

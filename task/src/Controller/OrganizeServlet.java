@@ -1,7 +1,6 @@
 package Controller;
 
 import Service.OrganizeService;
-import Service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +12,14 @@ import java.io.PrintWriter;
 
 @WebServlet("/OrganizeServlet.do")
 public class OrganizeServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //调用哪个方法
         String method = request.getParameter("method");
 
-        if("validateName".equals(method))
+        if("validateName".equals(method)) {
             validateName(request,response);
+        }
 
     }
 
@@ -36,12 +37,14 @@ public class OrganizeServlet extends HttpServlet {
         //String userId = request.getParameter("userId");
         //如果是zhangsan，数据库已经有了，重复不可用，返回false
         //List<User> userList = userService.checkUserId(String.valueOf(userId));
-        if (organizeList == "0")
+        if (organizeList == "0") {
             out.write("false");
-        else
+        } else {
             out.write("true");
+        }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
